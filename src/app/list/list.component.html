@@ -1,0 +1,9 @@
+<h1>Visual Novels</h1>
+
+<ul *ngIf="games">
+    <li *ngFor="let game of games">
+      <p class="name">{{ game.name }}</p>
+      <p class="country">{{ game.country }}</p>
+      <a class="site" href="{{ game.website_url }}">site</a>
+    </li>
+  </ul>

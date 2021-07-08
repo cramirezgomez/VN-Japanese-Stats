@@ -1,0 +1,11 @@
+{
+  "targets": {
+    "vn-japanese-progress": {
+      "hosting": {
+        "vn-app": [
+          "vn-japanese-progress"
+        ]
+      }
+    }
+  }
+}
