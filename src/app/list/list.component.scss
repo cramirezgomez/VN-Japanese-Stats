@@ -30,3 +30,26 @@ ul {
         }
     }
 }
+.button {
+    background-color: #4CAF50; /* Green */
+    border: none;
+    padding: 1em;
+    text-align: center;
+    display: inline-block;
+    font-size: 16px;
+    
+}
+.button:hover {
+    background-color: #3e8e41
+}
+.button:active {
+    background-color: #3e8e41;
+    
+    transform: translateY(4px);
+}
+
+.container{
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+}
