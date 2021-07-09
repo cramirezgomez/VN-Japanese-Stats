@@ -9,16 +9,18 @@ import { HttpService } from '../http.service';
 export class ListComponent implements OnInit {
 
   games: any = [];
-  // brews!: Object;
 
 
-  constructor(private _http: HttpService) { }
+  constructor(private myService: HttpService) { }
 
   ngOnInit(): void {
-    this._http.getGames().subscribe(data =>{
-      this.games = data;
-      //console.log(data);
-    });
+    this.games = this.myService.getAllGames();
+    console.log(this.games);
+  }
+
+  gameClicked (pos:number){
+    this.myService.setGame(pos);
+    console.log("clicked: " + this.games[pos])
   }
 
 }

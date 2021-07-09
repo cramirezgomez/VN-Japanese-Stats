@@ -1,0 +1,11 @@
+<div class="container">
+    <h2>{{ name }}</h2> 
+  
+    <input type="button" value="New Route" class="button">
+  </div>
+  
+  <ul *ngIf="routes">
+      <li *ngFor="let route of routes; let i = index">
+        <p class="name">{{ route.name }}</p>
+      </li>
+  </ul>

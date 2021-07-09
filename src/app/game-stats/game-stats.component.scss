@@ -1,3 +1,8 @@
+.container{
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+}
 ul {
     list-style-type: none;
     margin: 0;
@@ -29,10 +34,4 @@ ul {
             flex-grow: 1;
         }
     }
-}
-
-.container{
-    display: flex;
-    justify-content: space-evenly;
-    align-items: center;
 }
