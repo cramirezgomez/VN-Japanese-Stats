@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpService } from '../http.service';
+import { VnDatabaseService } from '../vn-database.service';
+
 
 @Component({
   selector: 'app-list',
@@ -11,18 +12,16 @@ export class ListComponent implements OnInit {
   games: any = [];
 
 
-  constructor(private myService: HttpService) { }
+  constructor(private myService: VnDatabaseService) { }
 
   ngOnInit(): void {
-    this.games = this.myService.getAllGames();
-    console.log("In list");
+    this.games = this.myService.getAllGameNames();
     console.log(this.games);
     
   }
 
   gameClicked (pos:number){
     this.myService.setGame(pos);
-    console.log("clicked: " + this.games[pos])
   }
 
 }

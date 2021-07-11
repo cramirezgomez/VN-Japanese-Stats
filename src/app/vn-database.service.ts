@@ -1,13 +1,11 @@
 import { Injectable } from '@angular/core';
-import { HttpClient} from '@angular/common/http'
 import { AngularFireDatabase } from '@angular/fire/database';
 
 @Injectable({
   providedIn: 'root'
 })
-export class HttpService {
+export class VnDatabaseService {
 
-  
   games: any[] = [];
 
   constructor(db: AngularFireDatabase) {
@@ -20,15 +18,12 @@ export class HttpService {
   curGame: number = -1;
   // curRoute: number = -1;
 
-  getAllGames(){
+  getAllGameNames(){
     let allNames: String[]  = [];
 
     //get only names
     this.games.forEach((element: { name: String; }) => {
       allNames.push(element.name)
-      if(element.name == "Aoi Tori"){
-        //element.name = "Aoi To";
-      }
     });
 
     return allNames;
@@ -55,4 +50,7 @@ export class HttpService {
     this.curGame = pos;
   }
 
+  setGames(){
+
+  }
 }

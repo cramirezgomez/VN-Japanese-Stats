@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpService } from '../http.service';
+import { VnDatabaseService } from '../vn-database.service';
+
 
 @Component({
   selector: 'app-game-stats',
@@ -10,7 +11,7 @@ export class GameStatsComponent implements OnInit {
   name = "";
   routes: any = [];
 
-  constructor(private myService: HttpService) { }
+  constructor(private myService: VnDatabaseService) { }
 
   ngOnInit(): void {
     let allData = this.myService.getGame()

@@ -1,13 +1,13 @@
 import { TestBed } from '@angular/core/testing';
 
-import { HttpService } from './http.service';
+import { VnDatabaseService } from './vn-database.service';
 
-describe('HttpService', () => {
-  let service: HttpService;
+describe('VnDatabaseService', () => {
+  let service: VnDatabaseService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    service = TestBed.inject(HttpService);
+    service = TestBed.inject(VnDatabaseService);
   });
 
   it('should be created', () => {
