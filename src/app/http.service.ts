@@ -1,43 +1,21 @@
 import { Injectable } from '@angular/core';
 import { HttpClient} from '@angular/common/http'
+import { AngularFireDatabase } from '@angular/fire/database';
 
 @Injectable({
   providedIn: 'root'
 })
 export class HttpService {
 
-  games: any = [
-    {
-      "name":"Aoi Tori",
-      "routes":[
-        {
-          "name":"Sayou",
-          "data": {"date": "0", "chars": 5, "lines": 6,"mins": 7}
-        },
-        {
-          "name":"Akari",
-          "data": {"date": "1", "chars": 1, "lines": 2,"mins": 3}
-        }
-      ]
-      
-      
-    },
-    {
-      "name":"Amatsutsumi",
-      "routes":[
-        {
-          "name":"Kokoro",
-          "data": {"date": "0", "chars": 5, "lines": 6,"mins": 7}
-        },
-        {
-          "name":"Hotaru",
-          "data": {"date": "1", "chars": 1, "lines": 2,"mins": 3}
-        }
-      ]
-      
-      
-    }
-  ];
+  
+  games: any[] = [];
+
+  constructor(db: AngularFireDatabase) {
+    db.list('/').valueChanges().subscribe(games => {
+      this.games = games;
+      console.log(this.games);
+    })
+  }
 
   curGame: number = -1;
   // curRoute: number = -1;
@@ -48,6 +26,9 @@ export class HttpService {
     //get only names
     this.games.forEach((element: { name: String; }) => {
       allNames.push(element.name)
+      if(element.name == "Aoi Tori"){
+        //element.name = "Aoi To";
+      }
     });
 
     return allNames;
@@ -55,14 +36,15 @@ export class HttpService {
 
   //get info for game
   getGame(){
+    //return empty game
     if (this.curGame == -1){
       return {
         "name":"Empty",
         "routes":[
-
         ]
       }
     }
+
     return this.games[this.curGame];
   }
 
@@ -73,7 +55,4 @@ export class HttpService {
     this.curGame = pos;
   }
 
-  getRoute(pos:number){
-
-  }
 }

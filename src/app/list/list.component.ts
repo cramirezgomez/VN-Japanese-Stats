@@ -15,7 +15,9 @@ export class ListComponent implements OnInit {
 
   ngOnInit(): void {
     this.games = this.myService.getAllGames();
+    console.log("In list");
     console.log(this.games);
+    
   }
 
   gameClicked (pos:number){
