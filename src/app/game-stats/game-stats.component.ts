@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { AngularFireDatabase } from '@angular/fire/database';
 import { VnDatabaseService } from '../vn-database.service';
+//import { VnDatabaseService } from '../vn-database.service';
 
 
 @Component({
@@ -8,15 +10,29 @@ import { VnDatabaseService } from '../vn-database.service';
   styleUrls: ['./game-stats.component.scss']
 })
 export class GameStatsComponent implements OnInit {
-  name = "";
-  routes: any = [];
+  name: any;
+  routes: any;
+  vndb: any;
 
-  constructor(private myService: VnDatabaseService) { }
+  data: any;
 
-  ngOnInit(): void {
-    let allData = this.myService.getGame()
-    this.name = allData.name;
-    this.routes = allData.routes;
+  constructor(vndb: AngularFireDatabase, data: VnDatabaseService) { 
+    this.vndb = vndb 
+    this.data = data;
   }
 
+  ngOnInit(): void {
+    //access db
+    if(this.data.getGame() == -1){
+      this.name = "No";
+      this.routes = [];
+    }
+    else{
+      this.vndb.object('/' + this.data.getGame()).valueChanges().subscribe((vn: any) => {
+        this.name = vn.name; 
+        this.routes = vn.routes;
+       })
+    }
+   
+  }
 }

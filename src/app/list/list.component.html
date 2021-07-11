@@ -4,8 +4,10 @@
   <input type="button" value="New Game" class="button">
 </div>
 
+
+
 <ul *ngIf="games">
-    <li *ngFor="let game of games; let i = index" (click)="gameClicked(i)" routerLink="/game">
-      <p class="name">{{ game }}</p>
-    </li>
+  <li *ngFor="let game of games; let i = index" (click)="gameClicked(i)" routerLink="/game">
+    <p class="name">{{ game.name }}</p>
+  </li>
 </ul>

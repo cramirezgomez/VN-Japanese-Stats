@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { AngularFireDatabase } from '@angular/fire/database';
 import { VnDatabaseService } from '../vn-database.service';
+//import { VnDatabaseService } from '../vn-database.service';
 
 
 @Component({
@@ -10,18 +12,26 @@ import { VnDatabaseService } from '../vn-database.service';
 export class ListComponent implements OnInit {
 
   games: any = [];
+  vndb: AngularFireDatabase;
+  data: any;
 
 
-  constructor(private myService: VnDatabaseService) { }
+  constructor(vndb: AngularFireDatabase, data: VnDatabaseService) { 
+    this.vndb = vndb 
+    this.data = data;
+  }
 
   ngOnInit(): void {
-    this.games = this.myService.getAllGameNames();
-    console.log(this.games);
+   //access db
+   this.vndb.list('/').valueChanges().subscribe(vnList => {
+      this.games = vnList; 
+      //console.log(this.games[0]);
+   })
     
   }
 
   gameClicked (pos:number){
-    this.myService.setGame(pos);
+    this.data.setGame(pos);
   }
 
 }
