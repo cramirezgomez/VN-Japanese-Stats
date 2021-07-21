@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AngularFireDatabase } from '@angular/fire/database';
 import { VnDatabaseService } from '../vn-database.service';
-//import { VnDatabaseService } from '../vn-database.service';
+
 
 
 @Component({
@@ -15,6 +15,12 @@ export class GameStatsComponent implements OnInit {
   vndb: any;
 
   data: any;
+  
+  model = {
+    left: true,
+    middle: false,
+    right: false
+  };
 
   constructor(vndb: AngularFireDatabase, data: VnDatabaseService) { 
     this.vndb = vndb 

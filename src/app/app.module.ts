@@ -12,6 +12,11 @@ import { GameStatsComponent } from './game-stats/game-stats.component';
 import { AngularFireModule } from '@angular/fire';
 import { environment } from 'src/environments/environment';
 import { AngularFireDatabaseModule } from '@angular/fire/database';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MaterialModule } from './material/material.module';
+import { FlexLayoutModule } from '@angular/flex-layout';
+// import {  MatCardModule }  from "@angular/material/card";
+// import { MatCommonModule } from '@angular/material/core';
 
 @NgModule({
   declarations: [
@@ -26,7 +31,13 @@ import { AngularFireDatabaseModule } from '@angular/fire/database';
     FormsModule,
     HttpClientModule,
     AngularFireModule.initializeApp(environment.firebase),
-    AngularFireDatabaseModule
+    AngularFireDatabaseModule,
+    BrowserAnimationsModule,
+    MaterialModule,
+    FlexLayoutModule
+    // MatCommonModule,
+    // MatCardModule
+    
   ],
   providers: [],
   bootstrap: [AppComponent]

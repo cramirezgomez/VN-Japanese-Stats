@@ -1,13 +1,33 @@
-<div class="container">
-  <h2>Visual Novels</h2>
 
-  <input type="button" value="New Game" class="button">
+
+<mat-grid-list cols="2" rowHeight="5:1">
+  <mat-grid-tile>
+    <h2>Visual Novels</h2>
+  </mat-grid-tile>
+  <mat-grid-tile>
+    <input type="button" value="New Game" class="button">
+  </mat-grid-tile>
+</mat-grid-list>
+
+<div class="content">
+  <div fxLayout="row wrap" fxLayoutGap="16px grid" >
+    <div  fxFlex="25%" fxFlex.xs = "100%" fxFlex.sm = "50%" fxFlex.md = "33%" fxFlex.lg = "25%" fxFlex.xl = "20%" *ngFor="let game of games; let i = index">
+      <mat-card class="my-card"  >
+        <mat-card-header>
+          
+          <mat-card-title>{{ game.name }}</mat-card-title>
+          <!-- <button mat-button (click)="gameClicked(i)" routerLink="/game">Routes</button> -->
+        </mat-card-header>
+        <img mat-card-image src="{{ game.link }}"   alt="Photo of a Shiba Inu" (click)="gameClicked(i)" routerLink="/game">
+        <mat-card-content>
+          <p>
+            Stats.
+          </p>
+        </mat-card-content>
+        <mat-card-actions>
+          
+        </mat-card-actions>
+      </mat-card>
+    </div>
+  </div>
 </div>
-
-
-
-<ul *ngIf="games">
-  <li *ngFor="let game of games; let i = index" (click)="gameClicked(i)" routerLink="/game">
-    <p class="name">{{ game.name }}</p>
-  </li>
-</ul>
