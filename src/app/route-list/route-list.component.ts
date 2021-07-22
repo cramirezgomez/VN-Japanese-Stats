@@ -1,26 +1,25 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { AngularFireDatabase } from '@angular/fire/database';
 import { VnDatabaseService } from '../vn-database.service';
 
-
+export interface DialogData {
+  animal: 'panda' | 'unicorn' | 'lion';
+}
 
 @Component({
-  selector: 'app-game-stats',
-  templateUrl: './game-stats.component.html',
-  styleUrls: ['./game-stats.component.scss']
+  selector: 'app-route-list',
+  templateUrl: './route-list.component.html',
+  styleUrls: ['./route-list.component.scss']
 })
-export class GameStatsComponent implements OnInit {
+export class RouteListComponent implements OnInit {
+
   name: any;
   routes: any;
   vndb: any;
 
   data: any;
+
   
-  model = {
-    left: true,
-    middle: false,
-    right: false
-  };
 
   constructor(vndb: AngularFireDatabase, data: VnDatabaseService) { 
     this.vndb = vndb 
@@ -41,4 +40,11 @@ export class GameStatsComponent implements OnInit {
     }
    
   }
+
+  routeClicked (pos:number){
+    this.data.setRoute(pos);
+  }
+
 }
+
+

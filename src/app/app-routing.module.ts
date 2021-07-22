@@ -3,13 +3,16 @@ import { RouterModule, Routes } from '@angular/router';
 
 //import new pages
 import { HomeComponent } from './home/home.component';
-import { ListComponent } from './list/list.component';
-import { GameStatsComponent } from './game-stats/game-stats.component';
+// import { ListComponent } from './list/list.component';
+import { GameListComponent } from './game-list/game-list.component';
+import { RouteListComponent } from './route-list/route-list.component';
+import { EntryTableComponent } from './entry-table/entry-table.component';
 
 const routes: Routes = [
   {path: '', component:HomeComponent},
-  {path: 'list', component:ListComponent},
-  {path: 'game', component:GameStatsComponent},
+  {path: 'game_list', component:GameListComponent},
+  {path: 'route_list', component:RouteListComponent},
+  {path: 'entry_table', component:EntryTableComponent}
 ];
 
 @NgModule({

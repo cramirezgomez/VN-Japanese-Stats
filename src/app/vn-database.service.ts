@@ -11,7 +11,8 @@ export class VnDatabaseService {
   }
 
   curGame: number = -1;
-  
+  curRoute: number = -1;
+
   //set game after clicked
   setGame(pos:number){
     this.curGame = pos;
@@ -19,5 +20,14 @@ export class VnDatabaseService {
 
   getGame(){
     return this.curGame;
+  }
+
+  //set game after clicked
+  setRoute(pos:number){
+    this.curRoute = pos;
+  }
+
+  getRoute(){
+    return this.curRoute;
   }
 }
