@@ -2,11 +2,15 @@ import { Component, OnInit } from '@angular/core';
 import { AngularFireDatabase } from '@angular/fire/database';
 import { VnDatabaseService } from '../vn-database.service';
 
+
+
+
 @Component({
   selector: 'app-entry-table',
   templateUrl: './entry-table.component.html',
   styleUrls: ['./entry-table.component.scss']
 })
+
 export class EntryTableComponent implements OnInit {
 
   name: any;
