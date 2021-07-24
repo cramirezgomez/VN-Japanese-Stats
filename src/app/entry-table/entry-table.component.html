@@ -1,0 +1,39 @@
+<table mat-table [dataSource]="entries" class="mat-elevation-z8">
+
+    <!--- Note that these columns can be defined in any order.
+          The actual rendered columns are set as a property on the row definition" -->
+  
+    <!-- Position Column -->
+    <ng-container matColumnDef="date">
+      <th mat-header-cell *matHeaderCellDef> Date </th>
+      <td mat-cell *matCellDef="let entry"> {{entry.date}} </td>
+    </ng-container>
+  
+    <!-- Name Column -->
+    <ng-container matColumnDef="chars">
+      <th mat-header-cell *matHeaderCellDef> Name </th>
+      <td mat-cell *matCellDef="let entry"> {{entry.chars}} </td>
+    </ng-container>
+  
+    <!-- Weight Column -->
+    <ng-container matColumnDef="lines">
+      <th mat-header-cell *matHeaderCellDef> Lines </th>
+      <td mat-cell *matCellDef="let entry"> {{entry.lines}} </td>
+    </ng-container>
+  
+    <!-- Symbol Column -->
+    <ng-container matColumnDef="mins">
+      <th mat-header-cell *matHeaderCellDef> Time </th>
+      <td mat-cell *matCellDef="let entry"> {{ Math.floor(entry.mins / 60) }}:{{ ('0' + (entry.mins % 60).toString()).slice(-2) }} </td>
+    </ng-container>
+    
+
+    <!-- Pace Column -->
+    <ng-container matColumnDef="pace">
+        <th mat-header-cell *matHeaderCellDef> Pace </th>
+        <td mat-cell *matCellDef="let entry"> {{entry.chars / entry.mins * 60}} </td>
+    </ng-container>
+  
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>

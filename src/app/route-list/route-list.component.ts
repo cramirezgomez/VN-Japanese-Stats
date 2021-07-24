@@ -1,5 +1,6 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { AngularFireDatabase } from '@angular/fire/database';
+import { Route } from '../models/route.model';
 import { VnDatabaseService } from '../vn-database.service';
 
 export interface DialogData {
@@ -13,9 +14,9 @@ export interface DialogData {
 })
 export class RouteListComponent implements OnInit {
 
-  curGame: any;
-  routes: any = [];
-  vndb: any;
+  curGame: string;
+  routes: Route[] = [];
+  vndb: AngularFireDatabase;
 
   vndbService: VnDatabaseService;
 
@@ -35,7 +36,18 @@ export class RouteListComponent implements OnInit {
     else{
      
       this.vndb.list('/routes', (ref:any) => ref.orderByChild("game").equalTo(this.curGame)).valueChanges().subscribe((routeList: any) => {
-        this.routes = routeList;
+        // this.routes = routeList;
+        this.routes = routeList.map((e:Route) => {
+          return {
+            chars: e.chars,
+            days:  e.days,
+            game: e.game,
+            lines: e.lines,
+            link:  e.link,
+            mins:  e.mins,
+            name:  e.name
+          } as Route;
+        })
      })
     }
   }

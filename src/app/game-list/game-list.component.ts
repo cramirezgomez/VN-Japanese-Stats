@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AngularFireDatabase } from '@angular/fire/database';
+import { Game } from '../models/game.model';
 import { VnDatabaseService } from '../vn-database.service';
 
 @Component({
@@ -13,7 +14,7 @@ export class GameListComponent implements OnInit {
   vndb: AngularFireDatabase;
   vndbService: VnDatabaseService;
 
-  games: any = [];
+  games: Game[] = [];
 
   constructor(vndb: AngularFireDatabase, vndbService: VnDatabaseService) { 
     this.vndb = vndb 
@@ -22,8 +23,17 @@ export class GameListComponent implements OnInit {
 
   ngOnInit(): void {
    //access db
-   this.vndb.list('/games').valueChanges().subscribe(vnList => {
-      this.games = vnList; 
+   this.vndb.list('/games').valueChanges().subscribe((vnList:any) => {
+      this.games = vnList.map((e:Game) => {
+        return {
+          chars: e.chars,
+          days:  e.days,
+          lines: e.lines,
+          link:  e.link,
+          mins:  e.mins,
+          name:  e.name
+        } as Game;
+      })
    })
 
    
@@ -34,3 +44,7 @@ export class GameListComponent implements OnInit {
     this.vndbService.setGame(this.games[pos].name);
   }
 }
+function e(e: any, arg1: (Game: any) => Game): Game[] {
+  throw new Error('Function not implemented.');
+}
+
