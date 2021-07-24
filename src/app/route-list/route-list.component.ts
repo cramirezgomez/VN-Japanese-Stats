@@ -17,19 +17,19 @@ export class RouteListComponent implements OnInit {
   routes: any = [];
   vndb: any;
 
-  data: any;
+  vndbService: VnDatabaseService;
 
   
 
-  constructor(vndb: AngularFireDatabase, data: VnDatabaseService) { 
+  constructor(vndb: AngularFireDatabase, vndbService: VnDatabaseService) { 
     this.vndb = vndb 
-    this.data = data;
-    this.curGame = this.data.getGame();
+    this.vndbService = vndbService;
+    this.curGame = this.vndbService.getGame();
   }
 
   ngOnInit(): void {
     //access db
-    if(this.data.getGame() == ""){
+    if(this.vndbService.getGame() == ""){
       this.routes = [];
     }
     else{
@@ -41,8 +41,8 @@ export class RouteListComponent implements OnInit {
   }
 
   routeClicked (pos:number){
-    this.data.setRoute(this.routes[pos].name);
-    console.log(this.data.getRoute());
+    this.vndbService.setRoute(this.routes[pos].name);
+    console.log(this.vndbService.getRoute());
   }
 
 }

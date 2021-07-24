@@ -9,14 +9,15 @@ import { VnDatabaseService } from '../vn-database.service';
 })
 export class GameListComponent implements OnInit {
 
-  games: any = [];
+  
   vndb: AngularFireDatabase;
-  data: any;
-  gameStats: any = [];
+  vndbService: VnDatabaseService;
 
-  constructor(vndb: AngularFireDatabase, data: VnDatabaseService) { 
+  games: any = [];
+
+  constructor(vndb: AngularFireDatabase, vndbService: VnDatabaseService) { 
     this.vndb = vndb 
-    this.data = data;
+    this.vndbService = vndbService;
   }
 
   ngOnInit(): void {
@@ -30,11 +31,6 @@ export class GameListComponent implements OnInit {
   }
 
   gameClicked (pos:number){
-    this.data.setGame(this.games[pos].name);
+    this.vndbService.setGame(this.games[pos].name);
   }
-
-  calculateStats(){
-    
-  }
-
 }

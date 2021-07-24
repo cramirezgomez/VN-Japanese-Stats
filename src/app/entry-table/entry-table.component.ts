@@ -16,22 +16,23 @@ export class EntryTableComponent implements OnInit {
   name: any;
   entries: any;
   vndb: any;
-  data: VnDatabaseService;
+
+  vndbService: VnDatabaseService;
   curGame: string;
   curRoute: string;
 
 
   
 
-  constructor(vndb: AngularFireDatabase, data: VnDatabaseService) { 
+  constructor(vndb: AngularFireDatabase, vndbService: VnDatabaseService) { 
     this.vndb = vndb 
-    this.data = data;
-    this.curGame = this.data.getGame();
-    this.curRoute = this.data.getRoute();
+    this.vndbService = vndbService;
+    this.curGame = this.vndbService.getGame();
+    this.curRoute = this.vndbService.getRoute();
   }
 
   ngOnInit(): void {
-    if(this.data.getGame() == ""){
+    if(this.curGame == ""){
       this.entries = [];
     }
     else{
