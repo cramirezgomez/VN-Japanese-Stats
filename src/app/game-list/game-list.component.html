@@ -20,9 +20,13 @@
           </mat-card-header>
           <img mat-card-image src="{{ game.link }}"   alt="Photo of a Shiba Inu" (click)="gameClicked(i)" routerLink="/route_list">
           <mat-card-content>
-            <p>
-              Stats.
-            </p>
+           
+            <h2>Characters: {{ game.chars }}</h2>
+            <h2>Days: {{ game.days }}</h2>
+            <h2>Lines: {{ game.lines }}</h2>
+            <h2>Minutes: {{ game.mins}}</h2>
+              
+            
           </mat-card-content>
           <mat-card-actions>
             

@@ -13,8 +13,8 @@ export interface DialogData {
 })
 export class RouteListComponent implements OnInit {
 
-  name: any;
-  routes: any;
+  curGame: any;
+  routes: any = [];
   vndb: any;
 
   data: any;
@@ -24,25 +24,25 @@ export class RouteListComponent implements OnInit {
   constructor(vndb: AngularFireDatabase, data: VnDatabaseService) { 
     this.vndb = vndb 
     this.data = data;
+    this.curGame = this.data.getGame();
   }
 
   ngOnInit(): void {
     //access db
-    if(this.data.getGame() == -1){
-      this.name = "No";
+    if(this.data.getGame() == ""){
       this.routes = [];
     }
     else{
-      this.vndb.object('/' + this.data.getGame()).valueChanges().subscribe((vn: any) => {
-        this.name = vn.name; 
-        this.routes = vn.routes;
-       })
+     
+      this.vndb.list('/routes', (ref:any) => ref.orderByChild("game").equalTo(this.curGame)).valueChanges().subscribe((routeList: any) => {
+        this.routes = routeList;
+     })
     }
-   
   }
 
   routeClicked (pos:number){
-    this.data.setRoute(pos);
+    this.data.setRoute(this.routes[pos].name);
+    console.log(this.data.getRoute());
   }
 
 }

@@ -16,34 +16,32 @@ export class EntryTableComponent implements OnInit {
   name: any;
   entries: any;
   vndb: any;
+  data: VnDatabaseService;
+  curGame: string;
+  curRoute: string;
 
-  data: any;
 
   
 
   constructor(vndb: AngularFireDatabase, data: VnDatabaseService) { 
     this.vndb = vndb 
     this.data = data;
+    this.curGame = this.data.getGame();
+    this.curRoute = this.data.getRoute();
   }
 
   ngOnInit(): void {
-    //access db
-    if(this.data.getGame() == -1 || this.data.getRoute() == -1){
-      this.name = "No";
+    if(this.data.getGame() == ""){
       this.entries = [];
     }
     else{
-      this.vndb.object('/' + this.data.getGame() + "/routes/" +  this.data.getRoute()).valueChanges().subscribe((vn: any) => {
-        
-
-        this.name = vn.name; 
-        this.entries = vn.data;
-
-        console.log(this.name);
+     
+      this.vndb.list('/entries', (ref:any) => ref.orderByChild("route").equalTo(this.curGame + '/' + this.curRoute)).valueChanges().subscribe((entryList: any) => {
+        this.entries = entryList;
+        console.log(this.curGame + '/' + this.curRoute)
         console.log(this.entries);
-       })
-    }
-    
+     })
+    } 
   }
 
 }

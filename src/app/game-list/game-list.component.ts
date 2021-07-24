@@ -12,7 +12,7 @@ export class GameListComponent implements OnInit {
   games: any = [];
   vndb: AngularFireDatabase;
   data: any;
-
+  gameStats: any = [];
 
   constructor(vndb: AngularFireDatabase, data: VnDatabaseService) { 
     this.vndb = vndb 
@@ -21,15 +21,20 @@ export class GameListComponent implements OnInit {
 
   ngOnInit(): void {
    //access db
-   this.vndb.list('/').valueChanges().subscribe(vnList => {
+   this.vndb.list('/games').valueChanges().subscribe(vnList => {
       this.games = vnList; 
-      //console.log(this.games[0]);
    })
+
+   
     
   }
 
   gameClicked (pos:number){
-    this.data.setGame(pos);
+    this.data.setGame(this.games[pos].name);
+  }
+
+  calculateStats(){
+    
   }
 
 }

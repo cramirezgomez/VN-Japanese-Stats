@@ -10,12 +10,12 @@ export class VnDatabaseService {
   constructor() {
   }
 
-  curGame: number = -1;
-  curRoute: number = -1;
+  curGame: string = "";
+  curRoute: string = "";
 
   //set game after clicked
-  setGame(pos:number){
-    this.curGame = pos;
+  setGame(input:string){
+    this.curGame = input;
   }
 
   getGame(){
@@ -23,8 +23,8 @@ export class VnDatabaseService {
   }
 
   //set game after clicked
-  setRoute(pos:number){
-    this.curRoute = pos;
+  setRoute(input:string){
+    this.curRoute = input;
   }
 
   getRoute(){
