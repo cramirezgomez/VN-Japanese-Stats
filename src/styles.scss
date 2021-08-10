@@ -1,6 +1,6 @@
 /* You can add global styles to this file, and also import other style files */
 @import url('https://fonts.googleapis.com/css?family=Nunito:400,700&display=swap');
-
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
 $primary: rgb(8, 92, 12);
 
 body {
@@ -67,3 +67,45 @@ h1 {
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+
+div.container {
+    margin: 0px 40px;
+}
+
+.fill-remaining-space {
+    flex: 1 1 auto;
+}
+
+form.normal-form {
+    margin: 10px;
+}
+.contols-container {
+    width: 100%;
+    padding: 5%;
+}
+
+.contols-container > * {
+    width: 100%;
+}
+.add-bottom-padding {
+    padding-bottom: 10px;
+}
+
+mat-radio-group mat-radio-button {
+    margin-left: 5px;
+}
+
+.button-row button {
+    margin: 5px;
+}
+
+snack-bar-container.success {
+    background-color: rgb(36, 190, 36);
+    color: white;
+}
+
+snack-bar-container.notification simple-snack-bar {
+    font-size: 18px !important;
+    font-weight: bold;
+}

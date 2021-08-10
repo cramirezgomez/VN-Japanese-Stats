@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AngularFireDatabase, AngularFireList} from '@angular/fire/database';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Entry } from '../models/entry.model';
 import { Game } from '../models/game.model';
 import { Route } from '../models/route.model';
@@ -104,6 +105,23 @@ export class GamesService {
         });
       });
   }
+
+  initializeFormGroup() {
+    this.entryForm.setValue({
+      $key: null,
+      chars: '',
+      date: '',
+      lines: '',
+      mins: '',
+    })
+  }
+  entryForm:FormGroup = new FormGroup({
+    $key: new FormControl(null),
+    chars: new FormControl('', Validators.required),
+    date: new FormControl('', Validators.required),
+    lines: new FormControl('', [Validators.required]),
+    mins: new FormControl('', Validators.required)
+  })
 
 
 }

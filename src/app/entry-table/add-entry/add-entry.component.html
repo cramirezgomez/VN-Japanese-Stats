@@ -1,0 +1,38 @@
+<form [formGroup]="gameService.entryForm" class="normal-form" (submit)="onSubmit()">
+    <mat-grid-list cols="2" rowHeight="300px">
+        <mat-grid-tile>
+            <div class="contols-container">
+                <input type="hidden" formControlName="$key">
+                <mat-form-field >
+                    <input formControlName="lines" matInput placeholder="Lines*">
+                    <mat-error>This field is mandatory</mat-error>
+                </mat-form-field>
+                <mat-form-field >
+                    <input formControlName="chars" matInput placeholder="Characters*">
+                    <mat-error>This field is mandatory</mat-error>
+                </mat-form-field>
+                <mat-form-field >
+                    <input formControlName="mins" matInput placeholder="Minutes*">
+                    <mat-error>This field is mandatory</mat-error>
+                </mat-form-field>
+                
+
+            </div>
+        </mat-grid-tile>
+        <mat-grid-tile>
+            <div class="contols-container">
+                <mat-form-field>
+                    <input formControlName="date" matInput [matDatepicker]="picker" placeholder="Date">
+                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker #picker></mat-datepicker>
+                </mat-form-field>
+                
+                <div class="button-row">
+                    <button mat-raised-button color="primary" type="submit" [disabled]="gameService.entryForm.invalid">Submit</button>
+                    <button mat-raised-button color="warn" (click)="onClear()">Clear</button>
+                </div>
+            </div>
+        </mat-grid-tile>
+    </mat-grid-list>
+</form>
+
