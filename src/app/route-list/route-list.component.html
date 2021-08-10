@@ -1,7 +1,7 @@
 
 <mat-grid-list cols="2" rowHeight="5:1">
     <mat-grid-tile>
-      <h2 *ngIf="curGame">{{ curGame }} Routes</h2> 
+      <h2 *ngIf="gameService.curGame">{{ gameService.curGame }} Routes</h2> 
     </mat-grid-tile>
     <mat-grid-tile>
       <input type="button" value="New Route" class="button">
@@ -12,13 +12,13 @@
   
   <div class="content">
     <div fxLayout="row wrap" fxLayoutGap="16px grid" >
-      <div  fxFlex="25%" fxFlex.xs = "100%" fxFlex.sm = "50%" fxFlex.md = "33%" fxFlex.lg = "25%" fxFlex.xl = "20%" *ngFor="let route of routes; let i = index">
+      <div  fxFlex="25%" fxFlex.xs = "100%" fxFlex.sm = "50%" fxFlex.md = "33%" fxFlex.lg = "25%" fxFlex.xl = "20%" *ngFor="let route of gameService.routeArray; let i = index">
         <mat-card class="my-card"  >
           <mat-card-header>
             <div mat-card-avatar class="example-header-image"></div>
             <mat-card-title>{{ route.name }}</mat-card-title>
           </mat-card-header>
-          <img mat-card-image src="{{ route.link }}"   alt="Photo of a Shiba Inu" (click)="routeClicked(i)" routerLink="/entry_table">
+          <img mat-card-image src="{{ route.link }}" (click)="routeClicked(i)" routerLink="/entry_table">
           <mat-card-content>
             <h2>Characters: {{route.chars }}</h2>
             <h2>Days: {{ route.days }}</h2>

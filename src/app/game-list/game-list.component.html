@@ -11,14 +11,14 @@
   
   <div class="content">
     <div fxLayout="row wrap" fxLayoutGap="16px grid" >
-      <div  fxFlex="25%" fxFlex.xs = "100%" fxFlex.sm = "50%" fxFlex.md = "33%" fxFlex.lg = "25%" fxFlex.xl = "20%" *ngFor="let game of games; let i = index">
+      <div  fxFlex="25%" fxFlex.xs = "100%" fxFlex.sm = "50%" fxFlex.md = "33%" fxFlex.lg = "25%" fxFlex.xl = "20%" *ngFor="let game of gameService.gameArray; let i = index">
         <mat-card class="my-card"  >
           <mat-card-header>
             
             <mat-card-title>{{ game.name }}</mat-card-title>
             <!-- <button mat-button (click)="gameClicked(i)" routerLink="/game">Routes</button> -->
           </mat-card-header>
-          <img mat-card-image src="{{ game.link }}"   alt="Photo of a Shiba Inu" (click)="gameClicked(i)" routerLink="/route_list">
+          <img mat-card-image src="{{ game.link }}"  (click)="gameClicked(i)" routerLink="/route_list">
           <mat-card-content>
            
             <h2>Characters: {{ game.chars }}</h2>
