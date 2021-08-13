@@ -4,16 +4,19 @@
             <div class="contols-container">
                 <input type="hidden" formControlName="$key">
                 <mat-form-field >
-                    <input formControlName="lines" matInput placeholder="Lines*">
-                    <mat-error>This field is mandatory</mat-error>
+                    <input formControlName="lines" matInput placeholder="Lines*" autocomplete="off">
+                    <mat-error *ngIf="gameService.entryForm.controls['lines'].errors?.required" >This field is mandatory</mat-error>
+                    <mat-error *ngIf="gameService.entryForm.controls['lines'].errors?.pattern">Enter a number</mat-error>
                 </mat-form-field>
                 <mat-form-field >
-                    <input formControlName="chars" matInput placeholder="Characters*">
-                    <mat-error>This field is mandatory</mat-error>
+                    <input formControlName="chars" matInput placeholder="Characters*" autocomplete="off">
+                    <mat-error *ngIf="gameService.entryForm.controls['chars'].errors?.required">This field is mandatory</mat-error>
+                    <mat-error *ngIf="gameService.entryForm.controls['chars'].errors?.pattern">Enter a number</mat-error>
                 </mat-form-field>
                 <mat-form-field >
-                    <input formControlName="mins" matInput placeholder="Minutes*">
-                    <mat-error>This field is mandatory</mat-error>
+                    <input formControlName="mins" matInput placeholder="Minutes*" autocomplete="off">
+                    <mat-error *ngIf="gameService.entryForm.controls['mins'].errors?.required">This field is mandatory</mat-error>
+                    <mat-error *ngIf="gameService.entryForm.controls['mins'].errors?.pattern">Enter a number</mat-error>
                 </mat-form-field>
                 
 
@@ -22,7 +25,7 @@
         <mat-grid-tile>
             <div class="contols-container">
                 <mat-form-field>
-                    <input formControlName="date" matInput [matDatepicker]="picker" placeholder="Date">
+                    <input formControlName="date" matInput [matDatepicker]="picker" placeholder="Date" autocomplete="off">
                     <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                     <mat-datepicker #picker></mat-datepicker>
                 </mat-form-field>

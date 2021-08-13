@@ -13,7 +13,7 @@ export class GameListComponent implements OnInit {
   ngOnInit(): void {}
 
   gameClicked (pos:number){
-    this.gameService.setGame(this.gameService.gameArray[pos].name);
+    this.gameService.setGame(this.gameService.gameArray[pos]);
   }
 }
 

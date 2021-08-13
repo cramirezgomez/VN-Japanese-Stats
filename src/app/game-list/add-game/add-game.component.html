@@ -1,0 +1,46 @@
+<form [formGroup]="gameService.gameForm" class="normal-form" (submit)="onSubmit()">
+    <mat-grid-list cols="2" rowHeight="300px">
+        <mat-grid-tile>
+            <div class="contols-container">
+                <input type="hidden" formControlName="$key">
+                <mat-form-field >
+                    <input formControlName="lines" matInput placeholder="Lines" autocomplete="off">
+                    <mat-error *ngIf="gameService.gameForm.controls['lines'].errors?.required">This field is mandatory</mat-error>
+                    <mat-error *ngIf="gameService.gameForm.controls['lines'].errors?.pattern">Enter a number</mat-error>
+                </mat-form-field>
+                <mat-form-field >
+                    <input formControlName="chars" matInput placeholder="Characters" autocomplete="off">
+                    <mat-error *ngIf="gameService.gameForm.controls['chars'].errors?.required">This field is mandatory</mat-error>
+                    <mat-error *ngIf="gameService.gameForm.controls['chars'].errors?.pattern">Enter a number</mat-error>
+                </mat-form-field>
+                <mat-form-field >
+                    <input formControlName="mins" matInput placeholder="Minutes" autocomplete="off">
+                    <mat-error *ngIf="gameService.gameForm.controls['mins'].errors?.required">This field is mandatory</mat-error>
+                    <mat-error *ngIf="gameService.gameForm.controls['mins'].errors?.pattern">Enter a number</mat-error>
+                </mat-form-field>
+                <mat-form-field >
+                    <input formControlName="days" matInput placeholder="Days" autocomplete="off">
+                    <mat-error *ngIf="gameService.gameForm.controls['days'].errors?.required">This field is mandatory</mat-error>
+                    <mat-error *ngIf="gameService.gameForm.controls['days'].errors?.pattern">Enter a number</mat-error>
+                </mat-form-field>
+            </div>
+        </mat-grid-tile>
+        <mat-grid-tile>
+            <div class="contols-container">
+                <mat-form-field >
+                    <input formControlName="name" matInput placeholder="Game Name*" autocomplete="off">
+                    <mat-error>This field is mandatory</mat-error>
+                </mat-form-field>
+                <mat-form-field >
+                    <input formControlName="link" matInput placeholder="Picture Link*" autocomplete="off">
+                    <mat-error>This field is mandatory</mat-error>
+                </mat-form-field>
+                <div class="button-row">
+                    <button mat-raised-button color="primary" type="submit" [disabled]="gameService.gameForm.invalid">Submit</button>
+                    <button mat-raised-button color="warn" (click)="onClear()">Clear</button>
+                </div>
+            </div>
+        </mat-grid-tile>
+    </mat-grid-list>
+</form>
+

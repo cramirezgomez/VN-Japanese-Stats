@@ -15,7 +15,7 @@ export class RouteListComponent implements OnInit {
   }
 
   routeClicked (pos:number){
-    this.gameService.setRoute(this.gameService.routeArray[pos].name);
+    this.gameService.setRoute(this.gameService.routeArray[pos]);
   }
 
 }

@@ -7,3 +7,10 @@ export class Route {
     mins: number = 0;
     name: string = "";
 }
+export interface FireBaseItem{
+    $key: string;
+}
+
+export class FBRoute extends Route implements FireBaseItem{
+    $key: string = "";
+}

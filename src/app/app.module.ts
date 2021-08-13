@@ -19,6 +19,8 @@ import { MaterialModule } from './material/material.module';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatNativeDateModule } from '@angular/material/core';
 import { ReactiveFormsModule } from '@angular/forms';
+import { AddGameComponent } from './game-list/add-game/add-game.component';
+import { AddRouteComponent } from './route-list/add-route/add-route.component';
 
 
 
@@ -32,6 +34,8 @@ import { ReactiveFormsModule } from '@angular/forms';
     RouteListComponent,
     EntryTableComponent,
     AddEntryComponent,
+    AddGameComponent,
+    AddRouteComponent,
     
   ],
   imports: [

@@ -1,3 +1,5 @@
+import { FireBaseItem } from "./route.model";
+
 export class Game {
     chars: number = 0;
     days: number = 0;
@@ -6,3 +8,9 @@ export class Game {
     mins: number = 0;
     name: string = "";
 }
+
+export class FBGame extends Game implements FireBaseItem{
+    $key: string = "";
+
+}
+
