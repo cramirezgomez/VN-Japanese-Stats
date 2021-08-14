@@ -21,6 +21,7 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { AddGameComponent } from './game-list/add-game/add-game.component';
 import { AddRouteComponent } from './route-list/add-route/add-route.component';
+import { DatePipe } from '@angular/common';
 
 
 
@@ -53,8 +54,9 @@ import { AddRouteComponent } from './route-list/add-route/add-route.component';
    
     
   ],
-  providers: [GamesService],
-  bootstrap: [AppComponent]
+  providers: [GamesService, DatePipe],
+  bootstrap: [AppComponent],
+  entryComponents:[AddEntryComponent, AddRouteComponent, AddGameComponent]
 })
 export class AppModule { }
 

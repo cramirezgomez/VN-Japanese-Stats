@@ -1,8 +1,11 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { GamesService } from '../shared/games.service';
+import { NotificationService } from '../shared/notification.service';
+import { AddEntryComponent } from './add-entry/add-entry.component';
 
 
 
@@ -18,7 +21,7 @@ export class EntryTableComponent implements OnInit {
   displayedColumns: string[] = ['date', 'chars', 'lines', 'mins', 'pace', 'actions'];
   Math: any;
   
-  constructor(public gameService: GamesService) { 
+  constructor(public gameService: GamesService, private dialog: MatDialog, private notificationService:NotificationService) { 
 
     this.Math = Math;
   }
@@ -61,6 +64,30 @@ export class EntryTableComponent implements OnInit {
         };
 
       });
+  }
+  onCreate(){
+    this.gameService.initializeEntryFormGroup();
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = true;
+    dialogConfig.width = "60%";
+    this.dialog.open(AddEntryComponent, dialogConfig);
+  }
+  onDelete($key:string){
+    if(confirm('Are you sure you want to delete this record?')){
+      this.gameService.deleteEntry($key);
+      this.notificationService.warn('Deleted Successfully')
+    } 
+  }
+  onEdit(row:any){
+    this.gameService.curEntry = row;
+    //console.log(row);
+    this.gameService.populateForm(row);
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = true;
+    dialogConfig.width = "60%";
+    this.dialog.open(AddEntryComponent, dialogConfig);
   }
 
 }

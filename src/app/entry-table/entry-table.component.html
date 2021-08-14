@@ -1,3 +1,10 @@
+<div class="search-div">
+  <button mat-raised-button (click)="onCreate()">
+      <mat-icon>add</mat-icon>Create
+  </button>
+  <h1>{{gameService.curGame.name}}/{{gameService.curRoute.name}}</h1>
+</div>
+
 <div class="mat-elevation-z8">
   <mat-table [dataSource]="listData"  matSort>
     <!-- Date Column -->
@@ -29,8 +36,8 @@
     <ng-container matColumnDef="actions">
       <mat-header-cell *matHeaderCellDef></mat-header-cell>
       <mat-cell *matCellDef="let row">
-          <button mat-icon-button><mat-icon>launch</mat-icon></button>
-          <button mat-icon-button color="warn"><mat-icon>delete_outlines</mat-icon></button>
+          <button mat-icon-button (click)="onEdit(row)"><mat-icon>launch</mat-icon></button>
+          <button mat-icon-button (click)="onDelete(row.$key)" color="warn"><mat-icon>delete_outlines</mat-icon></button>
       </mat-cell>
     </ng-container>
     <!-- Footers  -->
