@@ -1,0 +1,16 @@
+{
+  "rules": {
+    ".read": true,
+    ".write": true,
+    "routes": {
+      ".indexOn": [
+        "game"
+      ]
+    },
+    "entries": {
+      ".indexOn": [
+        "route"
+      ]
+    }
+  }
+}

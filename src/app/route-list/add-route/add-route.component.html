@@ -1,27 +1,33 @@
-<form [formGroup]="gameService.routeForm" class="normal-form" (submit)="onSubmit()">
+<mat-toolbar>
+    <span>{{routeService.routeForm.controls['$key'].value?"Modify Route":"New Route"}}</span>
+    <span class="fill-remaining-space"></span>
+    <button class="btn-dialog-close" mat-stroked-button (click)="onClose()" tabindex="-1"><mat-icon>clear</mat-icon></button>
+</mat-toolbar>
+
+<form [formGroup]="routeService.routeForm" class="normal-form" (submit)="onSubmit()">
     <mat-grid-list cols="2" rowHeight="300px">
         <mat-grid-tile>
             <div class="contols-container">
                 <input type="hidden" formControlName="$key">
                 <mat-form-field >
-                    <input formControlName="lines" matInput placeholder="Lines" autocomplete="off">
-                    <mat-error *ngIf="gameService.routeForm.controls['lines'].errors?.required">This field is mandatory</mat-error>
-                    <mat-error *ngIf="gameService.routeForm.controls['lines'].errors?.pattern">Enter a number</mat-error>
+                    <input formControlName="lines" matInput placeholder="Lines" autocomplete="off" type="number">
+                    <mat-error *ngIf="routeService.routeForm.controls['lines'].errors?.required">This field is mandatory</mat-error>
+                    <mat-error *ngIf="routeService.routeForm.controls['lines'].errors?.pattern">Enter a number</mat-error>
                 </mat-form-field>
                 <mat-form-field >
-                    <input formControlName="chars" matInput placeholder="Characters" autocomplete="off">
-                    <mat-error *ngIf="gameService.routeForm.controls['chars'].errors?.required">This field is mandatory</mat-error>
-                    <mat-error *ngIf="gameService.routeForm.controls['chars'].errors?.pattern">Enter a number</mat-error>
+                    <input formControlName="chars" matInput placeholder="Characters" autocomplete="off" type="number">
+                    <mat-error *ngIf="routeService.routeForm.controls['chars'].errors?.required">This field is mandatory</mat-error>
+                    <mat-error *ngIf="routeService.routeForm.controls['chars'].errors?.pattern">Enter a number</mat-error>
                 </mat-form-field>
                 <mat-form-field >
-                    <input formControlName="mins" matInput placeholder="Minutes" autocomplete="off">
-                    <mat-error *ngIf="gameService.routeForm.controls['mins'].errors?.required">This field is mandatory</mat-error>
-                    <mat-error *ngIf="gameService.routeForm.controls['mins'].errors?.pattern">Enter a number</mat-error>
+                    <input formControlName="mins" matInput placeholder="Minutes" autocomplete="off" type="number"> 
+                    <mat-error *ngIf="routeService.routeForm.controls['mins'].errors?.required">This field is mandatory</mat-error>
+                    <mat-error *ngIf="routeService.routeForm.controls['mins'].errors?.pattern">Enter a number</mat-error>
                 </mat-form-field>
                 <mat-form-field >
-                    <input formControlName="days" matInput placeholder="Days" autocomplete="off">
-                    <mat-error *ngIf="gameService.routeForm.controls['days'].errors?.required">This field is mandatory</mat-error>
-                    <mat-error *ngIf="gameService.routeForm.controls['days'].errors?.pattern">Enter a number</mat-error>
+                    <input formControlName="days" matInput placeholder="Days" autocomplete="off" type="number">
+                    <mat-error *ngIf="routeService.routeForm.controls['days'].errors?.required">This field is mandatory</mat-error>
+                    <mat-error *ngIf="routeService.routeForm.controls['days'].errors?.pattern">Enter a number</mat-error>
                 </mat-form-field>
             </div>
         </mat-grid-tile>
@@ -36,7 +42,7 @@
                     <mat-error>This field is mandatory</mat-error>
                 </mat-form-field>
                 <div class="button-row">
-                    <button mat-raised-button color="primary" type="submit" [disabled]="gameService.routeForm.invalid">Submit</button>
+                    <button mat-raised-button color="primary" type="submit" [disabled]="routeService.routeForm.invalid">Submit</button>
                     <button mat-raised-button color="warn" (click)="onClear()">Clear</button>
                 </div>
             </div>

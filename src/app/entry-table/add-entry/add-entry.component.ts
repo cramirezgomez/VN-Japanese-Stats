@@ -1,38 +1,39 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
-import { GamesService } from 'src/app/shared/games.service';
+import { EntriesService } from 'src/app/shared/entries.service';
 import { NotificationService } from 'src/app/shared/notification.service';
+
 
 @Component({
   selector: 'app-add-entry',
-  templateUrl: './add-entry.component.html',
-  styleUrls: ['./add-entry.component.scss']
+  templateUrl: './add-entry.component.html'
 })
 export class AddEntryComponent implements OnInit {
 
-  constructor(public gameService: GamesService, public notificationService: NotificationService, 
+  constructor(public entryService: EntriesService,
+    public notificationService: NotificationService, 
     private dialogRef:MatDialogRef<AddEntryComponent>) { }
 
   ngOnInit(): void {
   }
 
   onClear(){
-    this.gameService.entryForm.reset();
-    this.gameService.initializeEntryFormGroup();
+    this.entryService.entryForm.reset();
+    this.entryService.initializeEntryFormGroup();
   }
   onClose(){
-    this.gameService.entryForm.reset();
-    this.gameService.initializeEntryFormGroup();
+    this.entryService.entryForm.reset();
+    this.entryService.initializeEntryFormGroup();
     this.dialogRef.close();
   }
   
   onSubmit(){
-    if(this.gameService.entryForm.valid){
-      if(!this.gameService.entryForm.get('$key')?.value){
-        this.gameService.insertEntry(this.gameService.entryForm.value);
+    if(this.entryService.entryForm.valid){
+      if(!this.entryService.entryForm.get('$key')?.value){
+        this.entryService.insertEntry(this.entryService.entryForm.value);
       }
       else{
-        this.gameService.updateEntry(this.gameService.entryForm.value);
+        this.entryService.updateEntry(this.entryService.entryForm.value);
       }
       
       this.onClear();

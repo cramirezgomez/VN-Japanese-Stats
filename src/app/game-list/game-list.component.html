@@ -1,21 +1,38 @@
 
 
-<mat-grid-list cols="2" rowHeight="5:1">
+<!-- <mat-grid-list cols="2" rowHeight="5:1">
     <mat-grid-tile>
       <h2>Visual Novels</h2>
     </mat-grid-tile>
     <mat-grid-tile>
       <input type="button" value="New Game" class="button">
     </mat-grid-tile>
-  </mat-grid-list>
+  </mat-grid-list> -->
+  <mat-toolbar>
+    <span class="fill-remaining-space"></span>
+    <span>Visual Novels</span>
+    <span class="fill-remaining-space"></span>
+    <button mat-raised-button (click)="onCreate()">
+      <mat-icon>add</mat-icon>New Game
+    </button>
+  </mat-toolbar>
   
   <div class="content">
     <div fxLayout="row wrap" fxLayoutGap="16px grid" >
       <div  fxFlex="25%" fxFlex.xs = "100%" fxFlex.sm = "50%" fxFlex.md = "33%" fxFlex.lg = "25%" fxFlex.xl = "20%" *ngFor="let game of gameService.gameArray; let i = index">
         <mat-card class="my-card"  >
           <mat-card-header>
+          
+              
+                <div class="myTitle">
+                  <mat-card-title>{{ game.name }}</mat-card-title> 
+                  <mat-card-actions>
+                    <button mat-icon-button (click)="onEdit(game)"><mat-icon>launch</mat-icon></button>
+                    <button mat-icon-button (click)="onDelete(game.$key)" color="warn"><mat-icon>delete_outlines</mat-icon></button>
+                  </mat-card-actions>
+                </div>
             
-            <mat-card-title>{{ game.name }}</mat-card-title>
+            
             <!-- <button mat-button (click)="gameClicked(i)" routerLink="/game">Routes</button> -->
           </mat-card-header>
           <img mat-card-image src="{{ game.link }}"  (click)="gameClicked(i)" routerLink="/route_list">
@@ -24,13 +41,13 @@
             <h2>Characters: {{ game.chars }}</h2>
             <h2>Days: {{ game.days }}</h2>
             <h2>Lines: {{ game.lines }}</h2>
-            <h2>Minutes: {{ game.mins}}</h2>
+            <h2>Time: {{ Math.floor(game.mins / 60) + ":" + ('0' + (game.mins % 60).toString()).slice(-2) }}</h2>
+            <h2>Char/Hour: {{ Math.floor(game.chars/game.mins * 60)}}</h2>
               
             
           </mat-card-content>
-          <mat-card-actions>
-            
-          </mat-card-actions>
+          <!-- <button mat-icon-button (click)="onEdit(row)"><mat-icon>launch</mat-icon></button>
+          <button mat-icon-button (click)="onDelete(row.$key)" color="warn"><mat-icon>delete_outlines</mat-icon></button> -->
         </mat-card>
       </div>
     </div>

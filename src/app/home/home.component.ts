@@ -1,19 +1,49 @@
 import { Component, OnInit } from '@angular/core';
+import { AngularFireDatabase, AngularFireList } from '@angular/fire/database';
+import { DomSanitizer } from '@angular/platform-browser';
+import { Entry, FBEntry } from '../models/entry.model';
+import { EntriesService } from '../shared/entries.service';
 
 @Component({
   selector: 'app-home',
-  templateUrl: './home.component.html',
-  styleUrls: ['./home.component.scss']
+  templateUrl: './home.component.html'
 })
 export class HomeComponent implements OnInit {
 
   clickCounter: number = 0;
   name: string = " ";
+  allEntries: any[] = [];
+  downloadJsonHref: any;
+  myDate: Date = new Date();
 
-  constructor() { }
+  constructor(public entryService: EntriesService, private sanitizer: DomSanitizer) { }
 
   ngOnInit(): void {
+    //create backup
+    this.entryService.getEntriesForRoute().subscribe(
+      list => {
+        //map to array
+        this.allEntries = list.map(item => {
+          return {
+            $key: item.key,
+            ...item.payload.val()
+
+          };
+        });
+
+        console.log("Download")
+        this.generateDownloadJsonUri();
+      }
+      
+    )
   }
+
+  generateDownloadJsonUri() {
+    
+    var theJSON = JSON.stringify(this.allEntries);
+    var uri = this.sanitizer.bypassSecurityTrustUrl("data:text/json;charset=UTF-8," + encodeURIComponent(theJSON));
+    this.downloadJsonHref = uri;
+}
 
   countClick(){
     this.clickCounter += 1;

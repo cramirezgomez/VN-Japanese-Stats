@@ -1,9 +1,16 @@
-<div class="search-div">
+<!-- <div class="search-div">
+  
+  <h1></h1>
+</div> -->
+
+<mat-toolbar>
+  <span class="fill-remaining-space"></span>
+  <span>{{gameService.curGame.name}}/{{routeService.curRoute.name}}</span>
+  <span class="fill-remaining-space"></span>
   <button mat-raised-button (click)="onCreate()">
-      <mat-icon>add</mat-icon>Create
+    <mat-icon>add</mat-icon>Add Entry
   </button>
-  <h1>{{gameService.curGame.name}}/{{gameService.curRoute.name}}</h1>
-</div>
+</mat-toolbar>
 
 <div class="mat-elevation-z8">
   <mat-table [dataSource]="listData"  matSort>
@@ -14,7 +21,7 @@
     </ng-container>
     <!-- Characters Column -->
     <ng-container matColumnDef="chars">
-      <mat-header-cell *matHeaderCellDef mat-sort-header> Name </mat-header-cell>
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Characters </mat-header-cell>
       <mat-cell *matCellDef="let entry"> {{entry.chars}} </mat-cell>
     </ng-container>
     <!-- Lines Column -->

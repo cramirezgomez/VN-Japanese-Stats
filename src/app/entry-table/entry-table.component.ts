@@ -3,8 +3,12 @@ import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
+import { Entry } from '../models/entry.model';
+import { Route } from '../models/route.model';
+import { EntriesService } from '../shared/entries.service';
 import { GamesService } from '../shared/games.service';
 import { NotificationService } from '../shared/notification.service';
+import { RoutesService } from '../shared/routes.service';
 import { AddEntryComponent } from './add-entry/add-entry.component';
 
 
@@ -12,16 +16,16 @@ import { AddEntryComponent } from './add-entry/add-entry.component';
 
 @Component({
   selector: 'app-entry-table',
-  templateUrl: './entry-table.component.html',
-  styleUrls: ['./entry-table.component.scss']
+  templateUrl: './entry-table.component.html'
 })
 
 export class EntryTableComponent implements OnInit {
   listData!: MatTableDataSource<any>;
-  displayedColumns: string[] = ['date', 'chars', 'lines', 'mins', 'pace', 'actions'];
+  displayedColumns: string[] = ['date',  'lines', 'chars', 'mins', 'pace', 'actions'];
   Math: any;
   
-  constructor(public gameService: GamesService, private dialog: MatDialog, private notificationService:NotificationService) { 
+  constructor(public gameService: GamesService, public routeService: RoutesService, public entryService:EntriesService,
+    private dialog: MatDialog, private notificationService:NotificationService) { 
 
     this.Math = Math;
   }
@@ -31,7 +35,7 @@ export class EntryTableComponent implements OnInit {
   searchKey:string = "";
 
   ngOnInit(): void {
-    this.gameService.getEntriesForRoute().subscribe(
+    this.entryService.getEntriesForRoute().subscribe(
       list => {
         //map to array
         let entryArray = list.map(item => {
@@ -45,7 +49,7 @@ export class EntryTableComponent implements OnInit {
         });
         //filter route
         entryArray = entryArray.filter(item => {
-          if(item.route == this.gameService.curGame.name + '/' + this.gameService.curRoute.name){
+          if(item.route == this.gameService.curGame.name + '/' + this.routeService.curRoute.name){
             return true;
           }
           else{ 
@@ -63,10 +67,21 @@ export class EntryTableComponent implements OnInit {
           })
         };
 
+        //update route stats
+        let emptyRoute = new Route();
+        this.routeService.totalRouteEntries = entryArray.reduce((acc, cur) => {
+          acc.chars += (cur.chars || 0);
+          acc.lines += (cur.lines || 0);
+          acc.mins += (cur.mins || 0);
+          acc.days += 1;
+          return acc;
+        }, emptyRoute);
+
       });
   }
   onCreate(){
-    this.gameService.initializeEntryFormGroup();
+
+    this.entryService.initializeEntryFormGroup();
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
@@ -75,14 +90,12 @@ export class EntryTableComponent implements OnInit {
   }
   onDelete($key:string){
     if(confirm('Are you sure you want to delete this record?')){
-      this.gameService.deleteEntry($key);
+      this.entryService.deleteEntry($key);
       this.notificationService.warn('Deleted Successfully')
     } 
   }
   onEdit(row:any){
-    this.gameService.curEntry = row;
-    //console.log(row);
-    this.gameService.populateForm(row);
+    this.entryService.populateForm(row);
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;

@@ -143,3 +143,21 @@ mat-footer-row  mat-footer-cell{
     height: 32px;
     width: 32px;
 }
+.mat-toolbar{
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+
+.myTitle{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100% !important;
+}
+.fill {
+    flex: 1;
+  }
+
+//   .mat-card-header-text{
+//     width: 100% !important;
+//   }
