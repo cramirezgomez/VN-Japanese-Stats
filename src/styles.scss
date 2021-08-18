@@ -1,46 +1,12 @@
 /* You can add global styles to this file, and also import other style files */
 @import url('https://fonts.googleapis.com/css?family=Nunito:400,700&display=swap');
 @import "~@angular/material/prebuilt-themes/purple-green.css";
-$primary: rgb(8, 92, 12);
 
-body {
-    margin: 0;
-    font-family: 'Nunito', 'sans-serif';
-    font-size: 18px;
-}
 
-.container {
-    width: 80%;
-    margin: 0 auto;
-}
-
-header {
-    background: $primary;
-    padding: 1em;
-
-    a {
-        color:white;
-        text-decoration: none;
-    }
-    a.logo {
-        font-weight: bold;
-    }
-    nav {
-        float: right;
-        ul {
-            list-style-type: none;
-            margin:0;
-            display: flex;
-            li a {
-                padding: 1em;
-
-                &:hover{
-                    background: darken($primary, $amount: 10%);
-                }
-            }
-        }
-    }
-}
+$top_bar: #26064A;
+$bot_bar: #000000;
+$card: #212121;
+$background: #666666;
 
 h1 {
     margin-top: 2em;
@@ -69,9 +35,9 @@ html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
 
-div.container {
-    margin: 0px 40px;
-}
+// div.container {
+ //   margin: 0px 40px;
+// }
 
 .fill-remaining-space {
     flex: 1 1 auto;
@@ -143,9 +109,12 @@ mat-footer-row  mat-footer-cell{
     height: 32px;
     width: 32px;
 }
-.mat-toolbar{
-    margin-top: 15px;
-    margin-bottom: 15px;
+.mat-toolbar.mat-primary{
+    background-color: $top_bar;
+}
+.second-mat-toolbar{
+    margin: 15px 0px;
+    background-color: $bot_bar;
 }
 
 .myTitle{
@@ -161,3 +130,39 @@ mat-footer-row  mat-footer-cell{
 //   .mat-card-header-text{
 //     width: 100% !important;
 //   }
+
+.mat-card{
+    background-color: $card;
+}
+
+.screenContent{
+    margin: 0px 40px;
+}
+
+body{
+    background-color: $background;
+}
+
+.mat-dialog-container {
+    background: $card;
+}
+
+.mat-table {
+    background: $card;
+}
+.mat-paginator {
+    background: $card;
+}
+.stat-box{
+    display: flex;
+    // margin-right: ;
+}
+
+.mat-column-date, .mat-column-lines, .mat-column-chars, .mat-column-mins, .mat-column-pace{
+    font-size: 20px;
+    text-align:  right;
+}
+
+.cardLayout{
+    align-items: stretch;
+}

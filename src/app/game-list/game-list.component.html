@@ -1,14 +1,5 @@
 
-
-<!-- <mat-grid-list cols="2" rowHeight="5:1">
-    <mat-grid-tile>
-      <h2>Visual Novels</h2>
-    </mat-grid-tile>
-    <mat-grid-tile>
-      <input type="button" value="New Game" class="button">
-    </mat-grid-tile>
-  </mat-grid-list> -->
-  <mat-toolbar>
+  <mat-toolbar class="second-mat-toolbar" >
     <span class="fill-remaining-space"></span>
     <span>Visual Novels</span>
     <span class="fill-remaining-space"></span>
@@ -18,9 +9,9 @@
   </mat-toolbar>
   
   <div class="content">
-    <div fxLayout="row wrap" fxLayoutGap="16px grid" >
-      <div  fxFlex="25%" fxFlex.xs = "100%" fxFlex.sm = "50%" fxFlex.md = "33%" fxFlex.lg = "25%" fxFlex.xl = "20%" *ngFor="let game of gameService.gameArray; let i = index">
-        <mat-card class="my-card"  >
+    <div fxLayout="row wrap" fxLayoutGap="16px grid"  >
+      <div   fxFlex="25%" fxFlex.xs = "100%" fxFlex.sm = "50%" fxFlex.md = "33%" fxFlex.lg = "25%" fxFlex.xl = "20%"  *ngFor="let game of gameService.gameArray; let i = index">
+        <mat-card class="my-card" >
           <mat-card-header>
           
               
@@ -35,16 +26,33 @@
             
             <!-- <button mat-button (click)="gameClicked(i)" routerLink="/game">Routes</button> -->
           </mat-card-header>
-          <img mat-card-image src="{{ game.link }}"  (click)="gameClicked(i)" routerLink="/route_list">
+          <img mat-card-image src="{{ game.link }}"  (click)="gameClicked(i)" routerLink="/route_list" alt="{{ game.name }} image failed to load. Click to see routes.">
           <mat-card-content>
-           
-            <h2>Characters: {{ game.chars }}</h2>
-            <h2>Days: {{ game.days }}</h2>
-            <h2>Lines: {{ game.lines }}</h2>
-            <h2>Time: {{ Math.floor(game.mins / 60) + ":" + ('0' + (game.mins % 60).toString()).slice(-2) }}</h2>
-            <h2>Char/Hour: {{ Math.floor(game.chars/game.mins * 60)}}</h2>
-              
-            
+            <div class="stat-box">
+              <h2>Lines:</h2>
+              <span class="fill-remaining-space"></span>
+              <h2>{{ game.lines }}</h2>
+            </div>
+            <div class="stat-box">
+              <h2>Characters:</h2>
+              <span class="fill-remaining-space"></span>
+              <h2>{{ game.chars }}</h2>
+            </div>
+            <div class="stat-box">
+              <h2>Char/Hour:</h2>
+              <span class="fill-remaining-space"></span>
+              <h2>{{ Math.floor(game.chars/game.mins * 60)}}</h2>
+            </div>
+            <div class="stat-box">
+              <h2>Time:</h2>
+              <span class="fill-remaining-space"></span>
+              <h2>{{ Math.floor(game.mins / 60) + ":" + ('0' + (game.mins % 60).toString()).slice(-2) }}</h2>
+            </div>
+            <div class="stat-box">
+              <h2>Entries:</h2>
+              <span class="fill-remaining-space"></span>
+              <h2>{{ game.days }}</h2>
+            </div>
           </mat-card-content>
           <!-- <button mat-icon-button (click)="onEdit(row)"><mat-icon>launch</mat-icon></button>
           <button mat-icon-button (click)="onDelete(row.$key)" color="warn"><mat-icon>delete_outlines</mat-icon></button> -->

@@ -1,11 +1,11 @@
-<h1>Welcome</h1>
-<!-- <a class="btn btn-clear" title="Download JSON" [href]="downloadJsonHref" download="download.json">Download</a> -->
-<mat-toolbar>
+
+<mat-toolbar class="second-mat-toolbar">
     <span class="fill-remaining-space"></span>
     <span>Download Backup of Entries</span>
     <span class="fill-remaining-space" ></span>
-    <button mat-raised-button>
-      <mat-icon>add</mat-icon>
-      <a class="btn btn-clear" title="Download JSON" [href]="downloadJsonHref" download="entries_{{myDate | date: 'shortDate'}}.json">Download</a>
-    </button>
+
+    <a button mat-raised-button class="btn btn-clear" title="Download JSON" [href]="downloadJsonHref" download="entries_{{myDate | date: 'shortDate'}}.json">
+      <mat-icon>file_download</mat-icon>
+      Download
+    </a>
   </mat-toolbar>

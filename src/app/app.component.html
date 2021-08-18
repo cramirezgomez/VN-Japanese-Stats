@@ -1,16 +1,27 @@
-<header>
-  <div class="container">
-    <a href="#" class="logo">VN Progress</a>
-    <nav>
-      <ul>
-        <li> <a href="#" routerLink="/">Home</a></li>
-        <li> <a href="#" routerLink="/game_list">Games</a></li>
-      </ul>
-    </nav>
-  </div>
-</header>
 
-<div class="container">
-  <router-outlet></router-outlet>
-</div>
+<header>
+  <mat-toolbar color="primary" class="mat-elevation-z6">
+    <button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon">
+      <mat-icon>menu</mat-icon>
+    </button>
+    <span>JPN VN Tracker</span>
+    <span class="fill-remaining-space" ></span>
+    
+    <a  mat-button href="#" routerLink="/">
+      <mat-icon>show_chart</mat-icon>
+      Stats
+    </a>
+    <a mat-button href="#" routerLink="/game_list">
+      <mat-icon>laptop_windows</mat-icon>
+      VN List
+    </a>
+  </mat-toolbar>
+  
+</header>
+<body>
+  <div class="screenContent">
+    <router-outlet></router-outlet>
+  </div>
+</body>
+
 

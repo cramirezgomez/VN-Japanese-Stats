@@ -1,11 +1,11 @@
-<!-- <div class="search-div">
-  
-  <h1></h1>
-</div> -->
 
-<mat-toolbar>
+<mat-toolbar class="second-mat-toolbar">
+  <mat-chip-list>
+    <mat-chip routerLink="/game_list">VN List</mat-chip>
+    <mat-chip routerLink="/route_list">{{gameService.curGame.name}}</mat-chip>
+  </mat-chip-list>
   <span class="fill-remaining-space"></span>
-  <span>{{gameService.curGame.name}}/{{routeService.curRoute.name}}</span>
+  <span>{{routeService.curRoute.name}} Entries</span>
   <span class="fill-remaining-space"></span>
   <button mat-raised-button (click)="onCreate()">
     <mat-icon>add</mat-icon>Add Entry
