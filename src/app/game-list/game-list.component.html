@@ -7,25 +7,36 @@
       <mat-icon>add</mat-icon>New Game
     </button>
   </mat-toolbar>
-  
+  <!-- <div >
+    <div fxLayout="row wrap"  fxLayoutGap="16px grid" >
+      <div fxLayoutAlign="none stretch" *ngFor="let _ of [1,2,3,4,5,6]">
+        <mat-card class="child-1" 
+          
+          >
+          {{_}}
+        </mat-card>
+      </div>
+      
+    </div>
+  </div> -->
   <div class="content">
-    <div fxLayout="row wrap" fxLayoutGap="16px grid"  >
-      <div   fxFlex="25%" fxFlex.xs = "100%" fxFlex.sm = "50%" fxFlex.md = "33%" fxFlex.lg = "25%" fxFlex.xl = "20%"  *ngFor="let game of gameService.gameArray; let i = index">
+    <div fxLayout="row wrap" fxLayoutGap="16px grid"    >
+      <div fxLayoutAlign="none stretch" *ngFor="let game of gameService.gameArray; let i = index">
         <mat-card class="my-card" >
           <mat-card-header>
           
               
                 <div class="myTitle">
                   <mat-card-title>{{ game.name }}</mat-card-title> 
+                  <div class="fill-remaining-space"></div>
                   <mat-card-actions>
                     <button mat-icon-button (click)="onEdit(game)"><mat-icon>launch</mat-icon></button>
                     <button mat-icon-button (click)="onDelete(game.$key)" color="warn"><mat-icon>delete_outlines</mat-icon></button>
                   </mat-card-actions>
                 </div>
-            
-            
-            <!-- <button mat-button (click)="gameClicked(i)" routerLink="/game">Routes</button> -->
+          
           </mat-card-header>
+          
           <img mat-card-image src="{{ game.link }}"  (click)="gameClicked(i)" routerLink="/route_list" alt="{{ game.name }} image failed to load. Click to see routes.">
           <mat-card-content>
             <div class="stat-box">
@@ -54,9 +65,8 @@
               <h2>{{ game.days }}</h2>
             </div>
           </mat-card-content>
-          <!-- <button mat-icon-button (click)="onEdit(row)"><mat-icon>launch</mat-icon></button>
-          <button mat-icon-button (click)="onDelete(row.$key)" color="warn"><mat-icon>delete_outlines</mat-icon></button> -->
         </mat-card>
       </div>
     </div>
   </div>
+  

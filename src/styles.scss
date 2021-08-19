@@ -122,6 +122,7 @@ mat-footer-row  mat-footer-cell{
     align-items: center;
     justify-content: space-between;
     width: 100% !important;
+    
 }
 .fill {
     flex: 1;
@@ -166,3 +167,44 @@ body{
 .cardLayout{
     align-items: stretch;
 }
+
+.my-card {
+   max-width: 256px;
+   width: 256px;
+}
+.mat-card-image{
+    
+    height:362px;
+    width: 256px;
+    object-fit: cover;
+}
+
+.mat-card-title{
+    overflow: hidden;
+    max-width: 15ch;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.child-1{
+    background-color: orange;
+}
+.child-2{
+    background-color: yellow;
+}
+.child-3{
+    background-color: green;
+}
+
+.container{
+    margin: 15px;
+    height:200px;
+    border:2px solid red;
+}
+
+.mat-card-header{
+    height: 72px;
+}
+
+
+
