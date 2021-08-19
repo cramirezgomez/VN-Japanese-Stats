@@ -172,16 +172,18 @@ body{
    max-width: 256px;
    width: 256px;
 }
-.mat-card-image{
-    
-    height:362px;
-    width: 256px;
-    object-fit: cover;
+.route-img{
+    object-fit:contain;
+}
+.game-img{
+    height:407px;
+    width: 288px;
+    object-fit:cover;
 }
 
 .mat-card-title{
     overflow: hidden;
-    max-width: 15ch;
+    max-width: 20ch;
     text-overflow: ellipsis;
     white-space: nowrap;
 }
@@ -202,9 +204,6 @@ body{
     border:2px solid red;
 }
 
-.mat-card-header{
-    height: 72px;
-}
 
 
 

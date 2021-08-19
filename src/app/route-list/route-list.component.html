@@ -22,23 +22,28 @@
 
   
   
-
+<div class="content">
+    <div fxLayout="row wrap" fxLayoutGap="16px grid"    >
+      <div fxLayoutAlign="none stretch" *ngFor="let game of gameService.gameArray; let i = index">
+        
+      </div>
+    </div>
+  </div>
   
   <div class="content">
     <div fxLayout="row wrap" fxLayoutGap="16px grid" >
-      <div  fxFlex="25%" fxFlex.xs = "100%" fxFlex.sm = "50%" fxFlex.md = "33%" fxFlex.lg = "25%" fxFlex.xl = "20%" *ngFor="let route of routeService.routeArray; let i = index">
+      <div fxLayoutAlign="none stretch"  *ngFor="let route of routeService.routeArray; let i = index">
         <mat-card class="my-card"  >
           <mat-card-header>
             
-            <div class="myTitle">
-              <mat-card-title>{{ route.name }}</mat-card-title> 
-              <mat-card-actions>
-                <button mat-icon-button (click)="onEdit(route)"><mat-icon>launch</mat-icon></button>
-                <button mat-icon-button (click)="onDelete(route.$key)" color="warn"><mat-icon>delete_outlines</mat-icon></button>
-              </mat-card-actions>
-            </div>
+            
+            <mat-card-title>{{ route.name }}</mat-card-title> 
+            <mat-card-subtitle>
+              <button mat-icon-button (click)="onEdit(route)"><mat-icon>launch</mat-icon></button>
+              <button mat-icon-button (click)="onDelete(route.$key)" color="warn"><mat-icon>delete_outlines</mat-icon></button>
+            </mat-card-subtitle>
           </mat-card-header>
-          <img mat-card-image src="{{ route.link }}" (click)="routeClicked(i)" routerLink="/entry_table" alt="{{ route.name }} image failed to load. Click to see entries.">
+          <img class="route-img" mat-card-image src="{{ route.link }}" (click)="routeClicked(i)" routerLink="/entry_table" alt="{{ route.name }} image failed to load. Click to see entries.">
           <mat-card-content>
             <div class="stat-box">
               <h2>Lines:</h2>

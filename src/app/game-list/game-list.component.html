@@ -24,20 +24,24 @@
       <div fxLayoutAlign="none stretch" *ngFor="let game of gameService.gameArray; let i = index">
         <mat-card class="my-card" >
           <mat-card-header>
-          
+            <mat-card-title>{{ game.name }}</mat-card-title>
+            <mat-card-subtitle>
+              <button mat-icon-button (click)="onEdit(game)"><mat-icon>launch</mat-icon></button>
+              <button mat-icon-button (click)="onDelete(game.$key)" color="warn"><mat-icon>delete_outlines</mat-icon></button>
+            </mat-card-subtitle>
               
-                <div class="myTitle">
+                <!-- <div class="myTitle">
                   <mat-card-title>{{ game.name }}</mat-card-title> 
                   <div class="fill-remaining-space"></div>
                   <mat-card-actions>
                     <button mat-icon-button (click)="onEdit(game)"><mat-icon>launch</mat-icon></button>
                     <button mat-icon-button (click)="onDelete(game.$key)" color="warn"><mat-icon>delete_outlines</mat-icon></button>
                   </mat-card-actions>
-                </div>
+                </div> -->
           
           </mat-card-header>
           
-          <img mat-card-image src="{{ game.link }}"  (click)="gameClicked(i)" routerLink="/route_list" alt="{{ game.name }} image failed to load. Click to see routes.">
+          <img class="game-img" mat-card-image src="{{ game.link }}"  (click)="gameClicked(i)" routerLink="/route_list" alt="{{ game.name }} image failed to load. Click to see routes.">
           <mat-card-content>
             <div class="stat-box">
               <h2>Lines:</h2>
