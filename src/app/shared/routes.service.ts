@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { AngularFireDatabase, AngularFireList } from '@angular/fire/database';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import * as _ from 'lodash';
-import { Game } from '../models/game.model';
+import { FBGame, Game } from '../models/game.model';
 
 import { FBRoute, Route } from '../models/route.model';
 import { GamesService } from './games.service';
@@ -17,7 +17,7 @@ export class RoutesService {
   routeArray:any[] = [];
   public curRoute: FBRoute = new FBRoute;
   
-  public totalRouteEntries: Route = new Route();
+  
 
   constructor(private firebase: AngularFireDatabase, 
     private gameService:GamesService) { 
@@ -55,6 +55,7 @@ export class RoutesService {
   loadRoutes(){
     this.routeList.snapshotChanges().subscribe(
       list => {
+        // console.log("change on route")
         this.routeArray = list.map(item => {
           return {
             $key: item.key,
@@ -71,8 +72,11 @@ export class RoutesService {
         });
 
         //update route stats
-        let emptyGame = new Game();
-        this.gameService.totalGameEntries = this.routeArray.reduce((acc, cur) => {
+        let emptyGame = new FBGame();
+        emptyGame.name = this.gameService.curGame.name;
+        emptyGame.link = this.gameService.curGame.link;
+        emptyGame.$key = this.gameService.curGame.$key;
+        this.gameService.curGame = this.routeArray.reduce((acc, cur) => {
           acc.chars += (cur.chars || 0);
           acc.lines += (cur.lines || 0);
           acc.mins += (cur.mins || 0);
@@ -89,14 +93,20 @@ export class RoutesService {
 
   updateRoute(){
     //aggregation method
-    return this.routeList.update(this.curRoute.$key, _.omit(this.totalRouteEntries, ["name","game", "link"]))
+    // console.log("Cur Route")
+    // console.log(this.totalRouteEntries)
+    return this.routeList.update(this.curRoute.$key, _.omit(this.curRoute, ["$key","name","game", "link"]))
   }
 
   deleteRoute($key: string) {
-    this.routeList.remove($key).then( res => this.gameService.updateGame());
+    let q = this.routeList.remove($key)
+    q.then(() => {
+      this.gameService.updateGame()
+    });
+
+    //this.routeList.remove($key).then( res => this.gameService.updateGame());
   }
   populateForm(row: any){
-    console.log(row);
     this.routeForm.setValue(_.omit(row, "game"));
   }
 

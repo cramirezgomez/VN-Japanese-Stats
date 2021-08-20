@@ -4,7 +4,8 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { Entry } from '../models/entry.model';
-import { Route } from '../models/route.model';
+import { FBRoute, Route } from '../models/route.model';
+import { DialogService } from '../shared/dialog.service';
 import { EntriesService } from '../shared/entries.service';
 import { GamesService } from '../shared/games.service';
 import { NotificationService } from '../shared/notification.service';
@@ -25,7 +26,7 @@ export class EntryTableComponent implements OnInit {
   Math: any;
   
   constructor(public gameService: GamesService, public routeService: RoutesService, public entryService:EntriesService,
-    private dialog: MatDialog, private notificationService:NotificationService) { 
+    private dialog: MatDialog, private notificationService:NotificationService, private dialogService: DialogService) { 
 
     this.Math = Math;
   }
@@ -68,14 +69,20 @@ export class EntryTableComponent implements OnInit {
         };
 
         //update route stats
-        let emptyRoute = new Route();
-        this.routeService.totalRouteEntries = entryArray.reduce((acc, cur) => {
+        let emptyRoute = new FBRoute();
+        emptyRoute.game = this.routeService.curRoute.game;
+        emptyRoute.name = this.routeService.curRoute.name;
+        emptyRoute.link = this.routeService.curRoute.link;
+        emptyRoute.$key = this.routeService.curRoute.$key;
+        this.routeService.curRoute = entryArray.reduce((acc, cur) => {
           acc.chars += (cur.chars || 0);
           acc.lines += (cur.lines || 0);
           acc.mins += (cur.mins || 0);
           acc.days += 1;
           return acc;
         }, emptyRoute);
+
+        
 
       });
   }
@@ -87,12 +94,19 @@ export class EntryTableComponent implements OnInit {
     dialogConfig.autoFocus = true;
     dialogConfig.width = "60%";
     this.dialog.open(AddEntryComponent, dialogConfig);
+
+    // let temp: Entry[] = [];
+    // this.entryService.insertManual(temp);
+
   }
   onDelete($key:string){
-    if(confirm('Are you sure you want to delete this record?')){
-      this.entryService.deleteEntry($key);
-      this.notificationService.warn('Deleted Successfully')
-    } 
+    this.dialogService.openConfirmDialog('Are you sure you want to delete this entry?')
+    .afterClosed().subscribe(res => {
+      if(res){
+        this.entryService.deleteEntry($key);
+        this.notificationService.warn('Entry Was Deleted')
+      }
+    });
   }
   onEdit(row:any){
     this.entryService.populateForm(row);

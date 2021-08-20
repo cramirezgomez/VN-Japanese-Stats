@@ -13,7 +13,7 @@ export class GamesService {
   public curGame: FBGame = new FBGame;
   public allGames: FBGame = new FBGame;
 
-  public totalGameEntries: Game = new Game();
+  // public totalGameEntries: Game = new Game();
 
   constructor(private firebase: AngularFireDatabase) { 
     this.gameList = this.firebase.list('games');
@@ -75,7 +75,7 @@ export class GamesService {
   }
 
   updateGame(){
-    return this.gameList.update(this.curGame.$key, _.omit(this.totalGameEntries, ["name", "link"]))
+    return this.gameList.update(this.curGame.$key, _.omit(this.curGame, ["$key", "name", "link"]))
   }
 
   deleteGame($key: string) {

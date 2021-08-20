@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { FBRoute } from '../models/route.model';
+import { DialogService } from '../shared/dialog.service';
 import { GamesService } from '../shared/games.service';
 import { NotificationService } from '../shared/notification.service';
 import { RoutesService } from '../shared/routes.service';
@@ -14,7 +16,7 @@ export class RouteListComponent implements OnInit {
   Math: any;
 
   constructor(public routeService: RoutesService, public gameService: GamesService,
-    private dialog: MatDialog, private notificationService:NotificationService) { 
+    private dialog: MatDialog, private notificationService:NotificationService, private dialogService: DialogService) { 
     this.Math = Math;
   }
 
@@ -32,11 +34,17 @@ export class RouteListComponent implements OnInit {
     dialogConfig.width = "60%";
     this.dialog.open(AddRouteComponent, dialogConfig);
   }
-  onDelete($key:string){
-    if(confirm('Are you sure you want to delete this record?')){
-      this.routeService.deleteRoute($key);
-      this.notificationService.warn('Deleted Successfully')
-    } 
+  onDelete(route: FBRoute){
+    this.dialogService.openConfirmDialog('Are you sure you want to delete ' + route.name + '?')
+    .afterClosed().subscribe(res => {
+      if(res){
+        this.routeService.deleteRoute(route.$key);
+        this.notificationService.warn(route.name + ' Was Deleted')
+      }
+    });
+
+    
+
   }
   onEdit(route:any){
     this.routeService.populateForm(route);

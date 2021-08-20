@@ -31,18 +31,20 @@ export class EntriesService {
 
   //Initilize form
   initializeEntryFormGroup() {
+    let today = new Date((new Date().getTime()));
     this.entryForm.setValue({
       $key: null,
-      chars: 0,
-      date: '',
-      lines: 0,
-      mins: 0,
+      chars: '',
+      date: today,
+      lines: '',
+      mins: '',
     })
   }
 
   populateForm(row: any) {
-    console.log(_.omit(row, ["pace", "time", "route"]));
-    this.entryForm.setValue(_.omit(row, ["pace", "time", "route"]));
+    row = _.omit(row, ["pace", "time", "route"])
+    row.date = new Date(row.date + " 00:00");
+    this.entryForm.setValue(row);
   }
 
   //Read from entries
@@ -53,7 +55,7 @@ export class EntriesService {
     return this.entryList.snapshotChanges();
   }
 
-  async insertEntry(entry:FBEntry){
+  insertEntry(entry:FBEntry){
     //convert date and add route
     entry.date = String(entry.date == "" ? "" : this.myDatePipe.transform(entry.date, 'yyyy-MM-dd'));
     entry.route = this.gameService.curGame.name + '/' + this.routeService.curRoute.name;
@@ -81,10 +83,24 @@ export class EntriesService {
     this.gameService.updateGame(); 
   }
   deleteEntry($key: string) {
-    this.entryList.remove($key).then(res => this.routeService.updateRoute().then( res => this.gameService.updateGame()));;
+    let p = this.entryList.remove($key);
+
+    p.then(() => {
+       let q = this.routeService.updateRoute();
+      q.then(() => {
+        this.gameService.updateGame()
+      });
+    });
+    //this.entryList.remove($key).then(res => .then( res => this.gameService.updateGame()));
   }
 
-  downloadBackup(allEntries:any){
-
+  insertManual(entries:Entry[]){
+    
+    entries.forEach(element => {
+      this.entryList.push(element).then(res => this.routeService.updateRoute().then( res => this.gameService.updateGame()));;
+    });
+    
+    //push entry
+     
   }
 }

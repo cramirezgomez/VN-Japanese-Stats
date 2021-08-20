@@ -13,27 +13,27 @@
         <div class="stat-box">
           <h2>Lines:</h2>
           <span class="fill-remaining-space"></span>
-          <h2>{{ gameService.allGames.lines }}</h2>
+          <h2>{{ gameService.allGames.lines | number }}</h2>
         </div>
         <div class="stat-box">
           <h2>Characters:</h2>
           <span class="fill-remaining-space"></span>
-          <h2>{{ gameService.allGames.chars }}</h2>
+          <h2>{{ gameService.allGames.chars | number}}</h2>
         </div>
         <div class="stat-box">
           <h2>Char/Hour:</h2>
           <span class="fill-remaining-space"></span>
-          <h2>{{ Math.floor(gameService.allGames.chars/gameService.allGames.mins * 60)}}</h2>
+          <h2>{{ Math.floor(gameService.allGames.chars/gameService.allGames.mins * 60) | number}}</h2>
         </div>
         <div class="stat-box">
           <h2>Time:</h2>
           <span class="fill-remaining-space"></span>
-          <h2>{{ Math.floor(gameService.allGames.mins / 60) + ":" + ('0' + (gameService.allGames.mins % 60).toString()).slice(-2) }}</h2>
+          <h2>{{ Math.floor(gameService.allGames.mins / 60) | number}}{{ ":" + ('0' + (gameService.allGames.mins % 60).toString()).slice(-2) }}</h2>
         </div>
         <div class="stat-box">
           <h2>Entries:</h2>
           <span class="fill-remaining-space"></span>
-          <h2>{{ gameService.allGames.days }}</h2>
+          <h2>{{ gameService.allGames.days | number}}</h2>
         </div>
       </mat-card-content>
     </mat-card>

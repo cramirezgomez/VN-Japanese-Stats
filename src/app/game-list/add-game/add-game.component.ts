@@ -31,15 +31,20 @@ export class AddGameComponent implements OnInit {
 
   onSubmit(){
     if(this.gameService.gameForm.valid){
+      let myName = "";
+      myName = this.gameService.gameForm.value.name;
       
       if(!this.gameService.gameForm.get('$key')?.value){
         this.gameService.insertGame(this.gameService.gameForm.value); //insert to database
+        this.onClear();
+        this.notificationService.success(myName + ' Was Added');
       }
       else{
         this.gameService.updateGameManually(this.gameService.gameForm.value);
+        this.onClear();
+        this.notificationService.success(myName + ' Was Changed');
       }
-      this.onClear();
-      this.notificationService.success(':: Submitted Successfully');
+      
       this.onClose();
     }
   }

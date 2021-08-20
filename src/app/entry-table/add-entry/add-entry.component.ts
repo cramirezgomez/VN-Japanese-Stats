@@ -37,7 +37,7 @@ export class AddEntryComponent implements OnInit {
       }
       
       this.onClear();
-      this.notificationService.success(':: Submitted Successfully');
+      this.notificationService.success('Entry Was Added');
       this.onClose();
     }
   }

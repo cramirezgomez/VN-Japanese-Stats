@@ -19,27 +19,27 @@
         <div class="stat-box">
           <h2>Lines:</h2>
           <span class="fill-remaining-space"></span>
-          <h2>{{ routeService.curRoute.lines }}</h2>
+          <h2>{{ routeService.curRoute.lines | number}}</h2>
         </div>
         <div class="stat-box">
           <h2>Characters:</h2>
           <span class="fill-remaining-space"></span>
-          <h2>{{ routeService.curRoute.chars }}</h2>
+          <h2>{{ routeService.curRoute.chars | number}}</h2>
         </div>
         <div class="stat-box">
           <h2>Char/Hour:</h2>
           <span class="fill-remaining-space"></span>
-          <h2>{{ Math.floor(routeService.curRoute.chars/routeService.curRoute.mins * 60)}}</h2>
+          <h2>{{ Math.floor(routeService.curRoute.chars/routeService.curRoute.mins * 60 | number)}}</h2>
         </div>
         <div class="stat-box">
           <h2>Time:</h2>
           <span class="fill-remaining-space"></span>
-          <h2>{{ Math.floor(routeService.curRoute.mins / 60) + ":" + ('0' + (routeService.curRoute.mins % 60).toString()).slice(-2) }}</h2>
+          <h2>{{ Math.floor(routeService.curRoute.mins / 60) | number }}{{ ":" + ('0' + (routeService.curRoute.mins % 60).toString()).slice(-2) }}</h2>
         </div>
         <div class="stat-box">
           <h2>Entries:</h2>
           <span class="fill-remaining-space"></span>
-          <h2>{{ routeService.curRoute.days }}</h2>
+          <h2>{{ routeService.curRoute.days | number}}</h2>
         </div>
       </mat-card-content>
     </mat-card>
@@ -72,12 +72,12 @@
           <!-- Characters Column -->
           <ng-container matColumnDef="chars">
             <mat-header-cell *matHeaderCellDef mat-sort-header> Characters </mat-header-cell>
-            <mat-cell *matCellDef="let entry"> {{entry.chars}} </mat-cell>
+            <mat-cell *matCellDef="let entry"> {{entry.chars | number}} </mat-cell>
           </ng-container>
           <!-- Lines Column -->
           <ng-container matColumnDef="lines">
             <mat-header-cell *matHeaderCellDef mat-sort-header> Lines </mat-header-cell>
-            <mat-cell *matCellDef="let entry"> {{entry.lines}} </mat-cell>
+            <mat-cell *matCellDef="let entry"> {{entry.lines | number}} </mat-cell>
           </ng-container>
           <!-- Minutes Column -->
           <ng-container matColumnDef="mins">
@@ -87,7 +87,7 @@
           <!-- Pace Column -->
           <ng-container matColumnDef="pace">
               <mat-header-cell *matHeaderCellDef mat-sort-header> Pace </mat-header-cell>
-              <mat-cell *matCellDef="let entry"> {{Math.floor(entry.pace)}} </mat-cell>
+              <mat-cell *matCellDef="let entry"> {{Math.floor(entry.pace) | number}} </mat-cell>
           </ng-container>
           <!-- Actions Column -->
           <ng-container matColumnDef="actions">

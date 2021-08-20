@@ -33,17 +33,25 @@ export class AddRouteComponent implements OnInit {
 
   onSubmit(){
     if(this.routeService.routeForm.valid){
+
+      let myName = "";
+      myName = this.routeService.routeForm.value.name;
       
+
       if(!this.routeService.routeForm.get('$key')?.value){
         this.routeService.insertRoute(this.routeService.routeForm.value); //insert to database
+        this.onClear();
+        this.notificationService.success(myName +' Was Added');
       }
       else{
         this.routeService.updateRouteManually(this.routeService.routeForm.value);
+        this.onClear();
+        this.notificationService.success(myName +' Was Changed');
       }
-
-      this.onClear();
-      this.notificationService.success(':: Submitted Successfully');
       this.onClose();
+      
+      
+      
     }
   }
 }

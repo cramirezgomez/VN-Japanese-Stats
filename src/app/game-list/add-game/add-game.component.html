@@ -5,8 +5,8 @@
 </mat-toolbar>
 
 <form [formGroup]="gameService.gameForm" class="normal-form" (submit)="onSubmit()">
-    <mat-grid-list cols="2" rowHeight="300px">
-        <mat-grid-tile>
+    <mat-grid-list cols="1" rowHeight="300px">
+        <!-- <mat-grid-tile>
             <div class="contols-container">
                 <input type="hidden" formControlName="$key">
                 <mat-form-field >
@@ -30,7 +30,7 @@
                     <mat-error *ngIf="gameService.gameForm.controls['days'].errors?.pattern">Enter a number</mat-error>
                 </mat-form-field>
             </div>
-        </mat-grid-tile>
+        </mat-grid-tile> -->
         <mat-grid-tile>
             <div class="contols-container">
                 <mat-form-field >

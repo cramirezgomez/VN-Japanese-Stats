@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { FBGame } from '../models/game.model';
+import { DialogService } from '../shared/dialog.service';
 import { GamesService } from '../shared/games.service';
 import { NotificationService } from '../shared/notification.service';
 import { RoutesService } from '../shared/routes.service';
@@ -15,7 +17,8 @@ export class GameListComponent implements OnInit {
   Math: any;
 
   constructor(public gameService: GamesService, public routeService: RoutesService,
-    private dialog: MatDialog, private notificationService:NotificationService) { 
+    private dialog: MatDialog, private notificationService:NotificationService, 
+    private dialogService: DialogService) { 
     this.Math = Math;
   }
 
@@ -34,11 +37,16 @@ export class GameListComponent implements OnInit {
     dialogConfig.width = "60%";
     this.dialog.open(AddGameComponent, dialogConfig);
   }
-  onDelete($key:string){
-    if(confirm('Are you sure you want to delete this record?')){
-      this.gameService.deleteGame($key);
-      this.notificationService.warn('Deleted Successfully')
-    } 
+  onDelete(game:FBGame){
+   console.log(game)
+
+    this.dialogService.openConfirmDialog('Are you sure you want to delete ' + game.name + '?')
+    .afterClosed().subscribe(res => {
+      if(res){
+          this.gameService.deleteGame(game.$key);
+          this.notificationService.warn(game.name + ' Was Deleted')
+      }
+    });
   }
   onEdit(game:any){
     this.gameService.populateForm(game);

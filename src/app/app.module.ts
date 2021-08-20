@@ -22,6 +22,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { AddGameComponent } from './game-list/add-game/add-game.component';
 import { AddRouteComponent } from './route-list/add-route/add-route.component';
 import { DatePipe } from '@angular/common';
+import { ConfirmDialogComponent } from './shared/confirm-dialog/confirm-dialog.component';
 
 
 
@@ -37,6 +38,7 @@ import { DatePipe } from '@angular/common';
     AddEntryComponent,
     AddGameComponent,
     AddRouteComponent,
+    ConfirmDialogComponent,
     
   ],
   imports: [
@@ -56,7 +58,7 @@ import { DatePipe } from '@angular/common';
   ],
   providers: [GamesService, DatePipe],
   bootstrap: [AppComponent],
-  entryComponents:[AddEntryComponent, AddRouteComponent, AddGameComponent]
+  entryComponents:[AddEntryComponent, AddRouteComponent, AddGameComponent, ConfirmDialogComponent]
 })
 export class AppModule { }
 
