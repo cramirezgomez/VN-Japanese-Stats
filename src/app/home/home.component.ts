@@ -3,6 +3,7 @@ import { AngularFireDatabase, AngularFireList } from '@angular/fire/database';
 import { DomSanitizer } from '@angular/platform-browser';
 import { Entry, FBEntry } from '../models/entry.model';
 import { EntriesService } from '../shared/entries.service';
+import { GamesService } from '../shared/games.service';
 
 @Component({
   selector: 'app-home',
@@ -15,8 +16,10 @@ export class HomeComponent implements OnInit {
   allEntries: any[] = [];
   downloadJsonHref: any;
   myDate: Date = new Date();
-
-  constructor(public entryService: EntriesService, private sanitizer: DomSanitizer) { }
+  Math: any;
+  constructor(public entryService: EntriesService, private sanitizer: DomSanitizer, public gameService: GamesService) {
+    this.Math = Math;
+   }
 
   ngOnInit(): void {
     //create backup

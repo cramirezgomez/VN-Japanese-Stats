@@ -1,76 +1,106 @@
 
-  <mat-toolbar class="second-mat-toolbar" >
-    <span class="fill-remaining-space"></span>
-    <span>Visual Novels</span>
-    <span class="fill-remaining-space"></span>
-    <button mat-raised-button (click)="onCreate()">
-      <mat-icon>add</mat-icon>New Game
-    </button>
-  </mat-toolbar>
-  <!-- <div >
-    <div fxLayout="row wrap"  fxLayoutGap="16px grid" >
-      <div fxLayoutAlign="none stretch" *ngFor="let _ of [1,2,3,4,5,6]">
-        <mat-card class="child-1" 
-          
-          >
-          {{_}}
-        </mat-card>
-      </div>
+<mat-drawer-container class="example-container" autosize>
+  <mat-drawer #drawer class="example-sidenav" mode="side" opened>
+    <mat-card class="my-card nav-card">
+      <mat-card-header >
+        <mat-card-title>All VN</mat-card-title>
+      </mat-card-header>
       
-    </div>
-  </div> -->
-  <div class="content">
-    <div fxLayout="row wrap" fxLayoutGap="16px grid"    >
-      <div fxLayoutAlign="none stretch" *ngFor="let game of gameService.gameArray; let i = index">
-        <mat-card class="my-card" >
-          <mat-card-header>
-            <mat-card-title>{{ game.name }}</mat-card-title>
-            <mat-card-subtitle>
-              <button mat-icon-button (click)="onEdit(game)"><mat-icon>launch</mat-icon></button>
-              <button mat-icon-button (click)="onDelete(game.$key)" color="warn"><mat-icon>delete_outlines</mat-icon></button>
-            </mat-card-subtitle>
-              
-                <!-- <div class="myTitle">
-                  <mat-card-title>{{ game.name }}</mat-card-title> 
-                  <div class="fill-remaining-space"></div>
-                  <mat-card-actions>
-                    <button mat-icon-button (click)="onEdit(game)"><mat-icon>launch</mat-icon></button>
-                    <button mat-icon-button (click)="onDelete(game.$key)" color="warn"><mat-icon>delete_outlines</mat-icon></button>
-                  </mat-card-actions>
-                </div> -->
-          
-          </mat-card-header>
-          
-          <img class="game-img" mat-card-image src="{{ game.link }}"  (click)="gameClicked(i)" routerLink="/route_list" alt="{{ game.name }} image failed to load. Click to see routes.">
-          <mat-card-content>
-            <div class="stat-box">
-              <h2>Lines:</h2>
-              <span class="fill-remaining-space"></span>
-              <h2>{{ game.lines }}</h2>
-            </div>
-            <div class="stat-box">
-              <h2>Characters:</h2>
-              <span class="fill-remaining-space"></span>
-              <h2>{{ game.chars }}</h2>
-            </div>
-            <div class="stat-box">
-              <h2>Char/Hour:</h2>
-              <span class="fill-remaining-space"></span>
-              <h2>{{ Math.floor(game.chars/game.mins * 60)}}</h2>
-            </div>
-            <div class="stat-box">
-              <h2>Time:</h2>
-              <span class="fill-remaining-space"></span>
-              <h2>{{ Math.floor(game.mins / 60) + ":" + ('0' + (game.mins % 60).toString()).slice(-2) }}</h2>
-            </div>
-            <div class="stat-box">
-              <h2>Entries:</h2>
-              <span class="fill-remaining-space"></span>
-              <h2>{{ game.days }}</h2>
-            </div>
-          </mat-card-content>
-        </mat-card>
+      <img class="nav-img" mat-card-image src="/assets/img/allGames.jpg" alt="Moon and fireflies.">
+      <mat-card-content>
+        <div class="stat-box">
+          <h2>Lines:</h2>
+          <span class="fill-remaining-space"></span>
+          <h2>{{ gameService.allGames.lines }}</h2>
+        </div>
+        <div class="stat-box">
+          <h2>Characters:</h2>
+          <span class="fill-remaining-space"></span>
+          <h2>{{ gameService.allGames.chars }}</h2>
+        </div>
+        <div class="stat-box">
+          <h2>Char/Hour:</h2>
+          <span class="fill-remaining-space"></span>
+          <h2>{{ Math.floor(gameService.allGames.chars/gameService.allGames.mins * 60)}}</h2>
+        </div>
+        <div class="stat-box">
+          <h2>Time:</h2>
+          <span class="fill-remaining-space"></span>
+          <h2>{{ Math.floor(gameService.allGames.mins / 60) + ":" + ('0' + (gameService.allGames.mins % 60).toString()).slice(-2) }}</h2>
+        </div>
+        <div class="stat-box">
+          <h2>Entries:</h2>
+          <span class="fill-remaining-space"></span>
+          <h2>{{ gameService.allGames.days }}</h2>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </mat-drawer>
+
+  <div class="example-sidenav-content">
+    <div class="screenContent">
+      <mat-toolbar class="second-mat-toolbar" >
+        <button mat-icon-button  (click)="drawer.toggle()">
+          <mat-icon>menu</mat-icon>
+        </button>
+        <span class="fill-remaining-space"></span>
+        <span>Visual Novels</span>
+        <span class="fill-remaining-space"></span>
+        <button mat-raised-button (click)="onCreate()">
+          <mat-icon>add</mat-icon>New Game
+        </button>
+      </mat-toolbar>
+      <div class="cardList" fxLayout="row wrap" fxLayoutGap="16px grid"    >
+        <div fxLayoutAlign="none stretch" *ngFor="let game of gameService.gameArray; let i = index">
+          <mat-card class="my-card" >
+            <mat-card-header>
+              <mat-card-title>{{ game.name }}</mat-card-title>
+              <mat-card-subtitle>
+                <button mat-icon-button (click)="onEdit(game)"><mat-icon>launch</mat-icon></button>
+                <button mat-icon-button (click)="onDelete(game.$key)" color="warn"><mat-icon>delete_outlines</mat-icon></button>
+              </mat-card-subtitle>
+            </mat-card-header>
+            
+            <img class="game-img" mat-card-image src="{{ game.link }}"  (click)="gameClicked(i)" routerLink="/route_list" alt="{{ game.name }} image. Click to see routes." onError="this.src='assets/img/default.png'">
+            <mat-card-content>
+              <div class="stat-box">
+                <h2>Lines:</h2>
+                <span class="fill-remaining-space"></span>
+                <h2>{{ game.lines }}</h2>
+              </div>
+              <div class="stat-box">
+                <h2>Characters:</h2>
+                <span class="fill-remaining-space"></span>
+                <h2>{{ game.chars }}</h2>
+              </div>
+              <div class="stat-box">
+                <h2>Char/Hour:</h2>
+                <span class="fill-remaining-space"></span>
+                <h2>{{ Math.floor(game.chars/game.mins * 60)}}</h2>
+              </div>
+              <div class="stat-box">
+                <h2>Time:</h2>
+                <span class="fill-remaining-space"></span>
+                <h2>{{ Math.floor(game.mins / 60) + ":" + ('0' + (game.mins % 60).toString()).slice(-2) }}</h2>
+              </div>
+              <div class="stat-box">
+                <h2>Entries:</h2>
+                <span class="fill-remaining-space"></span>
+                <h2>{{ game.days }}</h2>
+              </div>
+            </mat-card-content>
+          </mat-card>
+        </div>
       </div>
     </div>
   </div>
+
+</mat-drawer-container>
+
+
+
+
+
+
+  
   

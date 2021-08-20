@@ -1,81 +1,114 @@
+<mat-drawer-container class="example-container" autosize>
+  <mat-drawer #drawer class="example-sidenav" mode="side" opened>
+    <mat-card class="my-card nav-card">
+      <mat-card-header >
+        <mat-card-title>{{ gameService.curGame.name }}</mat-card-title>
+        <!-- <mat-card-subtitle>
+          <button mat-button routerLink="/game_list">VN List</button>
+      </mat-card-subtitle> -->
+      </mat-card-header>
+      
+      <img class="nav-img" mat-card-image src="{{ gameService.curGame.link }}" alt="{{ gameService.curGame.name }}." onError="this.src='assets/img/default.png'">
+      <mat-card-content>
+        <div class="stat-box">
+          <h2>Lines:</h2>
+          <span class="fill-remaining-space"></span>
+          <h2>{{ gameService.curGame.lines }}</h2>
+        </div>
+        <div class="stat-box">
+          <h2>Characters:</h2>
+          <span class="fill-remaining-space"></span>
+          <h2>{{ gameService.curGame.chars }}</h2>
+        </div>
+        <div class="stat-box">
+          <h2>Char/Hour:</h2>
+          <span class="fill-remaining-space"></span>
+          <h2>{{ Math.floor(gameService.curGame.chars/gameService.curGame.mins * 60)}}</h2>
+        </div>
+        <div class="stat-box">
+          <h2>Time:</h2>
+          <span class="fill-remaining-space"></span>
+          <h2>{{ Math.floor(gameService.curGame.mins / 60) + ":" + ('0' + (gameService.curGame.mins % 60).toString()).slice(-2) }}</h2>
+        </div>
+        <div class="stat-box">
+          <h2>Entries:</h2>
+          <span class="fill-remaining-space"></span>
+          <h2>{{ gameService.curGame.days }}</h2>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </mat-drawer>
 
-<!-- <mat-grid-list cols="2" rowHeight="5:1">
-    <mat-grid-tile>
-      <h2 *ngIf="gameService.curGame.name">{{ gameService.curGame.name }} Routes</h2> 
-    </mat-grid-tile>
-    <mat-grid-tile>
-      <input type="button" value="New Route" class="button">
-    </mat-grid-tile>
-  </mat-grid-list> -->
-
-  <mat-toolbar class="second-mat-toolbar">
-    <mat-chip-list>
-      <mat-chip routerLink="/game_list">VN List</mat-chip>
-    </mat-chip-list>
-    <span class="fill-remaining-space"></span>
-    <span>{{ gameService.curGame.name }} Routes</span>
-    <span class="fill-remaining-space"></span>
-    <button mat-raised-button (click)="onCreate()">
-      <mat-icon>add</mat-icon>New Route
-    </button>
-  </mat-toolbar>
-
-  
-  
-<div class="content">
-    <div fxLayout="row wrap" fxLayoutGap="16px grid"    >
-      <div fxLayoutAlign="none stretch" *ngFor="let game of gameService.gameArray; let i = index">
-        
+  <div class="example-sidenav-content">
+    <div class="screenContent">
+      <mat-toolbar class="second-mat-toolbar">
+        <button mat-icon-button  (click)="drawer.toggle()">
+          <mat-icon>menu</mat-icon>
+        </button>
+        <button mat-button routerLink="/game_list"><mat-icon>laptop_windows</mat-icon>VN List</button>
+        <span class="fill-remaining-space"></span>
+        <span>{{ gameService.curGame.name }} Routes</span>
+        <span class="fill-remaining-space"></span>
+        <button mat-raised-button (click)="onCreate()">
+          <mat-icon>add</mat-icon>New Route
+        </button>
+      </mat-toolbar>
+      <div class="cardList" fxLayout="row wrap" fxLayoutGap="16px grid" >
+        <div fxLayoutAlign="none stretch"  *ngFor="let route of routeService.routeArray; let i = index">
+          <mat-card class="my-card"  >
+            <mat-card-header>
+              
+              
+              <mat-card-title>{{ route.name }}</mat-card-title> 
+              <mat-card-subtitle>
+                <button mat-icon-button (click)="onEdit(route)"><mat-icon>launch</mat-icon></button>
+                <button mat-icon-button (click)="onDelete(route.$key)" color="warn"><mat-icon>delete_outlines</mat-icon></button>
+              </mat-card-subtitle>
+            </mat-card-header>
+            <img class="route-img" mat-card-image src="{{ route.link }}" (click)="routeClicked(i)" routerLink="/entry_table" alt="{{ route.name }} image. Click to see entries." onError="this.src='assets/img/default.png'">
+            <mat-card-content>
+              <div class="stat-box">
+                <h2>Lines:</h2>
+                <span class="fill-remaining-space"></span>
+                <h2>{{ route.lines }}</h2>
+              </div>
+              <div class="stat-box">
+                <h2>Characters:</h2>
+                <span class="fill-remaining-space"></span>
+                <h2>{{ route.chars }}</h2>
+              </div>
+              <div class="stat-box">
+                <h2>Char/Hour:</h2>
+                <span class="fill-remaining-space"></span>
+                <h2>{{ Math.floor(route.chars/route.mins * 60) }}</h2>
+              </div>
+              <div class="stat-box">
+                <h2>Time:</h2>
+                <span class="fill-remaining-space"></span>
+                <h2>{{ Math.floor(route.mins / 60) + ":" + ('0' + (route.mins % 60).toString()).slice(-2) }}</h2>
+              </div>
+              <div class="stat-box">
+                <h2>Entries:</h2>
+                <span class="fill-remaining-space"></span>
+                <h2>{{ route.days }}</h2>
+              </div>
+            </mat-card-content>
+            
+          </mat-card>
+        </div>
       </div>
     </div>
   </div>
+</mat-drawer-container>
+
   
-  <div class="content">
-    <div fxLayout="row wrap" fxLayoutGap="16px grid" >
-      <div fxLayoutAlign="none stretch"  *ngFor="let route of routeService.routeArray; let i = index">
-        <mat-card class="my-card"  >
-          <mat-card-header>
-            
-            
-            <mat-card-title>{{ route.name }}</mat-card-title> 
-            <mat-card-subtitle>
-              <button mat-icon-button (click)="onEdit(route)"><mat-icon>launch</mat-icon></button>
-              <button mat-icon-button (click)="onDelete(route.$key)" color="warn"><mat-icon>delete_outlines</mat-icon></button>
-            </mat-card-subtitle>
-          </mat-card-header>
-          <img class="route-img" mat-card-image src="{{ route.link }}" (click)="routeClicked(i)" routerLink="/entry_table" alt="{{ route.name }} image failed to load. Click to see entries.">
-          <mat-card-content>
-            <div class="stat-box">
-              <h2>Lines:</h2>
-              <span class="fill-remaining-space"></span>
-              <h2>{{ route.lines }}</h2>
-            </div>
-            <div class="stat-box">
-              <h2>Characters:</h2>
-              <span class="fill-remaining-space"></span>
-              <h2>{{ route.chars }}</h2>
-            </div>
-            <div class="stat-box">
-              <h2>Char/Hour:</h2>
-              <span class="fill-remaining-space"></span>
-              <h2>{{ Math.floor(route.chars/route.mins * 60) }}</h2>
-            </div>
-            <div class="stat-box">
-              <h2>Time:</h2>
-              <span class="fill-remaining-space"></span>
-              <h2>{{ Math.floor(route.mins / 60) + ":" + ('0' + (route.mins % 60).toString()).slice(-2) }}</h2>
-            </div>
-            <div class="stat-box">
-              <h2>Entries:</h2>
-              <span class="fill-remaining-space"></span>
-              <h2>{{ route.days }}</h2>
-            </div>
-          </mat-card-content>
-          
-        </mat-card>
-      </div>
-    </div>
-  </div>
+
+  
+  
+
+
+
+
   
       
   

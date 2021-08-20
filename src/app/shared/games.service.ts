@@ -11,6 +11,7 @@ export class GamesService {
   gameList: AngularFireList<Game>;
   gameArray:any[] = [];
   public curGame: FBGame = new FBGame;
+  public allGames: FBGame = new FBGame;
 
   public totalGameEntries: Game = new Game();
 
@@ -54,6 +55,16 @@ export class GamesService {
             ...item.payload.val()
           };
         });
+
+        //update route stats
+        let emptyGame = new Game();
+        this.allGames = this.gameArray.reduce((acc, cur) => {
+          acc.chars += (cur.chars || 0);
+          acc.lines += (cur.lines || 0);
+          acc.mins += (cur.mins || 0);
+          acc.days += (cur.days || 0);
+          return acc;
+        }, emptyGame);
       });
   }
 

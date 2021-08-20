@@ -1,11 +1,70 @@
 
-<mat-toolbar class="second-mat-toolbar">
-    <span class="fill-remaining-space"></span>
-    <span>Download Backup of Entries</span>
-    <span class="fill-remaining-space" ></span>
 
-    <a button mat-raised-button class="btn btn-clear" title="Download JSON" [href]="downloadJsonHref" download="entries_{{myDate | date: 'shortDate'}}.json">
-      <mat-icon>file_download</mat-icon>
-      Download
-    </a>
-  </mat-toolbar>
+  
+<mat-drawer-container class="example-container" autosize>
+  <mat-drawer #drawer class="example-sidenav" mode="side" opened>
+    <mat-card class="my-card nav-card">
+      <mat-card-header >
+        <mat-card-title>All VN</mat-card-title>
+      </mat-card-header>
+      
+      <img class="nav-img" mat-card-image src="/assets/img/allGames.jpg" alt="Moon and fireflies.">
+      <mat-card-content>
+        <div class="stat-box">
+          <h2>Lines:</h2>
+          <span class="fill-remaining-space"></span>
+          <h2>{{ gameService.allGames.lines }}</h2>
+        </div>
+        <div class="stat-box">
+          <h2>Characters:</h2>
+          <span class="fill-remaining-space"></span>
+          <h2>{{ gameService.allGames.chars }}</h2>
+        </div>
+        <div class="stat-box">
+          <h2>Char/Hour:</h2>
+          <span class="fill-remaining-space"></span>
+          <h2>{{ Math.floor(gameService.allGames.chars/gameService.allGames.mins * 60)}}</h2>
+        </div>
+        <div class="stat-box">
+          <h2>Time:</h2>
+          <span class="fill-remaining-space"></span>
+          <h2>{{ Math.floor(gameService.allGames.mins / 60) + ":" + ('0' + (gameService.allGames.mins % 60).toString()).slice(-2) }}</h2>
+        </div>
+        <div class="stat-box">
+          <h2>Entries:</h2>
+          <span class="fill-remaining-space"></span>
+          <h2>{{ gameService.allGames.days }}</h2>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </mat-drawer>
+
+  <div class="example-sidenav-content">
+    <div class="screenContent">
+      
+      <mat-toolbar class="second-mat-toolbar">
+        <button mat-icon-button  (click)="drawer.toggle()">
+          <mat-icon>menu</mat-icon>
+        </button>
+        <span class="fill-remaining-space"></span>
+        <span>Download Backup of Entries</span>
+        <span class="fill-remaining-space" ></span>
+      
+        <a button mat-raised-button class="btn btn-clear" title="Download JSON" [href]="downloadJsonHref" download="entries_{{myDate | date: 'shortDate'}}.json">
+          <mat-icon>file_download</mat-icon>
+          Download
+        </a>
+      </mat-toolbar>
+    </div>
+  </div>
+
+</mat-drawer-container>
+
+
+
+
+
+
+  
+  
+

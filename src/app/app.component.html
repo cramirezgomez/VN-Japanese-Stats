@@ -1,14 +1,12 @@
 
 <header>
   <mat-toolbar color="primary" class="mat-elevation-z6">
-    <button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon">
-      <mat-icon>menu</mat-icon>
-    </button>
+    
     <span>JPN VN Tracker</span>
     <span class="fill-remaining-space" ></span>
     
     <a  mat-button href="#" routerLink="/">
-      <mat-icon>show_chart</mat-icon>
+      <mat-icon>home</mat-icon>
       Stats
     </a>
     <a mat-button href="#" routerLink="/game_list">
@@ -18,10 +16,10 @@
   </mat-toolbar>
   
 </header>
-<body>
-  <div class="screenContent">
-    <router-outlet></router-outlet>
-  </div>
-</body>
+
+
+<router-outlet></router-outlet>
+
+
 
 
