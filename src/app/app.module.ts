@@ -23,6 +23,8 @@ import { AddGameComponent } from './game-list/add-game/add-game.component';
 import { AddRouteComponent } from './route-list/add-route/add-route.component';
 import { DatePipe } from '@angular/common';
 import { ConfirmDialogComponent } from './shared/confirm-dialog/confirm-dialog.component';
+import { ItemCardListComponent } from './shared/item-card-list/item-card-list.component';
+import { ItemCardComponent } from './shared/item-card/item-card.component';
 
 
 
@@ -39,6 +41,8 @@ import { ConfirmDialogComponent } from './shared/confirm-dialog/confirm-dialog.c
     AddGameComponent,
     AddRouteComponent,
     ConfirmDialogComponent,
+    ItemCardListComponent,
+    ItemCardComponent,
     
   ],
   imports: [

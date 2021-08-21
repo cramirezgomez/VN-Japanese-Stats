@@ -2,9 +2,10 @@ import { Injectable } from '@angular/core';
 import { AngularFireDatabase, AngularFireList } from '@angular/fire/database';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import * as _ from 'lodash';
-import { FBGame, Game } from '../models/game.model';
-
+import { FBGame } from '../models/game.model';
 import { FBRoute, Route } from '../models/route.model';
+
+
 import { GamesService } from './games.service';
 
 @Injectable({

@@ -1,11 +1,7 @@
-export class Route {
-    chars: number = 0;
-    days: number = 0;
+import { Item } from "./item.model";
+
+export class Route extends Item {
     game: string = "";
-    lines: number = 0;
-    link: string = "";
-    mins: number = 0;
-    name: string = "";
 }
 export interface FireBaseItem{
     $key: string;
