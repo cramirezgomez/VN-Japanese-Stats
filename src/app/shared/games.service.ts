@@ -82,7 +82,6 @@ export class GamesService {
     this.gameList.remove($key);
   }
   populateForm(row: any){
-    console.log(row);
     this.gameForm.setValue(row);
   }
 

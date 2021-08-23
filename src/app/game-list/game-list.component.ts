@@ -38,7 +38,6 @@ export class GameListComponent implements OnInit {
     this.dialog.open(AddGameComponent, dialogConfig);
   }
   onDelete(game:FBGame){
-   console.log(game)
 
     this.dialogService.openConfirmDialog('Are you sure you want to delete ' + game.name + '?')
     .afterClosed().subscribe(res => {

@@ -33,8 +33,6 @@ export class HomeComponent implements OnInit {
 
           };
         });
-
-        console.log("Download")
         this.generateDownloadJsonUri();
       }
       
