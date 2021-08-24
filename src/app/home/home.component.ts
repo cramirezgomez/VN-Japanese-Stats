@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AngularFireDatabase, AngularFireList } from '@angular/fire/database';
 import { DomSanitizer } from '@angular/platform-browser';
 import { Entry, FBEntry } from '../models/entry.model';
+import { AuthServiceService } from '../shared/auth-service.service';
 import { EntriesService } from '../shared/entries.service';
 import { GamesService } from '../shared/games.service';
 
@@ -17,7 +18,8 @@ export class HomeComponent implements OnInit {
   downloadJsonHref: any;
   myDate: Date = new Date();
   Math: any;
-  constructor(public entryService: EntriesService, private sanitizer: DomSanitizer, public gameService: GamesService) {
+  constructor(public entryService: EntriesService, private sanitizer: DomSanitizer, public gameService: GamesService,
+    public auth: AuthServiceService) {
     this.Math = Math;
    }
 

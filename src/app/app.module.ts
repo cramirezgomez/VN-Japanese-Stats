@@ -13,6 +13,8 @@ import { GamesService } from './shared/games.service';
 import { AngularFireModule } from '@angular/fire';
 import { environment } from 'src/environments/environment';
 import { AngularFireDatabaseModule } from '@angular/fire/database';
+import { AngularFireAuthModule } from '@angular/fire/auth';
+import { AngularFirestoreModule } from '@angular/fire/firestore';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from './material/material.module';
@@ -23,6 +25,7 @@ import { AddGameComponent } from './game-list/add-game/add-game.component';
 import { AddRouteComponent } from './route-list/add-route/add-route.component';
 import { DatePipe } from '@angular/common';
 import { ConfirmDialogComponent } from './shared/confirm-dialog/confirm-dialog.component';
+
 
 
 
@@ -39,6 +42,7 @@ import { ConfirmDialogComponent } from './shared/confirm-dialog/confirm-dialog.c
     AddGameComponent,
     AddRouteComponent,
     ConfirmDialogComponent,
+
     
   ],
   imports: [
@@ -52,6 +56,8 @@ import { ConfirmDialogComponent } from './shared/confirm-dialog/confirm-dialog.c
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireDatabaseModule,
     FlexLayoutModule,
+    AngularFireAuthModule,
+    AngularFirestoreModule
     
    
     
