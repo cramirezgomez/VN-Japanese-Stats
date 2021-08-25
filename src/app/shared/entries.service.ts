@@ -49,6 +49,7 @@ export class EntriesService {
 
   //Read from entries
   getEntriesForRoute(){
+    this.entryList = this.firebase.list('entries', ref => ref.orderByChild('route').equalTo(this.gameService.curGame.name + '/' + this.routeService.curRoute.name));
     return this.entryList.snapshotChanges();
   }
   getAllEntries(){

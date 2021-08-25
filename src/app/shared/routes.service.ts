@@ -21,7 +21,7 @@ export class RoutesService {
 
   constructor(private firebase: AngularFireDatabase, 
     private gameService:GamesService) { 
-      this.routeList = this.firebase.list('routes');
+      this.routeList = this.firebase.list('routes', ref => ref.orderByChild('game').equalTo(this.gameService.curGame.name));
     }
 
   routeForm:FormGroup = new FormGroup({
@@ -53,6 +53,7 @@ export class RoutesService {
   }
 
   loadRoutes(){
+    this.routeList = this.firebase.list('routes', ref => ref.orderByChild('game').equalTo(this.gameService.curGame.name));
     this.routeList.snapshotChanges().subscribe(
       list => {
         // console.log("change on route")
@@ -62,14 +63,14 @@ export class RoutesService {
             ...item.payload.val()
           };
         });
-        this.routeArray = this.routeArray.filter(item => {
-          if(item.game == this.gameService.curGame.name){
-            return true;
-          }
-          else{ 
-            return false;
-          }
-        });
+        // this.routeArray = this.routeArray.filter(item => {
+        //   if(item.game == this.gameService.curGame.name){
+        //     return true;
+        //   }
+        //   else{ 
+        //     return false;
+        //   }
+        // });
 
         //update route stats
         let emptyGame = new FBGame();

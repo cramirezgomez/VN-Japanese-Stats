@@ -48,15 +48,15 @@ export class EntryTableComponent implements OnInit {
 
           };
         });
-        //filter route
-        entryArray = entryArray.filter(item => {
-          if(item.route == this.gameService.curGame.name + '/' + this.routeService.curRoute.name){
-            return true;
-          }
-          else{ 
-            return false;
-          }
-        })
+        // //filter route
+        // entryArray = entryArray.filter(item => {
+        //   if(item.route == this.gameService.curGame.name + '/' + this.routeService.curRoute.name){
+        //     return true;
+        //   }
+        //   else{ 
+        //     return false;
+        //   }
+        // })
         //
         this.listData = new MatTableDataSource(entryArray);
         this.listData.sort = this.sort;
