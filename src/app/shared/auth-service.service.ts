@@ -2,13 +2,14 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { AngularFireAuth } from '@angular/fire/auth';
-import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore';
+//import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore';
 import firebase from 'firebase/app'
 
 
 import { Observable, of} from 'rxjs';
 import { switchMap } from  'rxjs/operators'
 import { User } from '../models/user.model';
+import { AngularFireDatabase, AngularFireList } from '@angular/fire/database';
 
 @Injectable({
   providedIn: 'root'
@@ -16,11 +17,11 @@ import { User } from '../models/user.model';
 export class AuthServiceService {
   user$: Observable<any>;
 
-  constructor(private afAuth: AngularFireAuth, private afs: AngularFirestore, private router: Router) {
+  constructor(private afAuth: AngularFireAuth, private vndb: AngularFireDatabase, private router: Router) {
     this.user$ = this.afAuth.authState.pipe(
       switchMap(user =>{
         if (user){
-          return this.afs.doc<User>('users/${user.uid}').valueChanges();
+          return this.vndb.list<User>('users', ref => ref.orderByChild('uid').equalTo(user.uid)).valueChanges();
         }
         else{
           return of(null);
@@ -41,8 +42,12 @@ export class AuthServiceService {
     return this.router.navigate(['/']);
   }
 
+  
   updateUserData(user: any) {
-    const userRef: AngularFirestoreDocument<User> = this.afs.doc('users/${user.uid}');
+    // const userRef = this.vndb.list('users').query.orderByChild("userID").equalTo(user.userID).on;
+
+    const userRef = this.vndb.list('/users', ref => ref.orderByChild('uid').equalTo(user.userID))
+    
     const data = {
       uid: user.uid,
       email: user.email,
@@ -50,7 +55,7 @@ export class AuthServiceService {
       photoURL: user.photoURL
     };
 
-    return userRef.set(data, {merge: true});
+    return userRef.update(data.uid, data);
   }
 
   
