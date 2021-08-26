@@ -3,21 +3,32 @@ import { AngularFireDatabase, AngularFireList} from '@angular/fire/database';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { FBGame, Game } from '../models/game.model';
 import * as _ from 'lodash'
+import { AuthService } from './auth.service';
+import { AngularFireAuth } from '@angular/fire/auth';
 
 @Injectable({
   providedIn: 'root'
 })
 export class GamesService {
-  gameList: AngularFireList<Game>;
+  gameList!: AngularFireList<Game>;
   gameArray:any[] = [];
   public curGame: FBGame = new FBGame;
   public allGames: FBGame = new FBGame;
 
   // public totalGameEntries: Game = new Game();
 
-  constructor(private firebase: AngularFireDatabase) { 
-    this.gameList = this.firebase.list('games');
-    this.loadGames();
+  constructor(private firebase: AngularFireDatabase, private authSer: AuthService) { 
+    //this.gameList = this.firebase.list('data/' + authSer.userKey +'/games');
+    //this.loadGames();
+    authSer.afAuth.authState.subscribe(user => {
+      var userKey = "";
+      if (user) {
+        userKey = user.uid;
+        console.log("id:" + userKey);
+        this.gameList = this.firebase.list('data/' + userKey +'/games');
+        this.loadGames();
+      }
+    });
   }
 
   initializeGameFormGroup() {
@@ -47,6 +58,7 @@ export class GamesService {
   }
 
   loadGames(){
+    //this.setUserGames();
     this.gameList.snapshotChanges().subscribe(
       list => {
         this.gameArray = list.map(item => {
@@ -88,6 +100,12 @@ export class GamesService {
   updateGameManually(game:FBGame){
     this.gameList.update(game.$key, _.omit(game, ["$key"]))
   }
+
+  // setUserGames(){
+  //   this.gameList = this.firebase.list('data/' + this.authSer.userKey +'/games');
+  //   console.log("setting game firelist")
+  //   console.log(this.authSer.userKey);
+  // }
 
   
 

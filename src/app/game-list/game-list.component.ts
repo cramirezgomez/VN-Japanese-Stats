@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AngularFireAuth } from '@angular/fire/auth';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { FBGame } from '../models/game.model';
 import { DialogService } from '../shared/dialog.service';
@@ -18,11 +19,14 @@ export class GameListComponent implements OnInit {
 
   constructor(public gameService: GamesService, public routeService: RoutesService,
     private dialog: MatDialog, private notificationService:NotificationService, 
-    private dialogService: DialogService) { 
+    private dialogService: DialogService, public afAuth: AngularFireAuth ) { 
     this.Math = Math;
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    //this.gameService.setUserGames();
+
+  }
 
   gameClicked (pos:number){
     this.gameService.setGame(this.gameService.gameArray[pos]);

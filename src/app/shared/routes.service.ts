@@ -5,6 +5,7 @@ import * as _ from 'lodash';
 import { FBGame, Game } from '../models/game.model';
 
 import { FBRoute, Route } from '../models/route.model';
+import { AuthService } from './auth.service';
 import { GamesService } from './games.service';
 
 @Injectable({
@@ -13,15 +14,23 @@ import { GamesService } from './games.service';
 export class RoutesService {
   
   
-  routeList: AngularFireList<Route>;
+  routeList!: AngularFireList<Route>;
   routeArray:any[] = [];
   public curRoute: FBRoute = new FBRoute;
   
   
 
   constructor(private firebase: AngularFireDatabase, 
-    private gameService:GamesService) { 
-      this.routeList = this.firebase.list('routes');
+    private gameService:GamesService, private authSer: AuthService) { 
+      //this.routeList = this.firebase.list('routes');
+      authSer.afAuth.authState.subscribe(user => {
+        var userKey = "";
+        if (user) {
+          userKey = user.uid;
+          console.log("id:" + userKey);
+          this.routeList = this.firebase.list('data/' + userKey +'/routes');
+        }
+      });
     }
 
   routeForm:FormGroup = new FormGroup({

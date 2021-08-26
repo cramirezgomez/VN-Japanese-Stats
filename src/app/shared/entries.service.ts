@@ -4,6 +4,7 @@ import { AngularFireDatabase, AngularFireList } from '@angular/fire/database';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import * as _ from 'lodash';
 import { Entry, FBEntry } from '../models/entry.model';
+import { AuthService } from './auth.service';
 import { GamesService } from './games.service';
 import { RoutesService } from './routes.service';
 
@@ -11,13 +12,21 @@ import { RoutesService } from './routes.service';
   providedIn: 'root'
 })
 export class EntriesService {
-  entryList: AngularFireList<Entry>;
+  entryList!: AngularFireList<Entry>;
 
   
   
   constructor(private firebase: AngularFireDatabase, private myDatePipe: DatePipe, 
-    private gameService:GamesService, private routeService:RoutesService) { 
-    this.entryList = this.firebase.list('entries');
+    private gameService:GamesService, private routeService:RoutesService, private authSer: AuthService) { 
+    //this.entryList = this.firebase.list('entries');
+    authSer.afAuth.authState.subscribe(user => {
+      var userKey = "";
+      if (user) {
+        userKey = user.uid;
+        console.log("id:" + userKey);
+        this.entryList = this.firebase.list('data/' + userKey +'/entries');
+      }
+    });
   }
 
   //Form definition

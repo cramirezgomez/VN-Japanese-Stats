@@ -36,55 +36,60 @@ export class EntryTableComponent implements OnInit {
   searchKey:string = "";
 
   ngOnInit(): void {
-    this.entryService.getEntriesForRoute().subscribe(
-      list => {
-        //map to array
-        let entryArray = list.map(item => {
-          return {
-            $key: item.key,
-            pace: Number(item.payload.val()?.chars) / Number(item.payload.val()?.mins) * 60,
-            time: Math.floor(Number(item.payload.val()?.mins) / 60) + ":" + ('0' + (Number(item.payload.val()?.mins) % 60).toString()).slice(-2),
-            ...item.payload.val()
-
-          };
-        });
-        //filter route
-        entryArray = entryArray.filter(item => {
-          if(item.route == this.gameService.curGame.name + '/' + this.routeService.curRoute.name){
-            return true;
-          }
-          else{ 
-            return false;
-          }
-        })
-        //
-        this.listData = new MatTableDataSource(entryArray);
-        this.listData.sort = this.sort;
-        this.listData.paginator = this.paginator;
-        this.listData.filterPredicate = (data, filter) => {
-          //restict filter operation
-          return this.displayedColumns.some( ele => {
-            return ele != 'actions' && data[ele].toLowerCase().indexOf(filter) != -1;
+    try{
+      this.entryService.getEntriesForRoute().subscribe(
+        list => {
+          //map to array
+          let entryArray = list.map(item => {
+            return {
+              $key: item.key,
+              pace: Number(item.payload.val()?.chars) / Number(item.payload.val()?.mins) * 60,
+              time: Math.floor(Number(item.payload.val()?.mins) / 60) + ":" + ('0' + (Number(item.payload.val()?.mins) % 60).toString()).slice(-2),
+              ...item.payload.val()
+  
+            };
+          });
+          //filter route
+          entryArray = entryArray.filter(item => {
+            if(item.route == this.gameService.curGame.name + '/' + this.routeService.curRoute.name){
+              return true;
+            }
+            else{ 
+              return false;
+            }
           })
-        };
-
-        //update route stats
-        let emptyRoute = new FBRoute();
-        emptyRoute.game = this.routeService.curRoute.game;
-        emptyRoute.name = this.routeService.curRoute.name;
-        emptyRoute.link = this.routeService.curRoute.link;
-        emptyRoute.$key = this.routeService.curRoute.$key;
-        this.routeService.curRoute = entryArray.reduce((acc, cur) => {
-          acc.chars += (cur.chars || 0);
-          acc.lines += (cur.lines || 0);
-          acc.mins += (cur.mins || 0);
-          acc.days += 1;
-          return acc;
-        }, emptyRoute);
-
-        
-
-      });
+          //
+          this.listData = new MatTableDataSource(entryArray);
+          this.listData.sort = this.sort;
+          this.listData.paginator = this.paginator;
+          this.listData.filterPredicate = (data, filter) => {
+            //restict filter operation
+            return this.displayedColumns.some( ele => {
+              return ele != 'actions' && data[ele].toLowerCase().indexOf(filter) != -1;
+            })
+          };
+  
+          //update route stats
+          let emptyRoute = new FBRoute();
+          emptyRoute.game = this.routeService.curRoute.game;
+          emptyRoute.name = this.routeService.curRoute.name;
+          emptyRoute.link = this.routeService.curRoute.link;
+          emptyRoute.$key = this.routeService.curRoute.$key;
+          this.routeService.curRoute = entryArray.reduce((acc, cur) => {
+            acc.chars += (cur.chars || 0);
+            acc.lines += (cur.lines || 0);
+            acc.mins += (cur.mins || 0);
+            acc.days += 1;
+            return acc;
+          }, emptyRoute);
+  
+          
+  
+        });
+    }
+    catch(error){
+      console.log("route not picked");
+    }
   }
   onCreate(){
 
