@@ -170,24 +170,7 @@ body{
     align-items: stretch;
 }
 
-.my-card {
-   max-width: 256px;
-   width: 256px;
-}
 
-.route-img{
-    object-fit:contain;
-}
-.game-img{
-    height:407px;
-    width: 288px;
-    object-fit:cover;
-}
-.nav-img{
-    height:335px;
-    width: 237px;
-    object-fit:cover;
-}
 
 .mat-card-title{
     overflow: hidden;
@@ -276,6 +259,26 @@ border-radius: 0px;
     text-align: center;
     font-size: 20px;
 }
+
+
+//card and image width
+.my-card {
+    width: 256px;
+ }
+ 
+ .route-img{
+     object-fit:contain;
+ }
+ .game-img{
+     height:407px;
+     width: 288px;
+     object-fit:cover;
+ }
+ .nav-img{
+     height:335px;
+     width: 237px;
+     object-fit:cover;
+ }
 
 
 
