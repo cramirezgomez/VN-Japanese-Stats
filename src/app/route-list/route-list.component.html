@@ -65,7 +65,7 @@
                 <button mat-icon-button (click)="onDelete(route)" color="warn"><mat-icon>delete_outlines</mat-icon></button>
               </mat-card-subtitle>
             </mat-card-header>
-            <img class="route-img" mat-card-image src="{{ route.link }}" (click)="routeClicked(i)" routerLink="/entry_table" alt="{{ route.name }} image. Click to see entries." onError="this.src='assets/img/default.png'">
+            <a routerLink="/entry_table"><img class="route-img" mat-card-image src="{{ route.link }}" (click)="routeClicked(i)"  alt="{{ route.name }} image. Click to see entries." onError="this.src='assets/img/default.png'"></a>
             <mat-card-content>
               <div class="stat-box">
                 <h2>Lines:</h2>
