@@ -1,6 +1,6 @@
-import { FireBaseItem } from "./route.model";
+import { FireBaseItem, Item } from "./route.model";
 
-export class Game {
+export class Game extends Item{
     chars: number = 0;
     days: number = 0;
     lines: number = 0;

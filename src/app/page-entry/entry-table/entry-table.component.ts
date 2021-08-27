@@ -1,20 +1,17 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
-import { Entry } from '../../models/entry.model';
-import { FBRoute, Route } from '../../models/route.model';
-import { AuthService } from '../../services/auth.service';
+
+import { FBRoute } from '../../models/route.model';
 import { DialogService } from '../../services/dialog.service';
 import { EntriesService } from '../../services/entries.service';
 import { GamesService } from '../../services/games.service';
 import { NotificationService } from '../../services/notification.service';
 import { RoutesService } from '../../services/routes.service';
-import { AddEntryComponent } from '../add-entry/add-entry.component';
-
-
+import { AddEntryComponent } from '.././add-entry/add-entry.component';
 
 
 @Component({
@@ -23,15 +20,17 @@ import { AddEntryComponent } from '../add-entry/add-entry.component';
 })
 
 export class EntryTableComponent implements OnInit {
+  
   listData!: MatTableDataSource<any>;
   displayedColumns: string[] = ['date',  'lines', 'chars', 'mins', 'pace', 'actions'];
-  Math: any;
   
+  Math: any;
+    
   constructor(public gameService: GamesService, public routeService: RoutesService, public entryService:EntriesService,
     private dialog: MatDialog, private notificationService:NotificationService, private dialogService: DialogService, 
-    private authSer: AuthService, private router: Router) { 
-
-    this.Math = Math;
+    private router: Router) { 
+      this.Math = Math;
+    
   }
 
   @ViewChild(MatSort) sort!: MatSort;
@@ -40,8 +39,12 @@ export class EntryTableComponent implements OnInit {
 
   ngOnInit(): void {
     if(this.router.url == "/settings"){
+      
       this.subscribeToAllFL();
-      return
+             
+      return;
+      
+
     }
     if(this.routeService.curRoute.name == ""){
       console.log("Error: Route not set,going to VN List");
@@ -160,19 +163,7 @@ export class EntryTableComponent implements OnInit {
 
       });
   }
-  onCreate(){
-
-    this.entryService.initializeEntryFormGroup();
-    const dialogConfig = new MatDialogConfig();
-    dialogConfig.disableClose = true;
-    dialogConfig.autoFocus = true;
-    dialogConfig.width = "60%";
-    this.dialog.open(AddEntryComponent, dialogConfig);
-
-    // let temp: Entry[] = [];
-    // this.entryService.insertManual(temp);
-
-  }
+  
   onDelete($key:string){
     this.dialogService.openConfirmDialog('Are you sure you want to delete this entry?')
     .afterClosed().subscribe(res => {
@@ -190,5 +181,6 @@ export class EntryTableComponent implements OnInit {
     dialogConfig.width = "60%";
     this.dialog.open(AddEntryComponent, dialogConfig);
   }
+  
 
 }

@@ -1,4 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { EntriesService } from '../services/entries.service';
+import { GamesService } from '../services/games.service';
+import { RoutesService } from '../services/routes.service';
+import { AddEntryComponent } from './add-entry/add-entry.component';
+
+
 
 @Component({
   selector: 'app-page-entry',
@@ -6,10 +13,37 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./page-entry.component.scss']
 })
 export class PageEntryComponent implements OnInit {
+  //public gameService: GamesService
+  //
+  //private dialog: MatDialog
+  //private notificationService:NotificationService
+  //private dialogService: DialogService, 
+  //private router: Router
 
-  constructor() { }
+  constructor(public gameService: GamesService, public routeService: RoutesService, public entryService:EntriesService, 
+    private dialog: MatDialog,)
+  {
+    
+  }
 
   ngOnInit(): void {
+
   }
+
+  onCreate(){
+
+    this.entryService.initializeEntryFormGroup();
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = true;
+    dialogConfig.width = "60%";
+    this.dialog.open(AddEntryComponent, dialogConfig);
+
+    // let temp: Entry[] = [];
+    // this.entryService.insertManual(temp);
+
+  }
+
+  
 
 }

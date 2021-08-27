@@ -1,1 +1,29 @@
-<p>page-settings works!</p>
+<mat-drawer-container class="example-container" autosize>
+    <mat-drawer #drawer class="example-sidenav" mode="side" opened>
+      <app-sidenav [curItem]="this.gameService.allGames"></app-sidenav>
+    </mat-drawer>
+  
+    <div class="example-sidenav-content">
+      <div class="screenContent">
+        
+        <mat-toolbar class="second-mat-toolbar">
+          <button mat-icon-button  (click)="drawer.toggle()">
+            <mat-icon>menu</mat-icon>
+          </button>
+          <span class="fill-remaining-space"></span>
+          <span>Download Backup of Entries</span>
+          <span class="fill-remaining-space" ></span>
+        
+          <a button mat-raised-button class="btn btn-clear" title="Download JSON" [href]="downloadJsonHref" download="entries_{{myDate | date: 'shortDate'}}.json">
+            <mat-icon>file_download</mat-icon>
+            Download
+          </a>
+        </mat-toolbar>
+
+        <app-entry-table>
+        </app-entry-table>
+      </div>
+    </div>
+  
+  </mat-drawer-container>
+

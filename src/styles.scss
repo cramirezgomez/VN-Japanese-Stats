@@ -1,12 +1,8 @@
 /* You can add global styles to this file, and also import other style files */
 @import url('https://fonts.googleapis.com/css?family=Nunito:400,700&display=swap');
 @import "~@angular/material/prebuilt-themes/purple-green.css";
+@import "assets/styles/colors.scss";
 
-
-$top_bar: #26064A;
-$bot_bar: #000000;
-$card: #212121;
-$background: #666666;
 
 h1 {
     margin-top: 2em;
@@ -121,13 +117,6 @@ mat-footer-row  mat-footer-cell{
     background-color: $bot_bar;
 }
 
-.myTitle{
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    width: 100% !important;
-    
-}
 .fill {
     flex: 1;
   }
@@ -164,10 +153,6 @@ body{
 .mat-column-date, .mat-column-lines, .mat-column-chars, .mat-column-mins, .mat-column-pace{
     font-size: 20px;
     text-align:  right;
-}
-
-.cardLayout{
-    align-items: stretch;
 }
 
 
@@ -211,12 +196,7 @@ body{
   .mat-drawer{
       height: 100%;
   }
-  .nav-card {
-    //   margin: 79px 0px
-    height: 100%;
-    box-sizing: border-box;
-    background-color: $bot_bar;
-  }
+ 
 
 
   /* mat-confirm-dialog (customised dialog) */
@@ -274,16 +254,17 @@ border-radius: 0px;
      width: 288px;
      object-fit:cover;
  }
- .nav-img{
-     height:335px;
-     width: 237px;
-     object-fit:cover;
- }
 
+
+
+ 
  .card-icon {
     background-image: url('/assets/img/hotaru.ico');
     background-size: cover;
   }
+
+
+
 
 
 

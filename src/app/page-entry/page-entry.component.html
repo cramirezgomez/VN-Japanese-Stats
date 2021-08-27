@@ -1,1 +1,32 @@
-<p>page-entry works!</p>
+<mat-drawer-container class="example-container" autosize>
+    <mat-drawer #drawer class="example-sidenav" mode="side" opened>
+      <app-sidenav [curItem]="this.routeService.curRoute"></app-sidenav>
+    </mat-drawer>
+    
+    <div class="example-sidenav-content">
+  
+      <div class="screenContent">
+        
+        <mat-toolbar class="second-mat-toolbar">
+          <button mat-icon-button  (click)="drawer.toggle()">
+            <mat-icon>menu</mat-icon>
+          </button>
+          <button mat-button routerLink="/game_list"><mat-icon>laptop_windows</mat-icon>VN List</button>
+          <button mat-button  routerLink="/route_list"><mat-icon>favorite</mat-icon>{{gameService.curGame.name}}</button>
+          <span class="fill-remaining-space"></span>
+          <span>{{routeService.curRoute.name}} Entries</span>
+          <span class="fill-remaining-space"></span>
+          <button mat-raised-button (click)="onCreate()" *ngIf="routeService.curRoute.name != ''">
+            <mat-icon>add</mat-icon>Add Entry
+          </button>
+        </mat-toolbar>
+
+        <app-entry-table></app-entry-table>
+        
+      </div>
+    </div>
+  
+  </mat-drawer-container>
+  
+  
+  

@@ -12,7 +12,6 @@ import { GamesService } from './services/games.service';
 import { AngularFireModule } from '@angular/fire';
 import { environment } from 'src/environments/environment';
 import { AngularFireDatabaseModule } from '@angular/fire/database';
-import { AngularFireAuth } from '@angular/fire/auth'
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from './material/material.module';
@@ -32,7 +31,8 @@ import { PageRouteComponent } from './page-route/page-route.component';
 import { PageSettingsComponent } from './page-settings/page-settings.component';
 import { PageHomeComponent } from './page-home/page-home.component';
 import { InstructionsComponent } from './page-home/instructions/instructions.component';
-import { NavbarComponent } from './page-home/navbar/navbar.component';
+import { NavbarComponent } from './shared/navbar/navbar.component';
+import { SidenavComponent } from './shared/sidenav/sidenav.component';
 
 
 
@@ -58,6 +58,7 @@ import { NavbarComponent } from './page-home/navbar/navbar.component';
     PageHomeComponent,
     InstructionsComponent,
     NavbarComponent,
+    SidenavComponent,
     
   ],
   imports: [

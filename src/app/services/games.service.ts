@@ -61,6 +61,10 @@ export class GamesService {
 
         //update route stats
         let emptyGame = new Game();
+        if(this.authSer.userName){
+          emptyGame.name = this.authSer.userName;
+        }
+        emptyGame.link = "/assets/img/allGames.jpg"
         this.allGames = this.gameArray.reduce((acc, cur) => {
           acc.chars += (cur.chars || 0);
           acc.lines += (cur.lines || 0);
