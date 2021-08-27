@@ -1,5 +1,9 @@
 import { Component } from '@angular/core';
-import { AngularFireAuth } from '@angular/fire/auth';
+import { AngularFireAuth, AngularFireAuthModule } from '@angular/fire/auth';
+import { AuthService } from './services/auth.service';
+import { EntriesService } from './services/entries.service';
+import { GamesService } from './services/games.service';
+import { RoutesService } from './services/routes.service';
 
 @Component({
   selector: 'app-root',
@@ -8,9 +12,25 @@ import { AngularFireAuth } from '@angular/fire/auth';
 })
 export class AppComponent {
   title = 'vn-app';
-  constructor(public afAuth: AngularFireAuth){}
-  logOut(){
-    this.afAuth.signOut();
+
+  constructor(public authSer: AuthService, public afAuth: AngularFireAuth, private gameSer: GamesService,
+    private routeSer: RoutesService, private entrySer: EntriesService){
+    authSer.afAuth.authState.subscribe(user => {
+      var userKey = "";
+      if (user) {
+        userKey = user.uid;
+
+        //load firelists in all services
+        this.gameSer.loadGames(userKey);
+        this.routeSer.getAllRoutesFL(userKey);
+        this.entrySer.getAllEntriesFL(userKey)
+      }
+    });
   }
+
+  
+
+
+
 }
 

@@ -1,0 +1,33 @@
+<header>
+    <mat-toolbar color="primary" class="mat-elevation-z6">
+      
+      <span>JPN VN Tracker</span>
+      <span class="fill-remaining-space" ></span>
+      
+      <a  mat-button href="#" routerLink="/">
+        <mat-icon>home</mat-icon>
+        Home
+      </a>
+      <a mat-button href="#" routerLink="/game_list">
+        <mat-icon>laptop_windows</mat-icon>
+        VN List
+      </a>
+      <a mat-button href="#" routerLink="/settings">
+        <mat-icon>settings</mat-icon>
+        Settings
+      </a>
+      <a mat-button href="#" *ngIf="(afAuth.user | async)" (click)="logOut()">
+        <mat-icon>logout</mat-icon>
+        Log Out
+      </a>
+      <a mat-button href="#" *ngIf="!(afAuth.user | async)" routerLink="/login">
+        <mat-icon>login</mat-icon>
+        Log In
+      </a>
+      <a mat-button href="#" *ngIf="!(afAuth.user | async)" routerLink="/signup">
+        <mat-icon>person_add</mat-icon>
+        Sign Up
+      </a>
+    </mat-toolbar>
+    
+  </header>

@@ -3,12 +3,11 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { HomeComponent } from './home/home.component';
-import { GameListComponent } from './game-list/game-list.component';
-import { RouteListComponent } from './route-list/route-list.component';
-import { EntryTableComponent } from './entry-table/entry-table.component';
-import { AddEntryComponent } from './entry-table/add-entry/add-entry.component';
-import { GamesService } from './shared/games.service';
+import { GameListComponent } from './page-game/game-list/game-list.component';
+import { RouteListComponent } from './page-route/route-list/route-list.component';
+import { EntryTableComponent } from './page-entry/entry-table/entry-table.component';
+import { AddEntryComponent } from './page-entry/add-entry/add-entry.component';
+import { GamesService } from './services/games.service';
 
 import { AngularFireModule } from '@angular/fire';
 import { environment } from 'src/environments/environment';
@@ -20,13 +19,20 @@ import { MaterialModule } from './material/material.module';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatNativeDateModule } from '@angular/material/core';
 import { ReactiveFormsModule } from '@angular/forms';
-import { AddGameComponent } from './game-list/add-game/add-game.component';
-import { AddRouteComponent } from './route-list/add-route/add-route.component';
+import { AddGameComponent } from './page-game/add-game/add-game.component';
+import { AddRouteComponent } from './page-route/add-route/add-route.component';
 import { DatePipe } from '@angular/common';
-import { ConfirmDialogComponent } from './shared/confirm-dialog/confirm-dialog.component';
-import { SettingsComponent } from './settings/settings.component';
-import { LoginComponent } from './users/login/login.component';
-import { SignupComponent } from './users/signup/signup.component';
+import { ConfirmDialogComponent } from './page-home/confirm-dialog/confirm-dialog.component';
+import { SettingsComponent } from './page-settings/settings/settings.component';
+import { LoginComponent } from './page-home/login/login.component';
+import { SignupComponent } from './page-home/signup/signup.component';
+import { PageEntryComponent } from './page-entry/page-entry.component';
+import { PageGameComponent } from './page-game/page-game.component';
+import { PageRouteComponent } from './page-route/page-route.component';
+import { PageSettingsComponent } from './page-settings/page-settings.component';
+import { PageHomeComponent } from './page-home/page-home.component';
+import { InstructionsComponent } from './page-home/instructions/instructions.component';
+import { NavbarComponent } from './page-home/navbar/navbar.component';
 
 
 
@@ -35,7 +41,6 @@ import { SignupComponent } from './users/signup/signup.component';
 @NgModule({
   declarations: [
     AppComponent,
-    HomeComponent,
     GameListComponent,
     RouteListComponent,
     EntryTableComponent,
@@ -46,6 +51,13 @@ import { SignupComponent } from './users/signup/signup.component';
     SettingsComponent,
     LoginComponent,
     SignupComponent,
+    PageEntryComponent,
+    PageGameComponent,
+    PageRouteComponent,
+    PageSettingsComponent,
+    PageHomeComponent,
+    InstructionsComponent,
+    NavbarComponent,
     
   ],
   imports: [
