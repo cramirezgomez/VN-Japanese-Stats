@@ -81,8 +81,8 @@ export class EntriesService {
 
     //format date and add route for push
     entry.date = String(entry.date == "" ? "" : this.myDatePipe.transform(entry.date, 'yyyy-MM-dd'));
-    entry.route =  this.gameService.curGame.name + '/' + this.routeService.curRoute.name;
-    this.entryList.update(entry.$key, _.omit(entry, ["$key"])).then(res => this.routeService.updateRoute().then( res => this.gameService.updateGame()));
+    //entry.route =  this.gameService.curGame.name + '/' + this.routeService.curRoute.name;
+    this.entryList.update(entry.$key, _.omit(entry, ["$key", "route"])).then(res => this.routeService.updateRoute().then( res => this.gameService.updateGame()));
 
     //update route info
     
@@ -113,7 +113,7 @@ export class EntriesService {
      
   }
 
-  getAllEntriesFL(userKey: string){
+  async getAllEntriesFL(userKey: string){
     this.entryList = this.firebase.list('data/' + userKey +'/entries');
   }
 }

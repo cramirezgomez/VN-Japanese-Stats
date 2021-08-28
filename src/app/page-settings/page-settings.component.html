@@ -14,13 +14,13 @@
           <span>Download Backup of Entries</span>
           <span class="fill-remaining-space" ></span>
         
-          <a button mat-raised-button class="btn btn-clear" title="Download JSON" [href]="downloadJsonHref" download="entries_{{myDate | date: 'shortDate'}}.json">
+          <a button mat-raised-button class="btn btn-clear" title="Download JSON" [href]="dlSer.downloadJsonHref" download="entries_{{dlSer.myDate | date: 'shortDate'}}.json">
             <mat-icon>file_download</mat-icon>
             Download
           </a>
         </mat-toolbar>
 
-        <app-entry-table>
+        <app-entry-table [displayedColumns]="['date',  'lines', 'chars', 'mins', 'pace']">
         </app-entry-table>
       </div>
     </div>

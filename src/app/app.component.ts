@@ -14,7 +14,7 @@ export class AppComponent {
   title = 'vn-app';
 
   constructor(public authSer: AuthService, public afAuth: AngularFireAuth, private gameSer: GamesService,
-    private routeSer: RoutesService, private entrySer: EntriesService){
+    private routeSer: RoutesService){
     authSer.afAuth.authState.subscribe(user => {
       var userKey = "";
       if (user) {
@@ -23,7 +23,7 @@ export class AppComponent {
         //load firelists in all services
         this.gameSer.loadGames(userKey);
         this.routeSer.getAllRoutesFL(userKey);
-        this.entrySer.getAllEntriesFL(userKey)
+       // this.entrySer.getAllEntriesFL(userKey)
       }
     });
   }

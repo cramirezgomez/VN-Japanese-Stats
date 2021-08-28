@@ -1,9 +1,12 @@
-import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, Input, OnInit, ViewChild } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
+import * as _ from 'lodash';
+import { AuthService } from 'src/app/services/auth.service';
+import { DownloadService } from 'src/app/services/download.service';
 
 import { FBRoute } from '../../models/route.model';
 import { DialogService } from '../../services/dialog.service';
@@ -22,14 +25,16 @@ import { AddEntryComponent } from '.././add-entry/add-entry.component';
 export class EntryTableComponent implements OnInit {
   
   listData!: MatTableDataSource<any>;
-  displayedColumns: string[] = ['date',  'lines', 'chars', 'mins', 'pace', 'actions'];
+
+  @Input() displayedColumns: string[] = ['date',  'lines', 'chars', 'mins', 'pace', 'actions'];
   
   Math: any;
     
   constructor(public gameService: GamesService, public routeService: RoutesService, public entryService:EntriesService,
     private dialog: MatDialog, private notificationService:NotificationService, private dialogService: DialogService, 
-    private router: Router) { 
+    public router: Router, public authSer: AuthService, private dlSer: DownloadService) { 
       this.Math = Math;
+      
     
   }
 
@@ -38,26 +43,29 @@ export class EntryTableComponent implements OnInit {
   searchKey:string = "";
 
   ngOnInit(): void {
-    if(this.router.url == "/settings"){
-      
-      this.subscribeToAllFL();
-             
-      return;
-      
+    this.authSer.afAuth.authState.subscribe(user => {
+      var userKey = "";
+      if (user) {
+        userKey = user.uid;
+        this.entryService.getAllEntriesFL(userKey)
+        
+        if(this.router.url == "/settings"){
+          this.subscribeToAllFL();
+        }
+        else{
+          if(this.routeService.curRoute.name == ""){
+            console.log("Error: Route not set,going to VN List");
+            this.router.navigate(['/game_list']); 
+            return;
+          }
+          this.subscribeToFilteredFL();
+        }
+      }
+    });
 
-    }
-    if(this.routeService.curRoute.name == ""){
-      console.log("Error: Route not set,going to VN List");
-      this.router.navigate(['/game_list']); 
-      return;
-    }
-    try{
-      this.subscribeToFilteredFL();
-    }
-    catch(err){
-      console.log("Error: Fire List not set, going to VN List");
-      this.router.navigate(['/game_list']); 
-    }
+
+    
+    
     
       
   }
@@ -116,6 +124,8 @@ export class EntryTableComponent implements OnInit {
   subscribeToAllFL(){
     this.entryService.getEntriesForRoute().subscribe(
       list => {
+        
+        var initialValue = {}
         let entryArray = list.map(item => {
           return {
             $key: item.key,
@@ -125,16 +135,20 @@ export class EntryTableComponent implements OnInit {
 
           };
         });
-        // //filter route
-        // entryArray = entryArray.filter(item => {
-        //   if(item.route == this.gameService.curGame.name + '/' + this.routeService.curRoute.name){
-        //     return true;
-        //   }
-        //   else{ 
-        //     return false;
-        //   }
-        // })
-        //
+
+        let urlArray = list.reduce(function(previousValue, currentValue) {
+          let curObj = {
+            [currentValue.key!]:{
+              ...currentValue.payload.val()
+            }
+          }
+          return _.merge(previousValue, curObj)
+        }, initialValue)
+      
+        
+
+        this.dlSer.generateDownloadJsonUri(urlArray);
+
         this.listData = new MatTableDataSource(entryArray);
         this.listData.sort = this.sort;
         this.listData.paginator = this.paginator;
@@ -174,6 +188,7 @@ export class EntryTableComponent implements OnInit {
     });
   }
   onEdit(row:any){
+    console.log(row);
     this.entryService.populateForm(row);
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = true;
