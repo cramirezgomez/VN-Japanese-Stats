@@ -188,7 +188,6 @@ export class EntryTableComponent implements OnInit {
     });
   }
   onEdit(row:any){
-    console.log(row);
     this.entryService.populateForm(row);
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = true;

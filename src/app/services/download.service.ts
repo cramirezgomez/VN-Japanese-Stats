@@ -30,7 +30,6 @@ export class DownloadService {
     //   return obj;
       
     // })
-    console.log(arr);
 
     
 

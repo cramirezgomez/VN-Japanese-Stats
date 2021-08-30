@@ -50,7 +50,6 @@ export class LoginComponent implements OnInit {
 async googleSignIn(){
   const provider = new firebase.auth.GoogleAuthProvider();
   this.afAuth.signInWithPopup(provider).then((result) => {
-    console.log('logging in...');
     this.router.navigate(['/game_list']);                // when the user is logged in, navigate them to dashboard
   })
     .catch(err => {

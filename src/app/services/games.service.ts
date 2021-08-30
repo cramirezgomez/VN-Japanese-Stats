@@ -48,7 +48,7 @@ export class GamesService {
   loadGames(userKey: string){
     this.gameList = this.firebase.list('data/' + userKey +'/games');
 
-    console.log("loading" + 'data/' + userKey +'/games')
+    //onsole.log("loading" + 'data/' + userKey +'/games')
     //this.setUserGames();
     this.gameList.snapshotChanges().subscribe(
       list => {

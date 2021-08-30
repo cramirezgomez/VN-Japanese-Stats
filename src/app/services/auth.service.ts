@@ -17,8 +17,6 @@ export class AuthService {
     this.afAuth.onAuthStateChanged((user) => {
       if(user){
         this.userLoggedIn = true;
-        console.log(user);
-        console.log("name: " + user.displayName);
         this.userName = user.displayName;
       }
       else{
