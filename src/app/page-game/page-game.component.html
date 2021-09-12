@@ -6,11 +6,18 @@
   
     <div class="example-sidenav-content">
       <div class="screenContent">
-        <mat-toolbar class="second-mat-toolbar" >
+        <mat-toolbar class="second-mat-toolbar" *ngIf="!screen.mobile">
           <button mat-icon-button  (click)="drawer.toggle()">
             <mat-icon>menu</mat-icon>
           </button>
           <span class="fill-remaining-space"></span>
+          <span>Visual Novels</span>
+          <span class="fill-remaining-space"></span>
+          <button mat-raised-button (click)="onCreate()">
+            <mat-icon>add</mat-icon>New Game
+          </button>
+        </mat-toolbar>
+        <mat-toolbar class="second-mat-toolbar" *ngIf="screen.mobile">
           <span>Visual Novels</span>
           <span class="fill-remaining-space"></span>
           <button mat-raised-button (click)="onCreate()">

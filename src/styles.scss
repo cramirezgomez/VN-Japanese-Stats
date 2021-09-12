@@ -139,9 +139,8 @@ body{
     background: $card;
 }
 
-.mat-table {
-    background: $card;
-}
+
+
 .mat-paginator {
     background: $card;
 }
@@ -150,9 +149,45 @@ body{
     // margin-right: ;
 }
 
-.mat-header, .mat-cell{
-    font-size: 20px;
-    text-align:  right;
+.desk-table {
+    background: $card;
+    // overflow-x: scroll;
+}
+.desk-cell,
+.desk-header-cell {
+//   word-wrap: initial;
+//   display: table-cell;
+//   padding: 0px 10px;
+//   line-break: unset;
+  
+//   white-space: nowrap;
+//   overflow: hidden;
+//   vertical-align: middle;
+
+  font-size: 20px;
+  text-align:  right;
+}
+.mobile-table {
+    background: $card;
+    overflow-x: scroll;
+}
+.mobile-cell,
+.mobile-header-cell {
+  word-wrap: initial;
+  display: table-cell;
+  padding: 0px 10px;
+  line-break: unset;
+  
+  white-space: nowrap;
+  overflow: hidden;
+  vertical-align: middle;
+
+  font-size: 20px;
+  text-align:  right;
+}
+.mobile-row,
+.mobile-header-row {
+  display: table-row;
 }
 
 

@@ -6,6 +6,7 @@ import { DialogService } from '../services/dialog.service';
 import { GamesService } from '../services/games.service';
 import { NotificationService } from '../services/notification.service';
 import { RoutesService } from '../services/routes.service';
+import { ScreenService } from '../services/screen.service';
 import { AddRouteComponent } from './add-route/add-route.component';
 
 @Component({
@@ -19,7 +20,7 @@ export class PageRouteComponent implements OnInit {
 
   constructor(public routeService: RoutesService, public gameService: GamesService,
     private dialog: MatDialog, private notificationService:NotificationService, private dialogService: DialogService,
-    private router: Router, ) { 
+    private router: Router, public screen: ScreenService) { 
     this.Math = Math;
   }
 

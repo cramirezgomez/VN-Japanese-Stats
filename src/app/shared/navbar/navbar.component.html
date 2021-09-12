@@ -1,5 +1,5 @@
 <header>
-    <mat-toolbar color="primary" class="mat-elevation-z6">
+    <mat-toolbar *ngIf="!screen.mobile" color="primary" class="mat-elevation-z6">
       
       <span>JPN VN Tracker</span>
       <span class="fill-remaining-space" ></span>
@@ -28,6 +28,41 @@
         <mat-icon>person_add</mat-icon>
         Sign Up
       </a>
+    </mat-toolbar>
+
+    <mat-toolbar *ngIf="screen.mobile" color="primary" class="mat-elevation-z6">
+      
+      <span>JPN VN Tracker</span>
+      <span class="fill-remaining-space" ></span>
+      <button mat-button [matMenuTriggerFor]="menu">
+        <mat-icon>more_vert</mat-icon>
+      </button>
+      <mat-menu #menu="matMenu">
+        <button mat-menu-item href="#" routerLink="/">
+          <mat-icon>home</mat-icon>
+          Home
+        </button>
+        <button mat-menu-item href="#" routerLink="/game_list">
+          <mat-icon>laptop_windows</mat-icon>
+          VN List
+        </button>
+        <button mat-menu-item  href="#" routerLink="/settings">
+          <mat-icon>settings</mat-icon>
+          Settings
+        </button>
+        <button mat-menu-item href="#" *ngIf="(afAuth.user | async)" (click)="logOut()">
+          <mat-icon>logout</mat-icon>
+          Log Out
+        </button>
+        <button mat-menu-item href="#" *ngIf="!(afAuth.user | async)" routerLink="/login">
+          <mat-icon>login</mat-icon>
+          Log In
+        </button>
+        <button mat-menu-item  href="#" *ngIf="!(afAuth.user | async)" routerLink="/signup">
+          <mat-icon>person_add</mat-icon>
+          Sign Up
+        </button>
+      </mat-menu>
     </mat-toolbar>
     
   </header>

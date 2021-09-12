@@ -7,6 +7,7 @@ import { Router } from '@angular/router';
 import * as _ from 'lodash';
 import { AuthService } from 'src/app/services/auth.service';
 import { DownloadService } from 'src/app/services/download.service';
+import { ScreenService } from 'src/app/services/screen.service';
 
 import { FBRoute } from '../../models/route.model';
 import { DialogService } from '../../services/dialog.service';
@@ -32,7 +33,7 @@ export class EntryTableComponent implements OnInit {
     
   constructor(public gameService: GamesService, public routeService: RoutesService, public entryService:EntriesService,
     private dialog: MatDialog, private notificationService:NotificationService, private dialogService: DialogService, 
-    public router: Router, public authSer: AuthService, private dlSer: DownloadService) { 
+    public router: Router, public authSer: AuthService, private dlSer: DownloadService, public screen: ScreenService) { 
       this.Math = Math;
       
     

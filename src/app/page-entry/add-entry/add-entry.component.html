@@ -4,7 +4,7 @@
     <button class="btn-dialog-close" mat-stroked-button (click)="onClose()" tabindex="-1"><mat-icon>clear</mat-icon></button>
 </mat-toolbar>
 <form [formGroup]="entryService.entryForm" class="normal-form" (submit)="onSubmit()">
-    <mat-grid-list cols="2" rowHeight="300px">
+    <mat-grid-list cols="2" rowHeight="300px" >
         <mat-grid-tile>
             <div class="contols-container">
                 <input type="hidden" formControlName="$key">

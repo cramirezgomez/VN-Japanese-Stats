@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Item } from 'src/app/models/route.model';
+import { ScreenService } from 'src/app/services/screen.service';
 
 @Component({
   selector: 'app-sidenav',
@@ -11,7 +12,7 @@ export class SidenavComponent implements OnInit {
   curItem!: Item;
   
   Math: any;
-  constructor() { 
+  constructor(public screen: ScreenService) { 
     this.Math = Math;
   }
 

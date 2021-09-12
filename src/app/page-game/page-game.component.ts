@@ -7,6 +7,7 @@ import { DialogService } from '../services/dialog.service';
 import { GamesService } from '../services/games.service';
 import { NotificationService } from '../services/notification.service';
 import { RoutesService } from '../services/routes.service';
+import { ScreenService } from '../services/screen.service';
 import { AddGameComponent } from './add-game/add-game.component';
 
 @Component({
@@ -20,7 +21,7 @@ export class PageGameComponent implements OnInit {
 
   constructor(public gameService: GamesService, public routeService: RoutesService,
     private dialog: MatDialog, private notificationService:NotificationService, 
-    private dialogService: DialogService, public afAuth: AngularFireAuth, public authSer: AuthService ) { 
+    private dialogService: DialogService, public afAuth: AngularFireAuth, public authSer: AuthService, public screen: ScreenService ) { 
     this.Math = Math;
   }
 
