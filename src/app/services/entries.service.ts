@@ -51,7 +51,7 @@ export class EntriesService {
   }
 
   populateForm(row: any) {
-    row = _.omit(row, ["pace", "time", "route"])
+    row = _.omit(row, ["pace", "time", "route", "game", "heroine"])
     row.date = new Date(row.date + " 00:00");
     this.entryForm.setValue(row);
   }

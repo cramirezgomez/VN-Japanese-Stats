@@ -95,6 +95,7 @@ export class EntryTableComponent implements OnInit {
         this.listData = new MatTableDataSource(entryArray);
         this.listData.sort = this.sort;
         this.listData.paginator = this.paginator;
+        
         this.listData.filterPredicate = (data, filter) => {
           //restict filter operation
           return this.displayedColumns.some( ele => {
@@ -127,14 +128,24 @@ export class EntryTableComponent implements OnInit {
         
         var initialValue = {}
         let entryArray = list.map(item => {
+          
+         
+          var myArr = item.payload.val()!.route.split("/");
+          
+          
+
           return {
             $key: item.key,
             pace: Number(item.payload.val()?.chars) / Number(item.payload.val()?.mins) * 60,
+            game: myArr? myArr[0] : "Unknown",
+            heroine: myArr? myArr[1] : "Unknown",
             time: Math.floor(Number(item.payload.val()?.mins) / 60) + ":" + ('0' + (Number(item.payload.val()?.mins) % 60).toString()).slice(-2),
             ...item.payload.val()
 
           };
         });
+
+        //console.log(entryArray)
 
         let urlArray = list.reduce(function(previousValue, currentValue) {
           let curObj = {
@@ -155,7 +166,7 @@ export class EntryTableComponent implements OnInit {
         this.listData.filterPredicate = (data, filter) => {
           //restict filter operation
           return this.displayedColumns.some( ele => {
-            return ele != 'actions' && data[ele].toLowerCase().indexOf(filter) != -1;
+            return data[ele].toLowerCase().indexOf(filter) != -1;
           })
         };
 

@@ -5,9 +5,19 @@
       <mat-header-cell *matHeaderCellDef mat-sort-header> Date </mat-header-cell>
       <mat-cell *matCellDef="let entry"> {{entry.date}} </mat-cell>
     </ng-container>
+
+    <ng-container matColumnDef="game">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Game </mat-header-cell>
+      <mat-cell *matCellDef="let entry"> {{entry.game}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="heroine">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Route </mat-header-cell>
+      <mat-cell *matCellDef="let entry"> {{entry.heroine}} </mat-cell>
+    </ng-container>
     
     <ng-container matColumnDef="chars">
-      <mat-header-cell *matHeaderCellDef mat-sort-header> Characters </mat-header-cell>
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Chars </mat-header-cell>
       <mat-cell *matCellDef="let entry"> {{entry.chars | number}} </mat-cell>
     </ng-container>
    
