@@ -1,7 +1,11 @@
 {
   "rules": {
-    ".read": true,
-    ".write": true,
+    "data": {
+      "$uid": {
+        ".read": "$uid === auth.uid",
+        ".write": "$uid === auth.uid"
+      }
+    },
     "routes": {
       ".indexOn": [
         "game"
@@ -14,3 +18,4 @@
     }
   }
 }
+
