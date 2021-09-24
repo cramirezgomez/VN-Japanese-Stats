@@ -15,9 +15,11 @@ import { PageSettingsComponent } from './page-settings/page-settings.component';
 const routes: Routes = [
   {path: '', component:PageHomeComponent},
   {path: 'home', component:PageHomeComponent},
-  {path: 'game_list', component:PageGameComponent, canActivate:[AuthGuard]},
-  {path: 'route_list', component:PageRouteComponent, canActivate:[AuthGuard]},
-  {path: 'entries', component:PageEntryComponent, canActivate:[AuthGuard]},
+  {path: 'vn_list', component:PageGameComponent, canActivate:[AuthGuard]},
+  {path: 'vn_list/:gameName', component:PageRouteComponent, canActivate:[AuthGuard]},
+  {path: 'vn_list/:gameName/:routeName', component:PageEntryComponent, canActivate:[AuthGuard]},
+  // {path: 'route_list', component:PageRouteComponent, canActivate:[AuthGuard]},
+  // {path: 'entries', component:PageEntryComponent, canActivate:[AuthGuard]},
   {path: 'settings', component:PageSettingsComponent, canActivate:[AuthGuard]},
   {path: 'login', component:LoginComponent},
   {path: 'signup', component:SignupComponent}

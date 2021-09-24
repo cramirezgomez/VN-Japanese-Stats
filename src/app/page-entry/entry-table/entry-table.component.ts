@@ -56,7 +56,7 @@ export class EntryTableComponent implements OnInit {
         else{
           if(this.routeService.curRoute.name == ""){
             console.log("Error: Route not set,going to VN List");
-            this.router.navigate(['/game_list']); 
+            this.router.navigate(['/vn_list']); 
             return;
           }
           this.subscribeToFilteredFL();

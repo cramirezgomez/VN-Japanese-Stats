@@ -38,7 +38,7 @@ export class LoginComponent implements OnInit {
     this.authService.loginUser(this.loginForm.value.email, this.loginForm.value.password).then((result) => {
         if (result == null) {                               // null is success, false means there was an error
             console.log('logging in...');
-            this.router.navigate(['/game_list']);                // when the user is logged in, navigate them to dashboard
+            this.router.navigate(['/vn_list']);                // when the user is logged in, navigate them to dashboard
         }
         else if (result.isValid == false) {
             console.log('login error', result);
@@ -50,7 +50,7 @@ export class LoginComponent implements OnInit {
 async googleSignIn(){
   const provider = new firebase.auth.GoogleAuthProvider();
   this.afAuth.signInWithPopup(provider).then((result) => {
-    this.router.navigate(['/game_list']);                // when the user is logged in, navigate them to dashboard
+    this.router.navigate(['/vn_list']);                // when the user is logged in, navigate them to dashboard
   })
     .catch(err => {
       console.log("error: " + err);

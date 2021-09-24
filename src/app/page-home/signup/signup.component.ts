@@ -33,7 +33,7 @@ export class SignupComponent implements OnInit {
     }
     this.authService.signupUser(this.signupForm?.value).then((result: { isValid: boolean; message: string; } | null) => {
       if (result == null){                                 // null is success, false means there was an error
-          this.router.navigate(['/game_list']);
+          this.router.navigate(['/vn_list']);
       }
       else if (result.isValid == false)
           this.firebaseErrorMsg = result.message;

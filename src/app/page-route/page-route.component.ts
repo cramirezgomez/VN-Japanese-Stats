@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { FBRoute } from '../models/route.model';
 import { DialogService } from '../services/dialog.service';
 import { GamesService } from '../services/games.service';
@@ -20,14 +20,16 @@ export class PageRouteComponent implements OnInit {
 
   constructor(public routeService: RoutesService, public gameService: GamesService,
     private dialog: MatDialog, private notificationService:NotificationService, private dialogService: DialogService,
-    private router: Router, public screen: ScreenService) { 
+    private router: Router, public screen: ScreenService, private actRoute: ActivatedRoute) { 
     this.Math = Math;
+    let gameInput = this.actRoute.snapshot.params['gameName'];
+    console.log("We got: " + gameInput)
   }
 
   ngOnInit(): void {
     if(this.gameService.curGame.name == ""){
       console.log("Error: Route not set,going to VN List");
-      this.router.navigate(['/game_list']); 
+      this.router.navigate(['/vn_list']); 
     }
   }
 

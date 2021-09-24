@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { ActivatedRoute } from '@angular/router';
 import { EntriesService } from '../services/entries.service';
 import { GamesService } from '../services/games.service';
 import { RoutesService } from '../services/routes.service';
@@ -22,8 +23,11 @@ export class PageEntryComponent implements OnInit {
   //private router: Router
 
   constructor(public gameService: GamesService, public routeService: RoutesService, public entryService:EntriesService, 
-    private dialog: MatDialog,  public screen: ScreenService)
+    private dialog: MatDialog,  public screen: ScreenService, private actRoute: ActivatedRoute)
   {
+    let gameInput = this.actRoute.snapshot.params['gameName'];
+    let routeInput = this.actRoute.snapshot.params['routeName']
+    console.log("We got: " + gameInput + " and " + routeInput);
     
   }
 
