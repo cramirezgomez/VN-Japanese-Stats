@@ -296,6 +296,14 @@ border-radius: 0px;
     background-size: cover;
   }
 
+  .truncate {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    max-width: 35vw;
+   
+  }
+
 
 
 

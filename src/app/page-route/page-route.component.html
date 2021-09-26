@@ -9,16 +9,16 @@
           <button mat-icon-button  (click)="drawer.toggle()">
             <mat-icon>menu</mat-icon>
           </button>
-          <button mat-button routerLink="/game_list"><mat-icon>laptop_windows</mat-icon>VN List</button>
+          <!-- <button mat-button routerLink="/game_list"><mat-icon>laptop_windows</mat-icon>VN List</button> -->
           <span class="fill-remaining-space"></span>
-          <span>{{ gameService.curGame.name }}</span>
+          <span class="truncate">{{ gameService.curGame.name }}</span>
           <span class="fill-remaining-space"></span>
           <button mat-raised-button (click)="onCreate()" *ngIf="gameService.curGame.name != ''">
             <mat-icon>add</mat-icon>New Route
           </button>
         </mat-toolbar>
         <mat-toolbar class="second-mat-toolbar" *ngIf="screen.mobile">
-          <span>{{ gameService.curGame.name }}</span>
+          <span class="truncate">{{ gameService.curGame.name }}</span>
           <span class="fill-remaining-space"></span>
           <button mat-raised-button (click)="onCreate()" *ngIf="gameService.curGame.name != ''">
             <mat-icon>add</mat-icon>New Route
