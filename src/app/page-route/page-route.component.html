@@ -9,16 +9,18 @@
           <button mat-icon-button  (click)="drawer.toggle()">
             <mat-icon>menu</mat-icon>
           </button>
-          <button mat-button routerLink="/vn_list"><mat-icon>laptop_windows</mat-icon>VN List</button>
+
+          <!-- <button mat-button routerLink="/game_list"><mat-icon>laptop_windows</mat-icon>VN List</button> -->
+
           <span class="fill-remaining-space"></span>
-          <span>{{ gameService.curGame.name }}</span>
+          <span class="truncate">{{ gameService.curGame.name }}</span>
           <span class="fill-remaining-space"></span>
           <button mat-raised-button (click)="onCreate()" *ngIf="gameService.curGame.name != ''">
             <mat-icon>add</mat-icon>New Route
           </button>
         </mat-toolbar>
         <mat-toolbar class="second-mat-toolbar" *ngIf="screen.mobile">
-          <span>{{ gameService.curGame.name }}</span>
+          <span class="truncate">{{ gameService.curGame.name }}</span>
           <span class="fill-remaining-space"></span>
           <button mat-raised-button (click)="onCreate()" *ngIf="gameService.curGame.name != ''">
             <mat-icon>add</mat-icon>New Route
@@ -44,12 +46,12 @@
                   <h2>{{ route.lines | number}}</h2>
                 </div>
                 <div class="stat-box">
-                  <h2>Characters:</h2>
+                  <h2>Chars:</h2>
                   <span class="fill-remaining-space"></span>
                   <h2>{{ route.chars | number}}</h2>
                 </div>
                 <div class="stat-box">
-                  <h2>Char/Hour:</h2>
+                  <h2>Chars/Hour:</h2>
                   <span class="fill-remaining-space"></span>
                   <h2>{{ Math.floor(route.chars/route.mins * 60) | number}}</h2>
                 </div>

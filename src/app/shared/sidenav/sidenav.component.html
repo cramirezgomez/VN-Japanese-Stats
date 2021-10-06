@@ -13,12 +13,12 @@
         <h2>{{ curItem.lines | number}}</h2>
       </div>
       <div class="stat-box">
-        <h2>Characters:</h2>
+        <h2>Chars:</h2>
         <span class="fill-remaining-space"></span>
         <h2>{{ curItem.chars | number}}</h2>
       </div>
       <div class="stat-box">
-        <h2>Char/Hour:</h2>
+        <h2>Chars/Hour:</h2>
         <span class="fill-remaining-space"></span>
         <h2>{{ Math.floor(curItem.chars/curItem.mins * 60 ) | number}}</h2>
       </div>
