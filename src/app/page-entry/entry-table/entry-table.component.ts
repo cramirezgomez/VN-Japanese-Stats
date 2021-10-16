@@ -5,6 +5,7 @@ import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
 import * as _ from 'lodash';
+import { FBGame } from 'src/app/models/game.model';
 import { AuthService } from 'src/app/services/auth.service';
 import { DownloadService } from 'src/app/services/download.service';
 import { ScreenService } from 'src/app/services/screen.service';
@@ -24,6 +25,25 @@ import { AddEntryComponent } from '.././add-entry/add-entry.component';
 })
 
 export class EntryTableComponent implements OnInit {
+  curGame: FBGame = {
+    $key: '',
+    chars: 0,
+    days: 0,
+    lines: 0,
+    link: '',
+    mins: 0,
+    name: ''
+  };
+  curRoute: FBRoute = {
+    $key: '',
+    game: '',
+    chars: 0,
+    days: 0,
+    lines: 0,
+    link: '',
+    mins: 0,
+    name: ''
+  };
   
   listData!: MatTableDataSource<any>;
 
@@ -85,7 +105,7 @@ export class EntryTableComponent implements OnInit {
         });
         //filter route
         entryArray = entryArray.filter(item => {
-          if(item.route == this.gameService.curGame.name + '/' + this.routeService.curRoute.name){
+          if(item.route == this.curGame.name + '/' + this.routeService.curRoute.name){
             return true;
           }
           else{ 
@@ -194,7 +214,7 @@ export class EntryTableComponent implements OnInit {
     this.dialogService.openConfirmDialog('Are you sure you want to delete this entry?')
     .afterClosed().subscribe(res => {
       if(res){
-        this.entryService.deleteEntry($key);
+        this.entryService.deleteEntry($key, this.curGame, this.curRoute);
         this.notificationService.warn('Entry Was Deleted')
       }
     });
@@ -205,6 +225,10 @@ export class EntryTableComponent implements OnInit {
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
     dialogConfig.width = "60%";
+    dialogConfig.data = {
+      game: this.curGame,
+      route: this.curRoute
+    }
     this.dialog.open(AddEntryComponent, dialogConfig);
   }
   

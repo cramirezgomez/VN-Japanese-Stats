@@ -4,6 +4,8 @@ import { AngularFireDatabase, AngularFireList } from '@angular/fire/database';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import * as _ from 'lodash';
 import { Entry, FBEntry } from '../models/entry.model';
+import { FBGame } from '../models/game.model';
+import { FBRoute } from '../models/route.model';
 import { AuthService } from './auth.service';
 import { GamesService } from './games.service';
 import { RoutesService } from './routes.service';
@@ -64,54 +66,54 @@ export class EntriesService {
     return this.entryList.snapshotChanges();
   }
 
-  insertEntry(entry:FBEntry){
+  insertEntry(entry:FBEntry,  game: FBGame, route:FBRoute){
     //convert date and add route
     entry.date = String(entry.date == "" ? "" : this.myDatePipe.transform(entry.date, 'yyyy-MM-dd'));
-    entry.route = this.gameService.curGame.name + '/' + this.routeService.curRoute.name;
+    entry.route = game.name + '/' + this.routeService.curRoute.name;
     
     //push entry
-    this.entryList.push(_.omit(entry, ["$key"])).then(res => this.routeService.updateRoute().then( res => this.gameService.updateGame()));;
+    this.entryList.push(_.omit(entry, ["$key"])).then(res => this.routeService.updateRoute().then( res => this.gameService.updateGame(game)));;
 
     
     
     
   }
-  updateEntry(entry:FBEntry){
+  updateEntry(entry:FBEntry, game: FBGame, route:FBRoute){
 
 
     //format date and add route for push
     entry.date = String(entry.date == "" ? "" : this.myDatePipe.transform(entry.date, 'yyyy-MM-dd'));
     //entry.route =  this.gameService.curGame.name + '/' + this.routeService.curRoute.name;
-    this.entryList.update(entry.$key, _.omit(entry, ["$key", "route"])).then(res => this.routeService.updateRoute().then( res => this.gameService.updateGame()));
+    this.entryList.update(entry.$key, _.omit(entry, ["$key", "route"])).then(res => this.routeService.updateRoute().then( res => this.gameService.updateGame(game)));
 
     //update route info
     
 
     //update game info
     
-    this.gameService.updateGame(); 
+    this.gameService.updateGame(game); 
   }
-  deleteEntry($key: string) {
+  deleteEntry($key: string,  game: FBGame, route:FBRoute) {
     let p = this.entryList.remove($key);
 
     p.then(() => {
        let q = this.routeService.updateRoute();
       q.then(() => {
-        this.gameService.updateGame()
+        this.gameService.updateGame(game)
       });
     });
     //this.entryList.remove($key).then(res => .then( res => this.gameService.updateGame()));
   }
 
-  insertManual(entries:Entry[]){
+  // insertManual(entries:Entry[]){
     
-    entries.forEach(element => {
-      this.entryList.push(element).then(res => this.routeService.updateRoute().then( res => this.gameService.updateGame()));;
-    });
+  //   entries.forEach(element => {
+  //     this.entryList.push(element).then(res => this.routeService.updateRoute().then( res => this.gameService.updateGame()));;
+  //   });
     
-    //push entry
+  //   //push entry
      
-  }
+  // }
 
   async getAllEntriesFL(userKey: string){
     this.entryList = this.firebase.list('data/' + userKey +'/entries');

@@ -1,6 +1,8 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
+import { FBGame } from '../models/game.model';
+import { FBRoute } from '../models/route.model';
 import { EntriesService } from '../services/entries.service';
 import { GamesService } from '../services/games.service';
 import { RoutesService } from '../services/routes.service';
@@ -15,6 +17,25 @@ import { AddEntryComponent } from './add-entry/add-entry.component';
   styleUrls: ['./page-entry.component.scss']
 })
 export class PageEntryComponent implements OnInit {
+  curGame: FBGame = {
+    $key: '',
+    chars: 0,
+    days: 0,
+    lines: 0,
+    link: '',
+    mins: 0,
+    name: ''
+  };
+  curRoute: FBRoute = {
+    $key: '',
+    game: '',
+    chars: 0,
+    days: 0,
+    lines: 0,
+    link: '',
+    mins: 0,
+    name: ''
+  };
   //public gameService: GamesService
   //
   //private dialog: MatDialog
@@ -42,6 +63,10 @@ export class PageEntryComponent implements OnInit {
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
     dialogConfig.width = "60%";
+    dialogConfig.data = {
+      game: this.curGame,
+      route: this.curRoute
+    }
     this.dialog.open(AddEntryComponent, dialogConfig);
 
     // let temp: Entry[] = [];

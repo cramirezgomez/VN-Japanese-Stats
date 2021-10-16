@@ -52,7 +52,7 @@ export class RoutesService {
     //this.loadEntries();
   }
 
-  loadRoutes(){
+  getRoutes(gameName:string){
     this.routeList.snapshotChanges().subscribe(
       list => {
         this.routeArray = list.map(item => {
@@ -64,7 +64,7 @@ export class RoutesService {
 
         //
         this.routeArray = this.routeArray.filter(item => {
-          if(item.game == this.gameService.curGame.name){
+          if(item.game == gameName){
             return true;
           }
           else{ 
@@ -73,22 +73,22 @@ export class RoutesService {
         });
 
         //update route stats
-        let emptyGame = new FBGame();
-        emptyGame.name = this.gameService.curGame.name;
-        emptyGame.link = this.gameService.curGame.link;
-        emptyGame.$key = this.gameService.curGame.$key;
-        this.gameService.curGame = this.routeArray.reduce((acc, cur) => {
-          acc.chars += (cur.chars || 0);
-          acc.lines += (cur.lines || 0);
-          acc.mins += (cur.mins || 0);
-          acc.days += (cur.days || 0);
-          return acc;
-        }, emptyGame);
+        // let emptyGame = new FBGame();
+        // emptyGame.name = this.gameService.curGame.name;
+        // emptyGame.link = this.gameService.curGame.link;
+        // emptyGame.$key = this.gameService.curGame.$key;
+        // this.gameService.curGame = this.routeArray.reduce((acc, cur) => {
+        //   acc.chars += (cur.chars || 0);
+        //   acc.lines += (cur.lines || 0);
+        //   acc.mins += (cur.mins || 0);
+        //   acc.days += (cur.days || 0);
+        //   return acc;
+        // }, emptyGame);
 
       });
   }
-  insertRoute(route:FBRoute){
-    route.game = this.gameService.curGame.name;
+  insertRoute(route:FBRoute, game:FBGame){
+    route.game = game.name;
     this.routeList.push(_.omit(route, ["$key"]));
   }
 
@@ -97,10 +97,10 @@ export class RoutesService {
     return this.routeList.update(this.curRoute.$key, _.omit(this.curRoute, ["$key","name","game", "link"]))
   }
 
-  deleteRoute($key: string) {
+  deleteRoute($key: string, game:FBGame) {
     let q = this.routeList.remove($key)
     q.then(() => {
-      this.gameService.updateGame()
+      this.gameService.updateGame(game)
     });
 
     //this.routeList.remove($key).then( res => this.gameService.updateGame());
@@ -109,11 +109,11 @@ export class RoutesService {
     this.routeForm.setValue(_.omit(row, "game"));
   }
 
-  updateRouteManually(route: FBRoute) {
-    this.routeList.update(route.$key, _.omit(route, ["$key"])).then( res => this.gameService.updateGame());
+  updateRouteManually(route: FBRoute, game: FBGame) {
+    this.routeList.update(route.$key, _.omit(route, ["$key"])).then( res => this.gameService.updateGame(game));
   }
 
-  getAllRoutesFL(userKey: string){
+  loadRoutesDatabase(userKey: string){
     this.routeList = this.firebase.list('data/' + userKey +'/routes');
   }
   
