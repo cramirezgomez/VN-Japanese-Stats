@@ -1,6 +1,6 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { FBGame } from 'src/app/models/game.model';
+import { FBGame, Game } from 'src/app/models/game.model';
 import { GamesService } from 'src/app/services/games.service';
 import { NotificationService } from 'src/app/services/notification.service';
 import { RoutesService } from 'src/app/services/routes.service';
@@ -10,15 +10,7 @@ import { RoutesService } from 'src/app/services/routes.service';
   templateUrl: './add-route.component.html'
 })
 export class AddRouteComponent implements OnInit {
-  curGame: FBGame = {
-    $key: '',
-    chars: 10,
-    days: 10,
-    lines: 10,
-    link: '',
-    mins: 10,
-    name: ''
-  }
+  curGame: FBGame = new FBGame();
   
   constructor(public routeService: RoutesService, public notificationService: NotificationService, 
     private dialogRef:MatDialogRef<AddRouteComponent>, @Inject(MAT_DIALOG_DATA) public data: any) {
@@ -27,7 +19,6 @@ export class AddRouteComponent implements OnInit {
 
   ngOnInit(): void {
     this.curGame = this.data.game;
-    console.log(this.data.game)
   }
 
   onClear(){

@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { Item } from 'src/app/models/route.model';
 import { ScreenService } from 'src/app/services/screen.service';
 
@@ -7,7 +7,7 @@ import { ScreenService } from 'src/app/services/screen.service';
   templateUrl: './sidenav.component.html',
   styleUrls: ['./sidenav.component.scss']
 })
-export class SidenavComponent implements OnInit {
+export class SidenavComponent implements OnInit, OnChanges{
   @Input()
   curItem!: Item;
   
@@ -15,8 +15,11 @@ export class SidenavComponent implements OnInit {
   constructor(public screen: ScreenService) { 
     this.Math = Math;
   }
+  ngOnChanges(changes: SimpleChanges): void {
+  }
 
   ngOnInit(): void {
+    
   }
 
 }

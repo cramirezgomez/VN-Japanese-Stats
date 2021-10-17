@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 import { FBGame } from '../models/game.model';
 import { FBRoute } from '../models/route.model';
 import { AuthService } from '../services/auth.service';
@@ -16,72 +17,80 @@ import { AddRouteComponent } from './add-route/add-route.component';
   templateUrl: './page-route.component.html',
   styleUrls: ['./page-route.component.scss']
 })
-export class PageRouteComponent implements OnInit {
-
+export class PageRouteComponent implements OnInit, OnDestroy {
+  routeArray:FBRoute[] = [];
   dialogConfig = new MatDialogConfig();
   gameName = ''
-  curGame: FBGame = {
-    $key: '',
-    chars: 0,
-    days: 0,
-    lines: 0,
-    link: '',
-    mins: 0,
-    name: 'Route Page Sample'
-  };
+  curGame: FBGame  = new FBGame();
   
   Math: any;
+
+  //Subs
+  authSub: Subscription | undefined;
+  gameSub: Subscription | undefined;
+  routeSub: Subscription | undefined;
+  dialogSub: Subscription | undefined;
 
   constructor(public routeService: RoutesService, public gameService: GamesService,
     private dialog: MatDialog, private notificationService:NotificationService, private dialogService: DialogService,
     private router: Router, public screen: ScreenService, private actRoute: ActivatedRoute, private authSer: AuthService) { 
     this.Math = Math;
     let gameInput = this.actRoute.snapshot.params['gameName'];
-    console.log("We got: " + gameInput)
     this.gameName = gameInput;
 
   }
+  ngOnDestroy(): void {
+    this.authSub?.unsubscribe();
+    this.gameSub?.unsubscribe();
+    this.routeSub?.unsubscribe();
+    this.dialogSub?.unsubscribe();
+  }
 
   ngOnInit(): void {
-    this.dialogConfig.disableClose = true;
-    this.dialogConfig.autoFocus = true;
-    this.dialogConfig.width = "60%";
-    this.dialogConfig.data = {
-      game: this.curGame,
-    }
-    
-    this.authSer.afAuth.authState.subscribe(user => {
+    this.authSub =  this.authSer.afAuth.authState.subscribe(user => {
       var userKey = "";
       if (user) {
         userKey = user.uid;
 
         //load databases
         this.gameService.loadGamesDatabase(userKey)
-        this.routeService.loadRoutesDatabase(userKey);
+        this.routeService.loadRoutesDatabase(userKey, this.gameName);
 
         //get game for totals
-        this.gameService.getGame(userKey,this.gameName).subscribe() ;
+        this.gameSub = this.gameService.getGame(userKey,this.gameName).subscribe(data =>{
+          if(data && data.length > 0){
+            this.curGame = data[0];
+          }
+          else{
+            this.router.navigate(['vn_list']);
+          }
+        }) ;
 
-        //get 
+        //get all routes
+        this.routeSub = this.routeService.getRoutes(this.gameName).subscribe( data =>{
+          this.routeArray = data;
+        })
       }
     });
-    
-    
-
-
   }
 
-  routeClicked (pos:number){
-    this.routeService.setRoute(this.routeService.routeArray[pos]);
+
+  private configureDialog() {
+    this.dialogConfig.disableClose = true;
+    this.dialogConfig.autoFocus = true;
+    this.dialogConfig.width = "60%";
+    this.dialogConfig.data = {
+      game: this.curGame,
+    };
   }
+
   onCreate(){
+    this.configureDialog();
     this.routeService.initializeRouteFormGroup();
-    
-
     this.dialog.open(AddRouteComponent, this.dialogConfig);
   }
   onDelete(route: FBRoute){
-    this.dialogService.openConfirmDialog('Are you sure you want to delete ' + route.name + '?')
+    this.dialogSub = this.dialogService.openConfirmDialog('Are you sure you want to delete ' + route.name + '?')
     .afterClosed().subscribe(res => {
       if(res){
         this.routeService.deleteRoute(route.$key, this.curGame);
@@ -93,6 +102,7 @@ export class PageRouteComponent implements OnInit {
 
   }
   onEdit(route:any){
+    this.configureDialog();
     this.routeService.populateForm(route);
     this.dialog.open(AddRouteComponent, this.dialogConfig);
   }

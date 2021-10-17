@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { AngularFireDatabase, AngularFireList } from '@angular/fire/database';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import * as _ from 'lodash';
+import { map, tap } from 'rxjs/operators';
 import { FBGame, Game } from '../models/game.model';
 
 import { FBRoute, Route } from '../models/route.model';
@@ -15,8 +16,7 @@ export class RoutesService {
   
   
   routeList!: AngularFireList<Route>;
-  routeArray:any[] = [];
-  public curRoute: FBRoute = new FBRoute;
+  
   
   
 
@@ -46,55 +46,41 @@ export class RoutesService {
     })
   }
 
-  //set route after clicked
-  setRoute(input:FBRoute){
-    this.curRoute = input;
-    //this.loadEntries();
-  }
+
 
   getRoutes(gameName:string){
-    this.routeList.snapshotChanges().subscribe(
-      list => {
-        this.routeArray = list.map(item => {
-          return {
-            $key: item.key,
-            ...item.payload.val()
-          };
-        });
-
-        //
-        this.routeArray = this.routeArray.filter(item => {
-          if(item.game == gameName){
-            return true;
-          }
-          else{ 
-            return false;
-          }
-        });
-
-        //update route stats
-        // let emptyGame = new FBGame();
-        // emptyGame.name = this.gameService.curGame.name;
-        // emptyGame.link = this.gameService.curGame.link;
-        // emptyGame.$key = this.gameService.curGame.$key;
-        // this.gameService.curGame = this.routeArray.reduce((acc, cur) => {
-        //   acc.chars += (cur.chars || 0);
-        //   acc.lines += (cur.lines || 0);
-        //   acc.mins += (cur.mins || 0);
-        //   acc.days += (cur.days || 0);
-        //   return acc;
-        // }, emptyGame);
-
-      });
+    return this.routeList.snapshotChanges().pipe(
+      map(gameList => gameList.map(item => { 
+        return {
+          $key: item.key,
+          ...item.payload.val()
+        } as FBRoute
+      }))
+    )
   }
+
+  getRoute(userKey: string, routeName:string){
+    let findRoute: AngularFireList<Route> = this.firebase.list(`data/${userKey}/routes`, 
+                                                                ref => ref.orderByChild('name').equalTo(routeName));
+    return findRoute.snapshotChanges().pipe(
+      map(routeList => routeList.map(item => { 
+        
+        return  {
+          $key: item.key,
+          ...item.payload.val()
+        } as FBRoute
+      }))
+    );
+  }
+
   insertRoute(route:FBRoute, game:FBGame){
     route.game = game.name;
     this.routeList.push(_.omit(route, ["$key"]));
   }
 
-  updateRoute(){
+  updateRoute(curRoute: FBRoute){
     //aggregation method
-    return this.routeList.update(this.curRoute.$key, _.omit(this.curRoute, ["$key","name","game", "link"]))
+    return this.routeList.update(curRoute.$key, _.omit(curRoute, ["$key","name","game", "link"]))
   }
 
   deleteRoute($key: string, game:FBGame) {
@@ -113,8 +99,8 @@ export class RoutesService {
     this.routeList.update(route.$key, _.omit(route, ["$key"])).then( res => this.gameService.updateGame(game));
   }
 
-  loadRoutesDatabase(userKey: string){
-    this.routeList = this.firebase.list('data/' + userKey +'/routes');
+  loadRoutesDatabase(userKey: string, gameName: string){
+    this.routeList = this.firebase.list('data/' + userKey +'/routes', ref => ref.orderByChild('game').equalTo(gameName));
   }
   
 }

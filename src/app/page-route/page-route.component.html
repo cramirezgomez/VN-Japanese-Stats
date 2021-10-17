@@ -27,7 +27,7 @@
           </button>
         </mat-toolbar>
         <div class="cardList" fxLayout="row wrap" fxLayoutGap="16px grid" >
-          <div fxLayoutAlign="none stretch"  *ngFor="let route of routeService.routeArray; let i = index">
+          <div fxLayoutAlign="none stretch"  *ngFor="let route of routeArray; let i = index">
             <mat-card class="my-card"  >
               <mat-card-header>
                 
@@ -38,7 +38,7 @@
                   <button mat-icon-button (click)="onDelete(route)" color="warn"><mat-icon>delete_outlines</mat-icon></button>
                 </mat-card-subtitle>
               </mat-card-header>
-              <a href="#" routerLink="/vn_list/{{route.game}}/{{route.name}}"><img class="route-img" mat-card-image src="{{ route.link }}" (click)="routeClicked(i)"  alt="{{ route.name }} image. Click to see entries." onError="this.src='assets/img/default.png'"></a>
+              <a href="#" routerLink="/vn_list/{{route.game}}/{{route.name}}"><img class="route-img" mat-card-image src="{{ route.link }}"  alt="{{ route.name }} image. Click to see entries." onError="this.src='assets/img/default.png'"></a>
               <mat-card-content>
                 <div class="stat-box">
                   <h2>Lines:</h2>

@@ -10,10 +10,13 @@ export class Item  {
 export class Route extends Item {
     game: string = "";
 }
-export interface FireBaseItem{
-    $key: string;
-}
+
 
 export class FBRoute extends Route implements FireBaseItem{
     $key: string = "";
+
+}
+
+export interface FireBaseItem{
+    $key: string;
 }

@@ -1,10 +1,11 @@
-import { Injectable } from '@angular/core';
+import { ComponentFactoryResolver, Injectable } from '@angular/core';
 import { AngularFireDatabase, AngularFireList} from '@angular/fire/database';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { FBGame, Game } from '../models/game.model';
 import * as _ from 'lodash'
 import { AuthService } from './auth.service';
 import { tap, map } from 'rxjs/operators';
+import { FBRoute } from '../models/route.model';
 
 @Injectable({
   providedIn: 'root'
@@ -48,16 +49,25 @@ export class GamesService {
 
   getGames(){
     return this.gameList.snapshotChanges().pipe(
-      map(gameList => gameList.map(item => { return {
-        $key: item.key,
-        ...item.payload.val()
-      }}))
+      map(gameList => gameList.map(item => { 
+        return {
+          $key: item.key,
+          ...item.payload.val()
+        } as FBGame
+      }))
     );
   }
 
   getGame(userKey: string, gameName:string){
-    return this.firebase.list('data/' + userKey +'/games').snapshotChanges().pipe(
-      
+    let findGame: AngularFireList<Game> = this.firebase.list('data/' + userKey +'/games', ref => ref.orderByChild('name').equalTo(gameName));
+    return findGame.snapshotChanges().pipe(
+      map(gameList => gameList.map(item => { 
+        
+        return  {
+          $key: item.key,
+          ...item.payload.val()
+        } as FBGame
+      }))
     );
   }
 
@@ -81,12 +91,6 @@ export class GamesService {
   updateGameManually(game:FBGame){
     this.gameList.update(game.$key, _.omit(game, ["$key"]))
   }
-
-  // setUserGames(){
-  //   this.gameList = this.firebase.list('data/' + this.authSer.userKey +'/games');
-  //   console.log("setting game firelist")
-  //   console.log(this.authSer.userKey);
-  // }
 
   
 

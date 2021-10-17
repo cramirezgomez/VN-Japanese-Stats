@@ -29,7 +29,7 @@ export class AuthService {
     try {
       await this.afAuth.signInWithEmailAndPassword(email, password);
       console.log('Auth Service: loginUser: success');
-    } catch (error) {
+    } catch (error: any) {
       console.log('Auth Service: login error...');
       console.log('error code', error.code);
       console.log('error', error);
@@ -44,7 +44,7 @@ export class AuthService {
       const result = await this.afAuth.createUserWithEmailAndPassword(user.email, user.password);
       let emailLower = user.email.toLowerCase();
       result.user!.sendEmailVerification(); // immediately send the user a verification email
-    } catch (error) {
+    } catch (error : any) {
       console.log('Auth Service: signup error', error);
       if (error.code)
         return { isValid: false, message: error.message };

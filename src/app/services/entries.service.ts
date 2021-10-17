@@ -3,9 +3,10 @@ import { Injectable } from '@angular/core';
 import { AngularFireDatabase, AngularFireList } from '@angular/fire/database';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import * as _ from 'lodash';
+import { map, tap } from 'rxjs/operators';
 import { Entry, FBEntry } from '../models/entry.model';
 import { FBGame } from '../models/game.model';
-import { FBRoute } from '../models/route.model';
+import { FBRoute, Item } from '../models/route.model';
 import { AuthService } from './auth.service';
 import { GamesService } from './games.service';
 import { RoutesService } from './routes.service';
@@ -19,17 +20,7 @@ export class EntriesService {
   
   
   constructor(private firebase: AngularFireDatabase, private myDatePipe: DatePipe, 
-    private gameService:GamesService, private routeService:RoutesService, private authSer: AuthService) { 
-    //
-    // authSer.afAuth.authState.subscribe(user => {
-    //   var userKey = "";
-    //   if (user) {
-    //     userKey = user.uid;
-    //     console.log("id:" + userKey);
-    //     this.entryList = this.firebase.list('data/' + userKey +'/entries');
-    //   }
-    // });
-  }
+    private gameService:GamesService, private routeService:RoutesService, private authSer: AuthService) {}
 
   //Form definition
   entryForm:FormGroup = new FormGroup({
@@ -59,63 +50,71 @@ export class EntriesService {
   }
 
   //Read from entries
-  getEntriesForRoute(){
-    return this.entryList.snapshotChanges();
-  }
-  getAllEntries(){
-    return this.entryList.snapshotChanges();
+  getEntries(){
+    return this.entryList.snapshotChanges().pipe(
+      map(entryList => entryList.map(item => { 
+        return {
+          $key: item.key,
+          ...item.payload.val()
+        } as FBEntry
+      }))
+    )
   }
 
   insertEntry(entry:FBEntry,  game: FBGame, route:FBRoute){
     //convert date and add route
     entry.date = String(entry.date == "" ? "" : this.myDatePipe.transform(entry.date, 'yyyy-MM-dd'));
-    entry.route = game.name + '/' + this.routeService.curRoute.name;
+    entry.route = game.name + '/' + route.name;
     
-    //push entry
-    this.entryList.push(_.omit(entry, ["$key"])).then(res => this.routeService.updateRoute().then( res => this.gameService.updateGame(game)));;
+    //math
+    this.addEntry( route, entry)
+    this.addEntry( game, entry)
 
-    
-    
-    
+    //TODO: synchroznize 3 callls
+    this.entryList.push(_.omit(entry, ["$key"]))
+    this.routeService.updateRoute(route);
+    this.gameService.updateGame(game);
   }
-  updateEntry(entry:FBEntry, game: FBGame, route:FBRoute){
+  private addEntry(item: Item,entry: FBEntry){
+    item.chars += entry.chars;
+    item.lines += entry.lines;
+    item.mins += entry.mins;
+  }
+  private subEntry(item: Item,entry: FBEntry){
+    item.chars -= entry.chars;
+    item.lines -= entry.lines;
+    item.mins -= entry.mins;
+  }
 
-
+  updateEntry(newEntry:FBEntry, oldEntry: FBEntry, game: FBGame, route:FBRoute){
     //format date and add route for push
-    entry.date = String(entry.date == "" ? "" : this.myDatePipe.transform(entry.date, 'yyyy-MM-dd'));
-    //entry.route =  this.gameService.curGame.name + '/' + this.routeService.curRoute.name;
-    this.entryList.update(entry.$key, _.omit(entry, ["$key", "route"])).then(res => this.routeService.updateRoute().then( res => this.gameService.updateGame(game)));
+    newEntry.date = String(newEntry.date == "" ? "" : this.myDatePipe.transform(newEntry.date, 'yyyy-MM-dd'));
+    //math
+    this.subEntry( route, oldEntry)
+    this.addEntry( route, newEntry)
+    this.subEntry( game, oldEntry)
+    this.addEntry( game, newEntry)
 
-    //update route info
-    
-
-    //update game info
-    
-    this.gameService.updateGame(game); 
+    //TODO: synchroznize 3 callls
+    this.entryList.update(newEntry.$key, _.omit(newEntry, ["$key", "route"]))
+    this.routeService.updateRoute(route);
+    this.gameService.updateGame(game);
   }
-  deleteEntry($key: string,  game: FBGame, route:FBRoute) {
-    let p = this.entryList.remove($key);
+  deleteEntry(entry:FBEntry,  game: FBGame, route:FBRoute) {
+    //math
+    this.subEntry( route, entry)
+    this.subEntry( game, entry)
 
-    p.then(() => {
-       let q = this.routeService.updateRoute();
-      q.then(() => {
-        this.gameService.updateGame(game)
-      });
-    });
-    //this.entryList.remove($key).then(res => .then( res => this.gameService.updateGame()));
+    //TODO: synchroznize 3 callls
+    this.entryList.remove(entry.$key);
+    this.routeService.updateRoute(route);
+    this.gameService.updateGame(game);
   }
 
-  // insertManual(entries:Entry[]){
-    
-  //   entries.forEach(element => {
-  //     this.entryList.push(element).then(res => this.routeService.updateRoute().then( res => this.gameService.updateGame()));;
-  //   });
-    
-  //   //push entry
-     
-  // }
-
-  async getAllEntriesFL(userKey: string){
+  loadAllEntryDataBase(userKey: string){
     this.entryList = this.firebase.list('data/' + userKey +'/entries');
+  }
+  loadFilteredEntryDataBase(userKey: string, routeName: string){
+    this.entryList = this.firebase.list('data/' + userKey +'/entries', ref => ref.orderByChild('route').equalTo(routeName));
   }
 }

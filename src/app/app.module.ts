@@ -33,6 +33,9 @@ import { PageHomeComponent } from './page-home/page-home.component';
 import { InstructionsComponent } from './page-home/instructions/instructions.component';
 import { NavbarComponent } from './shared/navbar/navbar.component';
 import { SidenavComponent } from './shared/sidenav/sidenav.component';
+import { TimePipe } from './shared/pipes/time.pipe';
+import { PacePipe } from './shared/pipes/pace.pipe';
+import { SeparateRoutePipe } from './shared/pipes/separate-route.pipe';
 
 
 
@@ -59,6 +62,9 @@ import { SidenavComponent } from './shared/sidenav/sidenav.component';
     InstructionsComponent,
     NavbarComponent,
     SidenavComponent,
+    TimePipe,
+    PacePipe,
+    SeparateRoutePipe
     
   ],
   imports: [
@@ -76,7 +82,7 @@ import { SidenavComponent } from './shared/sidenav/sidenav.component';
    
     
   ],
-  providers: [GamesService, DatePipe],
+  providers: [GamesService, DatePipe, TimePipe, PacePipe, SeparateRoutePipe],
   bootstrap: [AppComponent],
   entryComponents:[AddEntryComponent, AddRouteComponent, AddGameComponent, ConfirmDialogComponent]
 })

@@ -1,6 +1,6 @@
 <mat-drawer-container class="example-container" autosize>
     <mat-drawer #drawer class="example-sidenav" mode="side" opened>
-      <app-sidenav [curItem]="this.routeService.curRoute"></app-sidenav>
+      <app-sidenav [curItem]="curRoute"></app-sidenav>
     </mat-drawer>
     
     <div class="example-sidenav-content">
@@ -12,21 +12,21 @@
             <mat-icon>menu</mat-icon>
           </button>
           <span class="fill-remaining-space"></span>
-          <span class="truncate">{{routeService.curRoute.name}}</span>
+          <span class="truncate">{{curRoute.name}}</span>
           <span class="fill-remaining-space"></span>
-          <button mat-raised-button (click)="onCreate()" *ngIf="routeService.curRoute.name != ''">
+          <button mat-raised-button (click)="onCreate()" *ngIf="curRoute.name != ''">
             <mat-icon>add</mat-icon>Add Entry
           </button>
         </mat-toolbar>
         <mat-toolbar class="second-mat-toolbar" *ngIf="screen.mobile">
-          <span class="truncate">{{routeService.curRoute.name}}</span>
+          <span class="truncate">{{curRoute.name}}</span>
           <span class="fill-remaining-space"></span>
-          <button mat-raised-button (click)="onCreate()" *ngIf="routeService.curRoute.name != ''">
+          <button mat-raised-button (click)="onCreate()" *ngIf="curRoute.name != ''">
             <mat-icon>add</mat-icon>Add Entry
           </button>
         </mat-toolbar>
 
-        <app-entry-table></app-entry-table>
+        <app-entry-table [entryList]="entriesArray" [curGame]="curGame" [curRoute]="curRoute"></app-entry-table>
         
       </div>
     </div>
