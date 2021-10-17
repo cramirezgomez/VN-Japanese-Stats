@@ -27,6 +27,7 @@ export class PageGameComponent implements OnInit, OnDestroy {
   authSub: Subscription | undefined;
   gameSub: Subscription | undefined;
   dialogSub: Subscription | undefined;
+  totalSub: Subscription | undefined;
 
   constructor(public gameService: GamesService, public routeService: RoutesService,
     private dialog: MatDialog, private notificationService:NotificationService, 
@@ -37,6 +38,7 @@ export class PageGameComponent implements OnInit, OnDestroy {
     this.authSub?.unsubscribe();
     this.gameSub?.unsubscribe();
     this.dialogSub?.unsubscribe();
+    this.totalSub?.unsubscribe();
   }
 
   ngOnInit(): void {
@@ -56,21 +58,11 @@ export class PageGameComponent implements OnInit, OnDestroy {
         //subscribe to game array
         this.gameSub = this.gameService.getGames().subscribe(list => {
           this.gameArray = list;
-    
-          //update total stats
-          let emptyGame = new Game();
-          if(this.authSer.userName){
-            emptyGame.name = this.authSer.userName;
-          }
-          emptyGame.link = "/assets/img/allGames.jpg"
-          this.allGames = this.gameArray.reduce((acc, cur) => {
-            acc.chars += (cur.chars || 0);
-            acc.lines += (cur.lines || 0);
-            acc.mins += (cur.mins || 0);
-            acc.days += (cur.days || 0);
-            return acc;
-          }, emptyGame);
-          this.gameService.allGames = this.allGames;
+        });
+
+        //get total
+        this.totalSub = this.gameService.getTotalStats().subscribe( data =>{
+          this.allGames = data
         });
       }
     });

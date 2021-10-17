@@ -32,7 +32,7 @@ import { PageSettingsComponent } from './page-settings/page-settings.component';
 import { PageHomeComponent } from './page-home/page-home.component';
 import { InstructionsComponent } from './page-home/instructions/instructions.component';
 import { NavbarComponent } from './shared/navbar/navbar.component';
-import { SidenavComponent } from './shared/sidenav/sidenav.component';
+import { SidenavComponent } from './shared/sidenav-card/sidenav-card.component';
 import { TimePipe } from './shared/pipes/time.pipe';
 import { PacePipe } from './shared/pipes/pace.pipe';
 import { SeparateRoutePipe } from './shared/pipes/separate-route.pipe';

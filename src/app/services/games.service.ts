@@ -13,11 +13,7 @@ import { FBRoute } from '../models/route.model';
 export class GamesService {
   gameList!: AngularFireList<Game>;
   
-  public allGames: FBGame = new FBGame;
-  //public curGame: FBGame = new FBGame;
-  
-
-  // public totalGameEntries: Game = new Game();
+  //public allGames: FBGame = new FBGame;
 
   constructor(private firebase: AngularFireDatabase, private authSer: AuthService) { 
   }
@@ -56,6 +52,27 @@ export class GamesService {
         } as FBGame
       }))
     );
+  }
+
+  getTotalStats(){
+    return this.getGames().pipe(
+      map(x => {
+         //update total stats
+         let emptyGame = new FBGame();
+         if(this.authSer.userName){
+           emptyGame.name = this.authSer.userName;
+         }
+         emptyGame.link = "/assets/img/allGames.jpg"
+         return x.reduce((acc, cur) => {
+           acc.chars += (cur.chars || 0);
+           acc.lines += (cur.lines || 0);
+           acc.mins += (cur.mins || 0);
+           acc.days += (cur.days || 0);
+           return acc;
+         }, emptyGame);
+      }),
+      tap(x => console.log(x))
+    )
   }
 
   getGame(userKey: string, gameName:string){

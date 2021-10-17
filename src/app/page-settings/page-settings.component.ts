@@ -3,6 +3,7 @@ import { DomSanitizer } from '@angular/platform-browser';
 import * as _ from 'lodash';
 import { Subscription } from 'rxjs';
 import { FBEntry } from '../models/entry.model';
+import { FBGame } from '../models/game.model';
 import { AuthService } from '../services/auth.service';
 import { DownloadService } from '../services/download.service';
 import { EntriesService } from '../services/entries.service';
@@ -16,10 +17,12 @@ import { ScreenService } from '../services/screen.service';
 })
 export class PageSettingsComponent implements OnInit, OnDestroy {
   entriesArray: FBEntry[] = [];
+  allGames = new FBGame();
 
   //SUbs
   authSub: Subscription | undefined;
   entrySub: Subscription | undefined;
+  totalSub: Subscription | undefined;
 
   constructor(public entryService: EntriesService, public gameService: GamesService,
     public authSer: AuthService, public dlSer: DownloadService, public screen: ScreenService) {
@@ -27,6 +30,7 @@ export class PageSettingsComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.authSub?.unsubscribe();
     this.entrySub?.unsubscribe();
+    this.totalSub?.unsubscribe();
   }
 
   ngOnInit(): void {
@@ -36,6 +40,7 @@ export class PageSettingsComponent implements OnInit, OnDestroy {
         userKey = user.uid;
 
         //load databases
+        this.gameService.loadGamesDatabase(userKey);
         this.entryService.loadAllEntryDataBase(userKey)
 
 
@@ -45,6 +50,11 @@ export class PageSettingsComponent implements OnInit, OnDestroy {
           this.createJsonUrl();
         })
 
+        //get total
+        //get total
+        this.totalSub =  this.gameService.getTotalStats().subscribe( data =>{
+          this.allGames = data
+        });
         
       }
     });
