@@ -3,45 +3,15 @@
 @import "~@angular/material/prebuilt-themes/purple-green.css";
 @import "assets/styles/colors.scss";
 
-
-h1 {
-    margin-top: 2em;
-}
-
-.button {
-    background-color: #4CAF50; /* Green */
-    border: none;
-    padding: 1em;
-    text-align: center;
-    display: inline-block;
-    font-size: 16px;
-    
-}
-.button:hover {
-    background-color: #3e8e41
-}
-.button:active {
-    background-color: #3e8e41;
-    
-    transform: translateY(4px);
-}
-
-
 html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
-
-
-// div.container {
- //   margin: 0px 40px;
-// }
-
-.fill-remaining-space {
-    flex: 1 1 auto;
+body { 
+    margin: 0; 
+    font-family: Roboto, 
+    "Helvetica Neue", sans-serif; 
+    background-color: $background;
 }
 
-form.normal-form {
-    margin: 10px;
-}
+//forms
 .contols-container {
     width: 100%;
     padding: 5%;
@@ -49,9 +19,6 @@ form.normal-form {
 
 .contols-container > * {
     width: 100%;
-}
-.add-bottom-padding {
-    padding-bottom: 10px;
 }
 
 mat-radio-group mat-radio-button {
@@ -62,6 +29,7 @@ mat-radio-group mat-radio-button {
     margin: 5px;
 }
 
+//ntoification
 snack-bar-container.success {
     background-color: #22BB33;
     color: white;
@@ -76,39 +44,8 @@ snack-bar-container.notification simple-snack-bar {
     font-weight: bold;
 }
 
-.hide {
-    display: none;
-}
 
-mat-footer-row  mat-footer-cell{
-    justify-content: center;
-    font-style: italic;
-}
-
-/* filter controls */
-.search-div{
-    margin: 10px;
-}
-.search-form-field{
-    width: 60%;
-    margin-left: 10px;
-    padding: 5px 10px;
-    background-color: #f5f5f5;
-    border-radius: 5px;
-}
-.search-form-field div.mat-form-field-underline {
-    display: none;
-}
-.search-form-field div.mat-form-field-infix{
-    border-top: 0px;
-}
-.search-form-field div.mat-form-field-wrapper{
-    padding-bottom: 0px;
-}
-.search-form-field div.mat-form-field-suffix button{
-    height: 32px;
-    width: 32px;
-}
+//toolbar
 .mat-toolbar.mat-primary{
     background-color: $top_bar;
 }
@@ -117,93 +54,13 @@ mat-footer-row  mat-footer-cell{
     background-color: $bot_bar;
 }
 
-.fill {
-    flex: 1;
-  }
-
-//   .mat-card-header-text{
-//     width: 100% !important;
-//   }
-
-.mat-card{
-    background-color: $card;
-}
 
 
 
-body{
-    background-color: $background;
-}
-
-.mat-dialog-container {
-    background: $card;
-}
 
 
 
-.mat-paginator {
-    background: $card;
-}
-.stat-box{
-    display: flex;
-    // margin-right: ;
-}
-
-.desk-table {
-    background: $card;
-    // overflow-x: scroll;
-}
-.desk-cell,
-.desk-header-cell {
-//   word-wrap: initial;
-//   display: table-cell;
-//   padding: 0px 10px;
-//   line-break: unset;
-  
-//   white-space: nowrap;
-//   overflow: hidden;
-//   vertical-align: middle;
-
-  font-size: 20px;
-  text-align:  right;
-}
-.mobile-table {
-    background: $card;
-    overflow-x: scroll;
-}
-.mobile-cell,
-.mobile-header-cell {
-  word-wrap: initial;
-  display: table-cell;
-  padding: 0px 10px;
-  line-break: unset;
-  
-  white-space: nowrap;
-  overflow: hidden;
-  vertical-align: middle;
-
-  font-size: 20px;
-  text-align:  right;
-}
-.mobile-row,
-.mobile-header-row {
-  display: table-row;
-}
-
-
-
-.mat-card-title{
-    overflow: hidden;
-    max-width: 19ch;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-}
-.title-btn{
-    overflow: hidden;
-    max-width: 20ch;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-}
+///sidenav
 .screenContent{
     margin: 0px 40px;
     overflow: hidden; 
@@ -219,21 +76,22 @@ body{
     height: calc(100% - 64px);
   }
   
-  .example-sidenav {
+.example-sidenav {
     padding: 0px;
     height: 100%;
-    // background-color: $card;
-
-  }
-  .mat-drawer{
+}
+.mat-drawer{
     background-color: $bot_bar;
-      height: 100%;
-  }
+    height: 100%;
+}
  
 
 
-  /* mat-confirm-dialog (customised dialog) */
-  .confirm-dialog-container .mat-dialog-container {
+/* mat-confirm-dialog (customised dialog) */
+.mat-dialog-container {
+    background: $card;
+}
+.confirm-dialog-container .mat-dialog-container {
     border-radius: .25em .25em .4em .4em;
     padding: 0px;
 }
@@ -275,27 +133,31 @@ border-radius: 0px;
 
 
 //card and image width
+.mat-card{
+    background-color: $card;
+}
 .my-card {
     width: 256px;
  }
+ .stat-box{
+    display: flex;
+    // margin-right: ;
+}
  
- .route-img{
-     object-fit:contain;
- }
- .game-img{
-     height:407px;
-     width: 288px;
-     object-fit:cover;
- }
 
-
-
- 
+ //login icon
  .card-icon {
     background-image: url('/assets/img/hotaru.ico');
     background-size: cover;
   }
 
+  //long strings
+  .mat-card-title{
+    overflow: hidden;
+    max-width: 19ch;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
   .truncate {
     overflow: hidden;
     text-overflow: ellipsis;
@@ -304,28 +166,15 @@ border-radius: 0px;
    
   }
 
-  .mat-cell {
-      justify-content: right;
-    //   display: table-cell;
-    //   word-wrap: break-word;
-      padding-left: 5px;
-      padding-right: 5px;
-  }
-  .mat-cell > span {
-    text-overflow: ellipsis; 
-    overflow: hidden; 
-    white-space: nowrap;
-  }
-  .mat-header-cell {
-    justify-content: right;
-  }
-//   th, td {
-//     overflow: hidden;
-//     width:auto;
-//     text-overflow: ellipsis;
-//     white-space: nowrap;
-//     padding: 5px;
-//   }
+//functions
+.hide {
+    display: none;
+}
+.fill-remaining-space {
+    flex: 1 1 auto;
+}
+
+
 
 
 

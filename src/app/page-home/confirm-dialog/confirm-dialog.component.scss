@@ -1,6 +1,12 @@
+
+@import "../../../assets/styles/colors.scss";
 .content-span {
     // text-overflow: ellipsis; 
     overflow: hidden; 
     word-wrap: break-word;
     width: 100%;
+}
+
+.mat-dialog-container {
+    background: $card;
 }

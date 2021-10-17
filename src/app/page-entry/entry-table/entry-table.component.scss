@@ -1,0 +1,54 @@
+
+@import "../../../assets/styles/colors.scss";
+
+mat-footer-row  mat-footer-cell{
+  justify-content: center;
+  font-style: italic;
+}
+.mat-paginator {
+  background: $card;
+}
+.desk-table {
+  background: $card;
+  // overflow-x: scroll;
+}
+.desk-cell,
+.desk-header-cell {
+font-size: 20px;
+text-align:  right;
+}
+.mobile-table {
+  background: $card;
+  overflow-x: scroll;
+}
+.mobile-cell,
+.mobile-header-cell {
+word-wrap: initial;
+display: table-cell;
+padding: 0px 10px;
+line-break: unset;
+
+white-space: nowrap;
+overflow: hidden;
+vertical-align: middle;
+
+font-size: 20px;
+text-align:  right;
+}
+.mobile-row,
+.mobile-header-row {
+display: table-row;
+}
+.mat-cell {
+    justify-content: right;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+.mat-cell > span {
+  text-overflow: ellipsis; 
+  overflow: hidden; 
+  white-space: nowrap;
+}
+.mat-header-cell {
+  justify-content: right;
+}

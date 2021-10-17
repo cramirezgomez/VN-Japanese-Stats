@@ -26,7 +26,8 @@ import { AddEntryComponent } from '.././add-entry/add-entry.component';
 
 @Component({
   selector: 'app-entry-table',
-  templateUrl: './entry-table.component.html'
+  templateUrl: './entry-table.component.html',
+  styleUrls: ['./entry-table.component.scss']
 })
 
 export class EntryTableComponent implements OnInit, OnChanges, OnDestroy {
