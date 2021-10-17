@@ -70,20 +70,12 @@ export class EntriesService {
     this.addEntry( route, entry)
     this.addEntry( game, entry)
 
-    //TODO: synchroznize 3 callls
+    // //TODO: synchroznize 3 callls
     this.entryList.push(_.omit(entry, ["$key"]))
     this.routeService.updateRoute(route);
     this.gameService.updateGame(game);
-  }
-  private addEntry(item: Item,entry: FBEntry){
-    item.chars += entry.chars;
-    item.lines += entry.lines;
-    item.mins += entry.mins;
-  }
-  private subEntry(item: Item,entry: FBEntry){
-    item.chars -= entry.chars;
-    item.lines -= entry.lines;
-    item.mins -= entry.mins;
+
+    
   }
 
   updateEntry(newEntry:FBEntry, oldEntry: FBEntry, game: FBGame, route:FBRoute){
@@ -116,5 +108,16 @@ export class EntriesService {
   }
   loadFilteredEntryDataBase(userKey: string, routeName: string){
     this.entryList = this.firebase.list('data/' + userKey +'/entries', ref => ref.orderByChild('route').equalTo(routeName));
+  }
+  
+  private addEntry(item: Item,entry: FBEntry){
+    item.chars += entry.chars;
+    item.lines += entry.lines;
+    item.mins += entry.mins;
+  }
+  private subEntry(item: Item,entry: FBEntry){
+    item.chars -= entry.chars;
+    item.lines -= entry.lines;
+    item.mins -= entry.mins;
   }
 }
