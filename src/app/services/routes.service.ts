@@ -30,8 +30,8 @@ export class RoutesService {
     lines: new FormControl('', [ Validators.pattern("^[0-9]*$"), Validators.required]),
     days: new FormControl('', [ Validators.pattern("^[0-9]*$"), Validators.required]),
     mins: new FormControl('', [ Validators.pattern("^[0-9]*$"), Validators.required]),
-    name: new FormControl('', Validators.required),
-    link: new FormControl('', Validators.required)
+    name: new FormControl('', [Validators.required, Validators.maxLength(250)]),
+    link: new FormControl('', [Validators.required, Validators.maxLength(250)])
   })
 
   initializeRouteFormGroup() {

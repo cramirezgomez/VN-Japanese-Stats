@@ -41,7 +41,7 @@ export class PageSettingsComponent implements OnInit, OnDestroy {
 
         //load databases
         this.gameService.loadGamesDatabase(userKey);
-        this.entryService.loadAllEntryDataBase(userKey)
+        this.entryService.loadEntryDataBase(userKey)
 
 
         //get all entries

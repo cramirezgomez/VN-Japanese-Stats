@@ -24,14 +24,21 @@ export class PageEntryComponent implements OnInit, OnDestroy {
   curGame: FBGame = new FBGame();
   curRoute: FBRoute = new FBRoute();
 
+  //names from addres
   gameName = '';
   routeName = '';
+
+  //total enteis
+  gameTotal: FBEntry = new FBEntry();
+  routeTotal:FBEntry = new FBEntry();
 
   //Subs
   authSub: Subscription | undefined;
   gameSub: Subscription | undefined;
   routeSub: Subscription | undefined;
   entrySub: Subscription | undefined;
+
+  
   
 
   constructor(public gameService: GamesService, public routeService: RoutesService, public entryService:EntriesService, 
@@ -57,7 +64,7 @@ export class PageEntryComponent implements OnInit, OnDestroy {
         //load databases
         this.gameService.loadGamesDatabase(userKey)
         this.routeService.loadRoutesDatabase(userKey, this.gameName);
-        this.entryService.loadFilteredEntryDataBase(userKey, `${this.gameName}/${this.routeName}`)
+        this.entryService.loadEntryDataBase(userKey)
         
 
         //get game for totals
@@ -79,9 +86,13 @@ export class PageEntryComponent implements OnInit, OnDestroy {
         }) ;
 
         //get all entries
-        this.entrySub = this.entryService.getEntries().subscribe( data =>{
+        this.entrySub = this.entryService.getEntriesByRoute(this.gameName, this.routeName).subscribe( data =>{
           this.entriesArray = data;
         })
+
+        //get totals for edits
+        this.entryService.getEntryTotalByGame(this.gameName).subscribe(data => this.gameTotal = data)
+        this.entryService.getEntryTotalByRoute(this.gameName, this.routeName).subscribe(data => this.routeTotal = data)
       }
     });
   }
@@ -95,7 +106,9 @@ export class PageEntryComponent implements OnInit, OnDestroy {
     dialogConfig.width = "60%";
     dialogConfig.data = {
       game: this.curGame,
-      route: this.curRoute
+      route: this.curRoute,
+      gameTotal: this.gameTotal,
+      routeTotal: this.routeTotal
     }
     this.dialog.open(AddEntryComponent, dialogConfig);
   }

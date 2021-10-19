@@ -10,11 +10,13 @@
             <div class="contols-container">
                 <mat-form-field >
                     <input formControlName="name" matInput placeholder="Route Name*" autocomplete="off">
-                    <mat-error>This field is mandatory</mat-error>
+                    <mat-error *ngIf="routeService.routeForm.controls['name'].errors?.required" >This field is mandatory</mat-error>
+                    <mat-error *ngIf="routeService.routeForm.controls['name'].errors?.maxlength">Max length of 250 chars.</mat-error>
                 </mat-form-field>
                 <mat-form-field >
                     <input formControlName="link" matInput placeholder="Picture Link*" autocomplete="off">
-                    <mat-error>This field is mandatory</mat-error>
+                    <mat-error *ngIf="routeService.routeForm.controls['link'].errors?.required" >This field is mandatory</mat-error>
+                    <mat-error *ngIf="routeService.routeForm.controls['link'].errors?.maxlength ">Max length of 250 chars.</mat-error>
                 </mat-form-field>
                 <div class="button-row">
                     <button mat-raised-button color="primary" type="submit" [disabled]="routeService.routeForm.invalid">Submit</button>

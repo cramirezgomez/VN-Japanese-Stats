@@ -35,6 +35,9 @@ export class EntryTableComponent implements OnInit, OnChanges, OnDestroy {
 
   @Input() curGame = new FBGame();
   @Input() curRoute = new FBRoute()
+
+  @Input() gameTotal = new FBEntry();
+  @Input() routeTotal = new FBEntry()
   
   listData!: MatTableDataSource<any>;
 
@@ -91,9 +94,11 @@ export class EntryTableComponent implements OnInit, OnChanges, OnDestroy {
     this.dialogSub = this.dialogService.openConfirmDialog('Are you sure you want to delete this entry?')
     .afterClosed().subscribe(res => {
       if(res){
-        this.entryService.deleteEntry(entry, this.curGame, this.curRoute);
+        this.entryService.deleteEntry(entry, this.curGame, this.curRoute, this.gameTotal, this.routeTotal);
         this.notificationService.warn('Entry Was Deleted')
       }
+      console.log(this.routeTotal)
+      console.log(this.gameTotal)
     });
   }
   onEdit(row:any){
@@ -105,7 +110,9 @@ export class EntryTableComponent implements OnInit, OnChanges, OnDestroy {
     dialogConfig.data = {
       game: this.curGame,
       route: this.curRoute,
-      oldEntry: row
+      oldEntry: row,
+      gameTotal: this.gameTotal,
+      routeTotal: this.routeTotal
     }
     this.dialog.open(AddEntryComponent, dialogConfig);
   }
