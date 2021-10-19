@@ -78,7 +78,17 @@ export class PageEntryComponent implements OnInit, OnDestroy {
         //get route for totals
         this.routeSub = this.routeService.getRoute(userKey,this.routeName).subscribe(data =>{
           if(data && data.length > 0){
-            this.curRoute = data[0];
+            if(data.length > 1){
+              let result  = data.find(x => x.game == this.gameName);
+              if(result){
+                this.curRoute = result;
+              }
+              
+            }
+            else{
+              this.curRoute = data[0];
+            }
+            
           }
           else{
             this.router.navigate(['vn_list']);
