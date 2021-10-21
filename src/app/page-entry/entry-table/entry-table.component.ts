@@ -97,8 +97,6 @@ export class EntryTableComponent implements OnInit, OnChanges, OnDestroy {
         this.entryService.deleteEntry(entry, this.curGame, this.curRoute, this.gameTotal, this.routeTotal);
         this.notificationService.warn('Entry Was Deleted')
       }
-      console.log(this.routeTotal)
-      console.log(this.gameTotal)
     });
   }
   onEdit(row:any){

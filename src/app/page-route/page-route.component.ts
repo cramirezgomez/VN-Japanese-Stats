@@ -10,6 +10,7 @@ import { GamesService } from '../services/games.service';
 import { NotificationService } from '../services/notification.service';
 import { RoutesService } from '../services/routes.service';
 import { ScreenService } from '../services/screen.service';
+import { SidenavService } from '../services/sidenav.service';
 import { AddRouteComponent } from './add-route/add-route.component';
 
 @Component({
@@ -33,7 +34,8 @@ export class PageRouteComponent implements OnInit, OnDestroy {
 
   constructor(public routeService: RoutesService, public gameService: GamesService,
     private dialog: MatDialog, private notificationService:NotificationService, private dialogService: DialogService,
-    private router: Router, public screen: ScreenService, private actRoute: ActivatedRoute, private authSer: AuthService) { 
+    private router: Router, public screen: ScreenService, private actRoute: ActivatedRoute, private authSer: AuthService,
+    private sidenavSer: SidenavService) { 
     this.Math = Math;
     let gameInput = this.actRoute.snapshot.params['gameName'];
     this.gameName = gameInput;
@@ -60,6 +62,7 @@ export class PageRouteComponent implements OnInit, OnDestroy {
         this.gameSub = this.gameService.getGame(userKey,this.gameName).subscribe(data =>{
           if(data && data.length > 0){
             this.curGame = data[0];
+            this.sidenavSer.changeItem(this.curGame);
           }
           else{
             this.router.navigate(['vn_list']);

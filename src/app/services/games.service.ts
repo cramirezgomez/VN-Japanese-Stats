@@ -70,8 +70,7 @@ export class GamesService {
            acc.days += (cur.days || 0);
            return acc;
          }, emptyGame);
-      }),
-      tap(x => console.log(x))
+      })
     )
   }
 

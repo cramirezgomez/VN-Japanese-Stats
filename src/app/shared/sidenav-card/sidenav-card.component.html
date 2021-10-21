@@ -1,37 +1,30 @@
-<mat-card class="my-card nav-card" *ngIf="!screen.mobile">
-    <mat-card-header >
-      
-      <mat-card-title>{{ curItem.name }}</mat-card-title>
-      
-    </mat-card-header>
-    
-    <img class="nav-img" mat-card-image src="{{ curItem.link }}" alt="{{ curItem.name }} image failed to load." onError="this.src='assets/img/default.png'">
-    <mat-card-content>
-      <div class="stat-box">
-        <h2>Lines:</h2>
-        <span class="fill-remaining-space"></span>
-        <h2>{{ curItem.lines | number}}</h2>
-      </div>
-      <div class="stat-box">
-        <h2>Chars:</h2>
-        <span class="fill-remaining-space"></span>
-        <h2>{{ curItem.chars | number}}</h2>
-      </div>
-      <div class="stat-box">
-        <h2>Chars/Hour:</h2>
-        <span class="fill-remaining-space"></span>
-        <h2>{{ Math.floor(curItem.chars/curItem.mins * 60 ) | number}}</h2>
-      </div>
-      <div class="stat-box">
-        <h2>Time:</h2>
-        <span class="fill-remaining-space"></span>
-        <h2>{{ Math.floor(curItem.mins / 60) | number }}{{ ":" + ('0' + (curItem.mins % 60).toString()).slice(-2) }}</h2>
-      </div>
-      <div class="stat-box">
-        <h2>Entries:</h2>
-        <span class="fill-remaining-space"></span>
-        <h2>{{ curItem.days | number}}</h2>
-      </div>
-    </mat-card-content>
-  </mat-card>
+<img class="nav-img"  src="{{ curItem.link }}" alt="{{ curItem.name }} image failed to load." onError="this.src='assets/img/default.png'">
+  <mat-list role="list">
+    <mat-list-item role="listitem" class="stat-box">
+      <h2>Lines:</h2>
+      <span class="fill-remaining-space"></span>
+      <h2>{{ curItem.lines | number}}</h2>
+    </mat-list-item>
+    <mat-list-item role="listitem" class="stat-box">
+      <h2>Chars:</h2>
+      <span class="fill-remaining-space"></span>
+      <h2>{{ curItem.chars | number}}</h2>
+    </mat-list-item>
+    <mat-list-item role="listitem" class="stat-box">
+      <h2>Chars/Hour:</h2>
+      <span class="fill-remaining-space"></span>
+      <h2>{{ Math.floor(curItem.chars/curItem.mins * 60 ) | number}}</h2>
+    </mat-list-item>
+    <mat-list-item role="listitem" class="stat-box">
+      <h2>Time:</h2>
+      <span class="fill-remaining-space"></span>
+      <h2>{{ Math.floor(curItem.mins / 60) | number }}{{ ":" + ('0' + (curItem.mins % 60).toString()).slice(-2) }}</h2>
+    </mat-list-item>
+    <mat-list-item role="listitem" class="stat-box">
+      <h2>Entries:</h2>
+      <span class="fill-remaining-space"></span>
+      <h2>{{ curItem.days | number}}</h2>
+    </mat-list-item>
+
+  </mat-list>
 

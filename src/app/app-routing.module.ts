@@ -11,6 +11,7 @@ import { PageEntryComponent } from './page-entry/page-entry.component';
 import { PageGameComponent } from './page-game/page-game.component';
 import { PageRouteComponent } from './page-route/page-route.component';
 import { PageSettingsComponent } from './page-settings/page-settings.component';
+import { SidenavComponent } from './shared/sidenav/sidenav.component';
 
 const routes: Routes = [
   {path: '', component:PageHomeComponent},
@@ -18,11 +19,10 @@ const routes: Routes = [
   {path: 'vn_list', component:PageGameComponent, canActivate:[AuthGuard]},
   {path: 'vn_list/:gameName', component:PageRouteComponent, canActivate:[AuthGuard]},
   {path: 'vn_list/:gameName/:routeName', component:PageEntryComponent, canActivate:[AuthGuard]},
-  // {path: 'route_list', component:PageRouteComponent, canActivate:[AuthGuard]},
-  // {path: 'entries', component:PageEntryComponent, canActivate:[AuthGuard]},
   {path: 'settings', component:PageSettingsComponent, canActivate:[AuthGuard]},
   {path: 'login', component:LoginComponent},
-  {path: 'signup', component:SignupComponent}
+  {path: 'signup', component:SignupComponent},
+  {path: 'sidenav', component:SidenavComponent}
 ];
 
 @NgModule({

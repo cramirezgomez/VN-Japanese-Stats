@@ -10,6 +10,7 @@ import { EntriesService } from '../services/entries.service';
 import { GamesService } from '../services/games.service';
 import { RoutesService } from '../services/routes.service';
 import { ScreenService } from '../services/screen.service';
+import { SidenavService } from '../services/sidenav.service';
 import { AddEntryComponent } from './add-entry/add-entry.component';
 
 
@@ -42,7 +43,8 @@ export class PageEntryComponent implements OnInit, OnDestroy {
   
 
   constructor(public gameService: GamesService, public routeService: RoutesService, public entryService:EntriesService, 
-    private dialog: MatDialog,  public screen: ScreenService, private actRoute: ActivatedRoute, private authSer: AuthService,  public router: Router)
+    private dialog: MatDialog,  public screen: ScreenService, private actRoute: ActivatedRoute, private authSer: AuthService,  
+    public router: Router, private sidenavSer: SidenavService)
   {
     this.gameName = this.actRoute.snapshot.params['gameName'];
     this.routeName = this.actRoute.snapshot.params['routeName']
@@ -82,12 +84,14 @@ export class PageEntryComponent implements OnInit, OnDestroy {
               let result  = data.find(x => x.game == this.gameName);
               if(result){
                 this.curRoute = result;
+                
               }
               
             }
             else{
               this.curRoute = data[0];
             }
+            this.sidenavSer.changeItem(this.curRoute);
             
           }
           else{

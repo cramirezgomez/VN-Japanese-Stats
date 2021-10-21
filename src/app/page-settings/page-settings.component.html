@@ -1,39 +1,28 @@
-<mat-drawer-container class="example-container" autosize>
-    <mat-drawer #drawer class="example-sidenav" mode="side" opened>
-      <app-sidenav-card [curItem]="allGames"></app-sidenav-card>
-    </mat-drawer>
-  
-    <div class="example-sidenav-content">
-      <div class="screenContent">
-        
-        <mat-toolbar class="second-mat-toolbar" *ngIf="!screen.mobile">
-          <button mat-icon-button  (click)="drawer.toggle()">
-            <mat-icon>menu</mat-icon>
-          </button>
-          <span class="fill-remaining-space"></span>
-          <span>Download Backup</span>
-          <span class="fill-remaining-space" ></span>
-        
-          <a button mat-raised-button class="btn btn-clear" title="Download JSON" [href]="dlSer.downloadJsonHref" download="entries_{{dlSer.myDate | date: 'shortDate'}}.json">
-            <mat-icon>file_download</mat-icon>
-            Download
-          </a>
-        </mat-toolbar>
-        <mat-toolbar class="second-mat-toolbar" *ngIf="screen.mobile">
-          
-          <span>Download Backup</span>
-          <span class="fill-remaining-space" ></span>
-        
-          <a button mat-raised-button class="btn btn-clear" title="Download JSON" [href]="dlSer.downloadJsonHref" download="entries_{{dlSer.myDate | date: 'shortDate'}}.json">
-            <mat-icon>file_download</mat-icon>
-            Download
-          </a>
-        </mat-toolbar>
 
-        <app-entry-table [displayedColumns]="['date', 'game', 'heroine',  'lines', 'chars', 'mins', 'pace']" [entryList]="entriesArray">
-        </app-entry-table>
-      </div>
-    </div>
+<mat-toolbar class="second-mat-toolbar" *ngIf="!screen.mobile">
+  <button mat-icon-button>
+    <mat-icon>menu</mat-icon>
+  </button>
+  <span class="fill-remaining-space"></span>
+  <span>Download Backup</span>
+  <span class="fill-remaining-space" ></span>
+
+  <a button mat-raised-button class="btn btn-clear" title="Download JSON" [href]="dlSer.downloadJsonHref" download="entries_{{dlSer.myDate | date: 'shortDate'}}.json">
+    <mat-icon>file_download</mat-icon>
+    Download
+  </a>
+</mat-toolbar>
+<mat-toolbar class="second-mat-toolbar" *ngIf="screen.mobile">
   
-  </mat-drawer-container>
+  <span>Download Backup</span>
+  <span class="fill-remaining-space" ></span>
+
+  <a button mat-raised-button class="btn btn-clear" title="Download JSON" [href]="dlSer.downloadJsonHref" download="entries_{{dlSer.myDate | date: 'shortDate'}}.json">
+    <mat-icon>file_download</mat-icon>
+    Download
+  </a>
+</mat-toolbar>
+
+<app-entry-table [displayedColumns]="['date', 'game', 'heroine',  'lines', 'chars', 'mins', 'pace']" [entryList]="entriesArray">
+</app-entry-table>
 

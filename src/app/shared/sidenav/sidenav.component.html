@@ -1,1 +1,19 @@
-<p>sidenav works!</p>
+<mat-sidenav-container class="app-sidenav-container">
+  <mat-sidenav #sidenav class="app-sidenav mat-elevation-z10" 
+               [opened]="!screen.mobile"
+               [mode]="screen.mobile ? 'over' : 'side'">
+    <mat-toolbar color="primary">
+    {{ totalItem.name }}
+    </mat-toolbar>
+    <app-sidenav-card [curItem]="totalItem"></app-sidenav-card>
+    
+  </mat-sidenav>
+
+  <div class="app-sidenav-content">
+    <app-navbar></app-navbar>
+    <div class="wrapper">
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+
+</mat-sidenav-container>

@@ -33,9 +33,6 @@ export class AddEntryComponent implements OnInit {
     //total
     this.routeTotal = this.data.routeTotal;
     this.gameTotal = this.data.gameTotal;
-    console.log(this.routeTotal)
-    console.log(this.gameTotal)
-    
   }
 
   onClear(){

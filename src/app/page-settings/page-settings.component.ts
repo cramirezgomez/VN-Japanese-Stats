@@ -9,6 +9,7 @@ import { DownloadService } from '../services/download.service';
 import { EntriesService } from '../services/entries.service';
 import { GamesService } from '../services/games.service';
 import { ScreenService } from '../services/screen.service';
+import { SidenavService } from '../services/sidenav.service';
 
 @Component({
   selector: 'app-page-settings',
@@ -25,7 +26,8 @@ export class PageSettingsComponent implements OnInit, OnDestroy {
   totalSub: Subscription | undefined;
 
   constructor(public entryService: EntriesService, public gameService: GamesService,
-    public authSer: AuthService, public dlSer: DownloadService, public screen: ScreenService) {
+    public authSer: AuthService, public dlSer: DownloadService, public screen: ScreenService,
+    private sidenavSer: SidenavService) {
    }
   ngOnDestroy(): void {
     this.authSub?.unsubscribe();
@@ -52,8 +54,10 @@ export class PageSettingsComponent implements OnInit, OnDestroy {
 
         //get total
         //get total
-        this.totalSub =  this.gameService.getTotalStats().subscribe( data =>{
+        //get total
+        this.totalSub = this.gameService.getTotalStats().subscribe( data =>{
           this.allGames = data
+          this.sidenavSer.changeItem(this.allGames);
         });
         
       }

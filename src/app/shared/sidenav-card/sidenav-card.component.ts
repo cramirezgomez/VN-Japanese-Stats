@@ -7,9 +7,9 @@ import { ScreenService } from 'src/app/services/screen.service';
   templateUrl: './sidenav-card.component.html',
   styleUrls: ['./sidenav-card.component.scss']
 })
-export class SidenavComponent implements OnInit, OnChanges{
+export class SidenavCardComponent implements OnInit, OnChanges{
   @Input()
-  curItem!: Item;
+  curItem: Item = new Item();
   
   Math: any;
   constructor(public screen: ScreenService) { 
