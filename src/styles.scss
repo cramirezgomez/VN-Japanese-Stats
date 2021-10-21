@@ -53,37 +53,6 @@ snack-bar-container.notification simple-snack-bar {
     margin: 15px 0px;
     background-color: $bot_bar;
 }
-
-
-
-
-
-
-
-///sidenav
-// .screenContent{
-//     margin: 0px 40px;
-//     overflow: hidden; 
-//     max-width: 100%; 
-//     max-height: 100%;
-    
-// }
-
-// .example-container {
-//     //background: $background;
-//     background-image: url("/assets/img/bg.png");
-//     background-size: cover;
-//     height: calc(100% - 64px);
-//   }
-  
-// .example-sidenav {
-//     padding: 0px;
-//     height: 100%;
-// }
-// .mat-drawer{
-//     background-color: $bot_bar;
-//     height: 100%;
-// }
  
 
 
@@ -172,4 +141,19 @@ border-radius: 0px;
 }
 .fill-remaining-space {
     flex: 1 1 auto;
+}
+
+//background
+
+.my-flex-column{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+}
+
+.img-bg{
+    //background: $background;
+    background-image: url("/assets/img/bg.png");
+    background-size: cover;
 }

@@ -1,32 +1,39 @@
-<mat-card class="sign-forms">
-    <mat-card-header>
-        <div mat-card-avatar class="card-icon"></div>
-        <mat-card-title>Sign In</mat-card-title>
-    </mat-card-header>
-    <br>
-    <form [formGroup]="signupForm" (ngSubmit)="signUp()">
-        <p>
-            <mat-form-field appearance="outline">
-                <mat-label>Full Name</mat-label>
-                <input autocomplete="off" formControlName="displayName" type="text" matInput placeholder="Display Name">
-            </mat-form-field>
-        </p>
-        <p>
-            <mat-form-field appearance="outline">
-                <mat-label>Email</mat-label>
-                <input formControlName="email" type="email" matInput placeholder="Email">
-            </mat-form-field>
-        </p>
-        <p>
-            <mat-form-field appearance="outline">
-                <mat-label>Password</mat-label>
-                <input autocomplete="off" formControlName="password" type="password" matInput placeholder="Password">
-            </mat-form-field>
-        </p>
-        <div *ngIf="firebaseErrorMsg != ''" class="error-style">
-            <span>{{ firebaseErrorMsg }}</span>
-        </div>
+<div class="my-flex-column img-bg">
+    <app-navbar></app-navbar>
+    <div class="fill-remaining-space"></div>
+    <mat-card class="sign-forms">
+        <mat-card-header>
+            <div mat-card-avatar class="card-icon"></div>
+            <mat-card-title>Sign In</mat-card-title>
+        </mat-card-header>
+        <br>
+        <form [formGroup]="signupForm" (ngSubmit)="signUp()">
+            <p>
+                <mat-form-field appearance="outline">
+                    <mat-label>Full Name</mat-label>
+                    <input autocomplete="off" formControlName="displayName" type="text" matInput placeholder="Display Name">
+                </mat-form-field>
+            </p>
+            <p>
+                <mat-form-field appearance="outline">
+                    <mat-label>Email</mat-label>
+                    <input formControlName="email" type="email" matInput placeholder="Email">
+                </mat-form-field>
+            </p>
+            <p>
+                <mat-form-field appearance="outline">
+                    <mat-label>Password</mat-label>
+                    <input autocomplete="off" formControlName="password" type="password" matInput placeholder="Password">
+                </mat-form-field>
+            </p>
+            <div *ngIf="firebaseErrorMsg != ''" class="error-style">
+                <span>{{ firebaseErrorMsg }}</span>
+            </div>
+    
+            <button mat-raised-button color="primary">Signup</button>
+        </form>
+    </mat-card>
+    <div class="fill-remaining-space"></div>
+</div>
 
-        <button mat-raised-button color="primary">Signup</button>
-    </form>
-</mat-card>
+

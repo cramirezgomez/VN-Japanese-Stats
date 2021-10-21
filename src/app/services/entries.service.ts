@@ -78,9 +78,11 @@ export class EntriesService {
   }
 
   getEntryTotalByGame(gameName: string){
+    
     return this.getEntriesByGame(gameName).pipe(
       map(entryList => {
-        return this.addUpEntries(entryList);
+        let total = new FBGame();
+        return this.addUpEntries(entryList, total);
       })
     )
   }
@@ -88,22 +90,25 @@ export class EntriesService {
   getEntryTotalByRoute(gameName: string, routeName: string){
     return this.getEntriesByRoute(gameName, routeName).pipe(
       map(entryList => {
-        return this.addUpEntries(entryList);
+        let total = new FBRoute();
+        return this.addUpEntries(entryList, total);
       })
     )
   }
 
-  private addUpEntries(entryList: FBEntry[]) {
-    let total = new FBEntry();
+  private addUpEntries(entryList: FBEntry[], total:Item) {
+    
     return entryList.reduce((acc, cur) => {
       acc.chars += (cur.chars || 0);
       acc.lines += (cur.lines || 0);
       acc.mins += (cur.mins || 0);
+      acc.days++;
       return acc;
     }, total);
   }
 
-  insertEntry(entry:FBEntry,  game: FBGame, route:FBRoute, gameTotal: FBEntry, routeTotal: FBEntry){
+  insertEntry(entry:FBEntry,  game: FBGame, route:FBRoute, gameTotal: Item, routeTotal: Item){
+
     //convert date and add route
     entry.date = String(entry.date == "" ? "" : this.myDatePipe.transform(entry.date, 'yyyy-MM-dd'));
     entry.route = game.name + '/' + route.name;
@@ -111,12 +116,18 @@ export class EntriesService {
     //clear and add total
     this.clearItem(game);
     this.clearItem(route);
-    this.addEntry( route, routeTotal)
-    this.addEntry( game, gameTotal)
+
+
+    this.addItem( route, routeTotal)
+    this.addItem( game, gameTotal)
+    route.days = routeTotal.days + 1;
+    game.days = gameTotal.days + 1;
 
     //math
     this.addEntry( route, entry)
     this.addEntry( game, entry)
+
+    console.log(game)
 
     //all 3 asynch calls
     this.entryList.push(_.omit(entry, ["$key"]))
@@ -124,15 +135,16 @@ export class EntriesService {
     this.gameService.updateGame(game);
   }
 
-  updateEntry(newEntry:FBEntry, oldEntry: FBEntry, game: FBGame, route:FBRoute, gameTotal: FBEntry, routeTotal: FBEntry){
+  updateEntry(newEntry:FBEntry, oldEntry: FBEntry, game: FBGame, route:FBRoute, gameTotal: Item, routeTotal: Item){
+
     //format date and add route for push
     newEntry.date = String(newEntry.date == "" ? "" : this.myDatePipe.transform(newEntry.date, 'yyyy-MM-dd'));
 
     //clear and add total
     this.clearItem(game);
     this.clearItem(route);
-    this.addEntry( route, routeTotal)
-    this.addEntry( game, gameTotal)
+    this.addItem( route, routeTotal)
+    this.addItem( game, gameTotal)
 
     //math
     this.subEntry( route, oldEntry)
@@ -140,17 +152,23 @@ export class EntriesService {
     this.subEntry( game, oldEntry)
     this.addEntry( game, newEntry)
 
+    console.log(game)
+
     //all 3 asynch calls
     this.entryList.update(newEntry.$key, _.omit(newEntry, ["$key", "route"]))
     this.routeService.updateRoute(route);
     this.gameService.updateGame(game);
   }
-  deleteEntry(entry:FBEntry,  game: FBGame, route:FBRoute, gameTotal: FBEntry, routeTotal: FBEntry) {
+  deleteEntry(entry:FBEntry,  game: FBGame, route:FBRoute, gameTotal: Item, routeTotal: Item) {
+
+    console.log(gameTotal);
     //clear and add total
     this.clearItem(game);
     this.clearItem(route);
-    this.addEntry( route, routeTotal)
-    this.addEntry( game, gameTotal)
+    this.addItem( route, routeTotal)
+    this.addItem( game, gameTotal)
+    route.days = routeTotal.days - 1;
+    game.days = gameTotal.days - 1;
     
     //math
     this.subEntry( route, entry)
@@ -165,7 +183,14 @@ export class EntriesService {
   loadEntryDataBase(userKey: string){
     this.entryList = this.firebase.list('data/' + userKey +'/entries');
   }
+
   
+  private addItem(item: Item,entry: Item){
+    item.chars += entry.chars;
+    item.lines += entry.lines;
+    item.mins += entry.mins;
+  }
+
   private addEntry(item: Item,entry: FBEntry){
     item.chars += entry.chars;
     item.lines += entry.lines;

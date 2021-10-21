@@ -9,7 +9,6 @@ import { GamesService } from '../services/games.service';
 import { NotificationService } from '../services/notification.service';
 import { RoutesService } from '../services/routes.service';
 import { ScreenService } from '../services/screen.service';
-import { SidenavService } from '../services/sidenav.service';
 import { AddGameComponent } from './add-game/add-game.component';
 
 @Component({
@@ -19,7 +18,7 @@ import { AddGameComponent } from './add-game/add-game.component';
 })
 export class PageGameComponent implements OnInit, OnDestroy {
   gameArray: any[] = []
-  public allGames: FBGame = new FBGame;
+  public totalStats: FBGame = new FBGame;
   readonly dialogConfig = new MatDialogConfig();
   gameName = ' '
   Math: any;
@@ -33,7 +32,7 @@ export class PageGameComponent implements OnInit, OnDestroy {
   constructor(public gameService: GamesService, public routeService: RoutesService,
     private dialog: MatDialog, private notificationService:NotificationService, 
     private dialogService: DialogService, public afAuth: AngularFireAuth, public authSer: AuthService, 
-    public screen: ScreenService, private sidenavSer: SidenavService ) { 
+    public screen: ScreenService) { 
     this.Math = Math;
   }
   ngOnDestroy(): void {
@@ -64,8 +63,7 @@ export class PageGameComponent implements OnInit, OnDestroy {
 
         //get total
         this.totalSub = this.gameService.getTotalStats().subscribe( data =>{
-          this.allGames = data
-          this.sidenavSer.changeItem(this.allGames);
+          this.totalStats = data;
         });
       }
     });

@@ -4,13 +4,12 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { FBEntry } from '../models/entry.model';
 import { FBGame, Game } from '../models/game.model';
-import { FBRoute } from '../models/route.model';
+import { FBRoute, Item } from '../models/route.model';
 import { AuthService } from '../services/auth.service';
 import { EntriesService } from '../services/entries.service';
 import { GamesService } from '../services/games.service';
 import { RoutesService } from '../services/routes.service';
 import { ScreenService } from '../services/screen.service';
-import { SidenavService } from '../services/sidenav.service';
 import { AddEntryComponent } from './add-entry/add-entry.component';
 
 
@@ -30,8 +29,8 @@ export class PageEntryComponent implements OnInit, OnDestroy {
   routeName = '';
 
   //total enteis
-  gameTotal: FBEntry = new FBEntry();
-  routeTotal:FBEntry = new FBEntry();
+  gameTotal: Item = new Item();
+  routeTotal: Item = new Item();
 
   //Subs
   authSub: Subscription | undefined;
@@ -44,7 +43,7 @@ export class PageEntryComponent implements OnInit, OnDestroy {
 
   constructor(public gameService: GamesService, public routeService: RoutesService, public entryService:EntriesService, 
     private dialog: MatDialog,  public screen: ScreenService, private actRoute: ActivatedRoute, private authSer: AuthService,  
-    public router: Router, private sidenavSer: SidenavService)
+    public router: Router)
   {
     this.gameName = this.actRoute.snapshot.params['gameName'];
     this.routeName = this.actRoute.snapshot.params['routeName']
@@ -91,7 +90,6 @@ export class PageEntryComponent implements OnInit, OnDestroy {
             else{
               this.curRoute = data[0];
             }
-            this.sidenavSer.changeItem(this.curRoute);
             
           }
           else{
@@ -105,8 +103,14 @@ export class PageEntryComponent implements OnInit, OnDestroy {
         })
 
         //get totals for edits
-        this.entryService.getEntryTotalByGame(this.gameName).subscribe(data => this.gameTotal = data)
-        this.entryService.getEntryTotalByRoute(this.gameName, this.routeName).subscribe(data => this.routeTotal = data)
+        this.entryService.getEntryTotalByGame(this.gameName).subscribe(data => {
+          this.gameTotal = data
+          console.log(data)
+        })
+        this.entryService.getEntryTotalByRoute(this.gameName, this.routeName).subscribe(data => {
+          this.routeTotal = data
+          console.log(data)
+        })
       }
     });
   }

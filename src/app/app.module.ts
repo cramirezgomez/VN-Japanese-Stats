@@ -3,8 +3,6 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { GameListComponent } from './page-game/game-list/game-list.component';
-import { RouteListComponent } from './page-route/route-list/route-list.component';
 import { EntryTableComponent } from './page-entry/entry-table/entry-table.component';
 import { AddEntryComponent } from './page-entry/add-entry/add-entry.component';
 import { GamesService } from './services/games.service';
@@ -30,13 +28,13 @@ import { PageGameComponent } from './page-game/page-game.component';
 import { PageRouteComponent } from './page-route/page-route.component';
 import { PageSettingsComponent } from './page-settings/page-settings.component';
 import { PageHomeComponent } from './page-home/page-home.component';
-import { InstructionsComponent } from './page-home/instructions/instructions.component';
 import { NavbarComponent } from './shared/navbar/navbar.component';
 import { SidenavCardComponent } from './shared/sidenav-card/sidenav-card.component';
 import { TimePipe } from './shared/pipes/time.pipe';
 import { PacePipe } from './shared/pipes/pace.pipe';
 import { SeparateRoutePipe } from './shared/pipes/separate-route.pipe';
 import { SidenavComponent } from './shared/sidenav/sidenav.component';
+import { ItemListComponent } from './shared/item-list/item-list.component';
 
 
 
@@ -45,8 +43,6 @@ import { SidenavComponent } from './shared/sidenav/sidenav.component';
 @NgModule({
   declarations: [
     AppComponent,
-    GameListComponent,
-    RouteListComponent,
     EntryTableComponent,
     AddEntryComponent,
     AddGameComponent,
@@ -60,13 +56,13 @@ import { SidenavComponent } from './shared/sidenav/sidenav.component';
     PageRouteComponent,
     PageSettingsComponent,
     PageHomeComponent,
-    InstructionsComponent,
     NavbarComponent,
     SidenavCardComponent,
     TimePipe,
     PacePipe,
     SeparateRoutePipe,
-    SidenavComponent
+    SidenavComponent,
+    ItemListComponent
     
   ],
   imports: [

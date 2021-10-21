@@ -1,68 +1,72 @@
-<mat-toolbar class="second-mat-toolbar" *ngIf="!screen.mobile">
-  <button mat-icon-button >
-    <mat-icon>menu</mat-icon>
-  </button>
-
-  <!-- <button mat-button routerLink="/game_list"><mat-icon>laptop_windows</mat-icon>VN List</button> -->
-
-  <span class="fill-remaining-space"></span>
-  <span class="truncate">{{ curGame.name }}</span>
-  <span class="fill-remaining-space"></span>
-  <button mat-raised-button (click)="onCreate()" *ngIf="curGame.name != ''">
-    <mat-icon>add</mat-icon>New Route
-  </button>
-</mat-toolbar>
-<mat-toolbar class="second-mat-toolbar" *ngIf="screen.mobile">
-  <span class="truncate">{{ curGame.name }}</span>
-  <span class="fill-remaining-space"></span>
-  <button mat-raised-button (click)="onCreate()" *ngIf="curGame.name != ''">
-    <mat-icon>add</mat-icon>New Route
-  </button>
-</mat-toolbar>
-<div class="cardList" fxLayout="row wrap" fxLayoutGap="16px grid" >
-  <div fxLayoutAlign="none stretch"  *ngFor="let route of routeArray; let i = index">
-    <mat-card class="my-card"  >
-      <mat-card-header>
+<app-sidenav [totalItem]='curGame'>
+  <mat-toolbar class="second-mat-toolbar" *ngIf="!screen.mobile">
+    <button mat-icon-button >
+      <mat-icon>menu</mat-icon>
+    </button>
+  
+    <!-- <button mat-button routerLink="/game_list"><mat-icon>laptop_windows</mat-icon>VN List</button> -->
+  
+    <span class="fill-remaining-space"></span>
+    <span class="truncate">{{ curGame.name }}</span>
+    <span class="fill-remaining-space"></span>
+    <button mat-raised-button (click)="onCreate()" *ngIf="curGame.name != ''">
+      <mat-icon>add</mat-icon>New Route
+    </button>
+  </mat-toolbar>
+  <mat-toolbar class="second-mat-toolbar" *ngIf="screen.mobile">
+    <span class="truncate">{{ curGame.name }}</span>
+    <span class="fill-remaining-space"></span>
+    <button mat-raised-button (click)="onCreate()" *ngIf="curGame.name != ''">
+      <mat-icon>add</mat-icon>New Route
+    </button>
+  </mat-toolbar>
+  <div class="cardList" fxLayout="row wrap" fxLayoutGap="16px grid" >
+    <div fxLayoutAlign="none stretch"  *ngFor="let route of routeArray; let i = index">
+      <mat-card class="my-card"  >
+        <mat-card-header>
+          
+          
+          <mat-card-title>{{ route.name }}</mat-card-title> 
+          <mat-card-subtitle>
+            <button mat-icon-button (click)="onEdit(route)"><mat-icon>launch</mat-icon></button>
+            <button mat-icon-button (click)="onDelete(route)" color="warn"><mat-icon>delete_outlines</mat-icon></button>
+          </mat-card-subtitle>
+        </mat-card-header>
+        <a href="#" routerLink="/vn_list/{{route.game}}/{{route.name}}"><img class="route-img" mat-card-image src="{{ route.link }}"  alt="{{ route.name }} image. Click to see entries." onError="this.src='assets/img/default.png'"></a>
+        <mat-card-content>
+          <div class="stat-box">
+            <h2>Lines:</h2>
+            <span class="fill-remaining-space"></span>
+            <h2>{{ route.lines | number}}</h2>
+          </div>
+          <div class="stat-box">
+            <h2>Chars:</h2>
+            <span class="fill-remaining-space"></span>
+            <h2>{{ route.chars | number}}</h2>
+          </div>
+          <div class="stat-box">
+            <h2>Chars/Hour:</h2>
+            <span class="fill-remaining-space"></span>
+            <h2>{{ Math.floor(route.chars/route.mins * 60) | number}}</h2>
+          </div>
+          <div class="stat-box">
+            <h2>Time:</h2>
+            <span class="fill-remaining-space"></span>
+            <h2>{{ Math.floor(route.mins / 60) | number}}{{ ":" + ('0' + (route.mins % 60).toString()).slice(-2) }}</h2>
+          </div>
+          <div class="stat-box">
+            <h2>Entries:</h2>
+            <span class="fill-remaining-space"></span>
+            <h2>{{ route.days | number}}</h2>
+          </div>
+        </mat-card-content>
         
-        
-        <mat-card-title>{{ route.name }}</mat-card-title> 
-        <mat-card-subtitle>
-          <button mat-icon-button (click)="onEdit(route)"><mat-icon>launch</mat-icon></button>
-          <button mat-icon-button (click)="onDelete(route)" color="warn"><mat-icon>delete_outlines</mat-icon></button>
-        </mat-card-subtitle>
-      </mat-card-header>
-      <a href="#" routerLink="/vn_list/{{route.game}}/{{route.name}}"><img class="route-img" mat-card-image src="{{ route.link }}"  alt="{{ route.name }} image. Click to see entries." onError="this.src='assets/img/default.png'"></a>
-      <mat-card-content>
-        <div class="stat-box">
-          <h2>Lines:</h2>
-          <span class="fill-remaining-space"></span>
-          <h2>{{ route.lines | number}}</h2>
-        </div>
-        <div class="stat-box">
-          <h2>Chars:</h2>
-          <span class="fill-remaining-space"></span>
-          <h2>{{ route.chars | number}}</h2>
-        </div>
-        <div class="stat-box">
-          <h2>Chars/Hour:</h2>
-          <span class="fill-remaining-space"></span>
-          <h2>{{ Math.floor(route.chars/route.mins * 60) | number}}</h2>
-        </div>
-        <div class="stat-box">
-          <h2>Time:</h2>
-          <span class="fill-remaining-space"></span>
-          <h2>{{ Math.floor(route.mins / 60) | number}}{{ ":" + ('0' + (route.mins % 60).toString()).slice(-2) }}</h2>
-        </div>
-        <div class="stat-box">
-          <h2>Entries:</h2>
-          <span class="fill-remaining-space"></span>
-          <h2>{{ route.days | number}}</h2>
-        </div>
-      </mat-card-content>
-      
-    </mat-card>
+      </mat-card>
+    </div>
   </div>
-</div>
+</app-sidenav>
+
+
   
     
   

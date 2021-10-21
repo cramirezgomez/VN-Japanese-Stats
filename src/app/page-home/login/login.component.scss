@@ -1,11 +1,6 @@
-:host{
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
-    height: calc(100% - 64px);
-}
+
 
 .sign-forms{
     padding: 50px;
+    align-self: center;
 }

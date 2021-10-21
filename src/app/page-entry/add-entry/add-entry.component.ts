@@ -3,7 +3,7 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
 import { FBEntry } from 'src/app/models/entry.model';
 import { FBGame } from 'src/app/models/game.model';
-import { FBRoute } from 'src/app/models/route.model';
+import { FBRoute, Item } from 'src/app/models/route.model';
 import { EntriesService } from 'src/app/services/entries.service';
 import { NotificationService } from 'src/app/services/notification.service';
 
@@ -18,8 +18,8 @@ export class AddEntryComponent implements OnInit {
   oldEntry = new FBEntry();
 
   //
-  gameTotal: FBEntry = new FBEntry();
-  routeTotal: FBEntry = new FBEntry();
+  gameTotal: Item = new Item();
+  routeTotal: Item = new Item();
 
   constructor(public entryService: EntriesService, public notificationService: NotificationService, 
     private dialogRef:MatDialogRef<AddEntryComponent>,  @Inject(MAT_DIALOG_DATA) public data: any) { 

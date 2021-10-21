@@ -9,7 +9,6 @@ import { DownloadService } from '../services/download.service';
 import { EntriesService } from '../services/entries.service';
 import { GamesService } from '../services/games.service';
 import { ScreenService } from '../services/screen.service';
-import { SidenavService } from '../services/sidenav.service';
 
 @Component({
   selector: 'app-page-settings',
@@ -18,7 +17,7 @@ import { SidenavService } from '../services/sidenav.service';
 })
 export class PageSettingsComponent implements OnInit, OnDestroy {
   entriesArray: FBEntry[] = [];
-  allGames = new FBGame();
+  totalStats = new FBGame();
 
   //SUbs
   authSub: Subscription | undefined;
@@ -26,8 +25,7 @@ export class PageSettingsComponent implements OnInit, OnDestroy {
   totalSub: Subscription | undefined;
 
   constructor(public entryService: EntriesService, public gameService: GamesService,
-    public authSer: AuthService, public dlSer: DownloadService, public screen: ScreenService,
-    private sidenavSer: SidenavService) {
+    public authSer: AuthService, public dlSer: DownloadService, public screen: ScreenService) {
    }
   ngOnDestroy(): void {
     this.authSub?.unsubscribe();
@@ -53,11 +51,8 @@ export class PageSettingsComponent implements OnInit, OnDestroy {
         })
 
         //get total
-        //get total
-        //get total
         this.totalSub = this.gameService.getTotalStats().subscribe( data =>{
-          this.allGames = data
-          this.sidenavSer.changeItem(this.allGames);
+          this.totalStats = data
         });
         
       }

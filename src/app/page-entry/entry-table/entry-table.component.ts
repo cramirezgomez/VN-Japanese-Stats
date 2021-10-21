@@ -15,7 +15,7 @@ import { PacePipe } from 'src/app/shared/pipes/pace.pipe';
 import { SeparateRoutePipe } from 'src/app/shared/pipes/separate-route.pipe';
 import { TimePipe } from 'src/app/shared/pipes/time.pipe';
 
-import { FBRoute } from '../../models/route.model';
+import { FBRoute, Item } from '../../models/route.model';
 import { DialogService } from '../../services/dialog.service';
 import { EntriesService } from '../../services/entries.service';
 import { GamesService } from '../../services/games.service';
@@ -36,8 +36,8 @@ export class EntryTableComponent implements OnInit, OnChanges, OnDestroy {
   @Input() curGame = new FBGame();
   @Input() curRoute = new FBRoute()
 
-  @Input() gameTotal = new FBEntry();
-  @Input() routeTotal = new FBEntry()
+  @Input() gameTotal = new Item();
+  @Input() routeTotal = new Item()
   
   listData!: MatTableDataSource<any>;
 
