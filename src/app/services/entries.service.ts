@@ -107,27 +107,22 @@ export class EntriesService {
     }, total);
   }
 
-  insertEntry(entry:FBEntry,  game: FBGame, route:FBRoute, gameTotal: Item, routeTotal: Item){
+  insertEntry(entry:FBEntry,  game: FBGame, route:FBRoute){
 
     //convert date and add route
     entry.date = String(entry.date == "" ? "" : this.myDatePipe.transform(entry.date, 'yyyy-MM-dd'));
     entry.route = game.name + '/' + route.name;
-    
-    //clear and add total
-    this.clearItem(game);
-    this.clearItem(route);
 
-
-    this.addItem( route, routeTotal)
-    this.addItem( game, gameTotal)
-    route.days = routeTotal.days + 1;
-    game.days = gameTotal.days + 1;
+    route.days++;
+    game.days++;
 
     //math
     this.addEntry( route, entry)
     this.addEntry( game, entry)
 
-    console.log(game)
+     console.log(game);
+    // console.log(route)
+    console.log(entry)
 
     //all 3 asynch calls
     this.entryList.push(_.omit(entry, ["$key"]))
@@ -135,16 +130,10 @@ export class EntriesService {
     this.gameService.updateGame(game);
   }
 
-  updateEntry(newEntry:FBEntry, oldEntry: FBEntry, game: FBGame, route:FBRoute, gameTotal: Item, routeTotal: Item){
+  updateEntry(newEntry:FBEntry, oldEntry: FBEntry, game: FBGame, route:FBRoute){
 
     //format date and add route for push
     newEntry.date = String(newEntry.date == "" ? "" : this.myDatePipe.transform(newEntry.date, 'yyyy-MM-dd'));
-
-    //clear and add total
-    this.clearItem(game);
-    this.clearItem(route);
-    this.addItem( route, routeTotal)
-    this.addItem( game, gameTotal)
 
     //math
     this.subEntry( route, oldEntry)
@@ -159,20 +148,17 @@ export class EntriesService {
     this.routeService.updateRoute(route);
     this.gameService.updateGame(game);
   }
-  deleteEntry(entry:FBEntry,  game: FBGame, route:FBRoute, gameTotal: Item, routeTotal: Item) {
-
-    console.log(gameTotal);
-    //clear and add total
-    this.clearItem(game);
-    this.clearItem(route);
-    this.addItem( route, routeTotal)
-    this.addItem( game, gameTotal)
-    route.days = routeTotal.days - 1;
-    game.days = gameTotal.days - 1;
+  deleteEntry(entry:FBEntry,  game: FBGame, route:FBRoute) {
+    //sub days
+    route.days--;
+    game.days--;
     
     //math
     this.subEntry( route, entry)
     this.subEntry( game, entry)
+
+    console.log(game);
+    console.log(route)
 
     //all 3 asynch calls
     this.entryList.remove(entry.$key);

@@ -1,8 +1,9 @@
 <header>
     <mat-toolbar *ngIf="!screen.mobile" color="primary" class="mat-elevation-z6">
-      
-      
-        <span >JPN VN Tracker</span>
+      <button mat-button class="sidenav-toggle" (click)="toggleSidenav.emit()">
+        <mat-icon>menu</mat-icon>
+      </button>
+      <span >JPN VN Tracker</span>
       
       <span class="fill-remaining-space" ></span>
       
@@ -33,7 +34,9 @@
     </mat-toolbar>
 
     <mat-toolbar *ngIf="screen.mobile" color="primary" class="mat-elevation-z6">
-      
+      <button mat-button class="sidenav-toggle" (click)="toggleSidenav.emit()">
+        <mat-icon>menu</mat-icon>
+      </button>
       <span>JPN VN Tracker</span>
       <span class="fill-remaining-space" ></span>
       <button mat-button [matMenuTriggerFor]="menu">

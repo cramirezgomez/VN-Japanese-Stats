@@ -28,10 +28,6 @@ export class PageEntryComponent implements OnInit, OnDestroy {
   gameName = '';
   routeName = '';
 
-  //total enteis
-  gameTotal: Item = new Item();
-  routeTotal: Item = new Item();
-
   //Subs
   authSub: Subscription | undefined;
   gameSub: Subscription | undefined;
@@ -72,6 +68,13 @@ export class PageEntryComponent implements OnInit, OnDestroy {
         this.gameSub = this.gameService.getGame(userKey,this.gameName).subscribe(data =>{
           if(data && data.length > 0){
             this.curGame = data[0];
+            this.curGame.$key = data[0].$key;
+            this.curGame.name = data[0].name;
+            this.curGame.link = data[0].link;
+            //console.log(this.curGame)
+          }
+          else{
+            this.router.navigate(['vn_list']);
           }
           
         }) ;
@@ -79,18 +82,14 @@ export class PageEntryComponent implements OnInit, OnDestroy {
         //get route for totals
         this.routeSub = this.routeService.getRoute(userKey,this.routeName).subscribe(data =>{
           if(data && data.length > 0){
-            if(data.length > 1){
-              let result  = data.find(x => x.game == this.gameName);
-              if(result){
-                this.curRoute = result;
-                
-              }
-              
+            let result  = data.find(x => x.game == this.gameName);
+            if(result){
+              this.curRoute.$key = result.$key;
+              this.curRoute.game = result.game
+              this.curRoute.link = result.link;
+              this.curRoute.name = result.name;
+             // console.log(this.curRoute)
             }
-            else{
-              this.curRoute = data[0];
-            }
-            
           }
           else{
             this.router.navigate(['vn_list']);
@@ -104,15 +103,22 @@ export class PageEntryComponent implements OnInit, OnDestroy {
 
         //get totals for edits
         this.entryService.getEntryTotalByGame(this.gameName).subscribe(data => {
-          this.gameTotal = data
-          console.log(data)
+          this.assignTotalsStats(this.curGame, data);
+         // console.log(this.curGame)
         })
         this.entryService.getEntryTotalByRoute(this.gameName, this.routeName).subscribe(data => {
-          this.routeTotal = data
-          console.log(data)
+          this.assignTotalsStats(this.curRoute, data);
+         // console.log(this.curRoute)
         })
       }
     });
+  }
+
+  private assignTotalsStats(item: Item, totals: Item){
+    item.chars = totals.chars;
+    item.lines = totals.lines;
+    item.mins = totals.mins;
+    item.days = totals.days;
   }
 
   onCreate(){
@@ -124,9 +130,7 @@ export class PageEntryComponent implements OnInit, OnDestroy {
     dialogConfig.width = "60%";
     dialogConfig.data = {
       game: this.curGame,
-      route: this.curRoute,
-      gameTotal: this.gameTotal,
-      routeTotal: this.routeTotal
+      route: this.curRoute
     }
     this.dialog.open(AddEntryComponent, dialogConfig);
   }

@@ -1,16 +1,6 @@
 <app-sidenav [totalItem]='curRoute'>
-  <mat-toolbar class="second-mat-toolbar" *ngIf="!screen.mobile">
-    <button mat-icon-button>
-      <mat-icon>menu</mat-icon>
-    </button>
+  <mat-toolbar class="second-mat-toolbar">
     <span class="fill-remaining-space"></span>
-    <span class="truncate">{{curRoute.name}}</span>
-    <span class="fill-remaining-space"></span>
-    <button mat-raised-button (click)="onCreate()" *ngIf="curRoute.name != ''">
-      <mat-icon>add</mat-icon>Add Entry
-    </button>
-  </mat-toolbar>
-  <mat-toolbar class="second-mat-toolbar" *ngIf="screen.mobile">
     <span class="truncate">{{curRoute.name}}</span>
     <span class="fill-remaining-space"></span>
     <button mat-raised-button (click)="onCreate()" *ngIf="curRoute.name != ''">
@@ -18,7 +8,7 @@
     </button>
   </mat-toolbar>
   
-  <app-entry-table [entryList]="entriesArray" [curGame]="curGame" [curRoute]="curRoute" [gameTotal]='gameTotal' [routeTotal]='routeTotal'>
+  <app-entry-table [entryList]="entriesArray" [curGame]="curGame" [curRoute]="curRoute">
     
   </app-entry-table>
 </app-sidenav>

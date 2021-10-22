@@ -1,22 +1,8 @@
-<app-sidenav [totalItem]="totalStats">
-  <mat-toolbar class="second-mat-toolbar" *ngIf="!screen.mobile">
-    <button mat-icon-button>
-      <mat-icon>menu</mat-icon>
-    </button>
+<app-sidenav [totalItem]="totalStats" >
+  <mat-toolbar class="second-mat-toolbar">
     <span class="fill-remaining-space"></span>
-    <span>Download Backup</span>
+    <span>Backup</span>
     <span class="fill-remaining-space" ></span>
-  
-    <a button mat-raised-button class="btn btn-clear" title="Download JSON" [href]="dlSer.downloadJsonHref" download="entries_{{dlSer.myDate | date: 'shortDate'}}.json">
-      <mat-icon>file_download</mat-icon>
-      Download
-    </a>
-  </mat-toolbar>
-  <mat-toolbar class="second-mat-toolbar" *ngIf="screen.mobile">
-    
-    <span>Download Backup</span>
-    <span class="fill-remaining-space" ></span>
-  
     <a button mat-raised-button class="btn btn-clear" title="Download JSON" [href]="dlSer.downloadJsonHref" download="entries_{{dlSer.myDate | date: 'shortDate'}}.json">
       <mat-icon>file_download</mat-icon>
       Download
@@ -25,6 +11,7 @@
   
   <app-entry-table [displayedColumns]="['date', 'game', 'heroine',  'lines', 'chars', 'mins', 'pace']" [entryList]="entriesArray">
   </app-entry-table>
+  <app-line-graph [entries]='entriesArray'></app-line-graph>
 </app-sidenav>
 
 

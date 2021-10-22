@@ -17,10 +17,6 @@ export class AddEntryComponent implements OnInit {
   curRoute = new FBRoute();
   oldEntry = new FBEntry();
 
-  //
-  gameTotal: Item = new Item();
-  routeTotal: Item = new Item();
-
   constructor(public entryService: EntriesService, public notificationService: NotificationService, 
     private dialogRef:MatDialogRef<AddEntryComponent>,  @Inject(MAT_DIALOG_DATA) public data: any) { 
     }
@@ -29,10 +25,6 @@ export class AddEntryComponent implements OnInit {
     this.curGame = this.data.game;
     this.curRoute = this.data.route;
     this.oldEntry = this.data.oldEntry;
-
-    //total
-    this.routeTotal = this.data.routeTotal;
-    this.gameTotal = this.data.gameTotal;
   }
 
   onClear(){
@@ -48,12 +40,12 @@ export class AddEntryComponent implements OnInit {
   onSubmit(){
     if(this.entryService.entryForm.valid){
       if(!this.entryService.entryForm.get('$key')?.value){
-        this.entryService.insertEntry(this.entryService.entryForm.value, this.curGame, this.curRoute, this.gameTotal, this.routeTotal);
+        this.entryService.insertEntry(this.entryService.entryForm.value, this.curGame, this.curRoute);
         this.onClear();
         this.notificationService.success('Entry Was Added');
       }
       else{
-        this.entryService.updateEntry(this.entryService.entryForm.value,this.oldEntry,this.curGame, this.curRoute, this.gameTotal, this.routeTotal);
+        this.entryService.updateEntry(this.entryService.entryForm.value,this.oldEntry,this.curGame, this.curRoute);
         this.onClear();
         this.notificationService.success('Entry Was Changed');
       }

@@ -14,7 +14,6 @@
     background-image: url("/assets/img/bg.png");
     background-size: cover;
     flex-direction: column;
-    overflow-y: scroll;
   }
   
   .app-sidenav {
@@ -22,9 +21,22 @@
     background-color: $bot_bar;
   }
   
+  .scroll-part{
+    overflow-y: scroll;
+  }
+  
   .wrapper {
-      margin: 50px;
+    margin: 50px;
+    
   }
   mat-sidenav{
     border-right:0px;
+  }
+
+  .length {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    max-width: 250px;
+   
   }

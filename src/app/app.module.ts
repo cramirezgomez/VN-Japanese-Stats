@@ -20,7 +20,6 @@ import { AddGameComponent } from './page-game/add-game/add-game.component';
 import { AddRouteComponent } from './page-route/add-route/add-route.component';
 import { DatePipe } from '@angular/common';
 import { ConfirmDialogComponent } from './page-home/confirm-dialog/confirm-dialog.component';
-import { SettingsComponent } from './page-settings/settings/settings.component';
 import { LoginComponent } from './page-home/login/login.component';
 import { SignupComponent } from './page-home/signup/signup.component';
 import { PageEntryComponent } from './page-entry/page-entry.component';
@@ -35,6 +34,9 @@ import { PacePipe } from './shared/pipes/pace.pipe';
 import { SeparateRoutePipe } from './shared/pipes/separate-route.pipe';
 import { SidenavComponent } from './shared/sidenav/sidenav.component';
 import { ItemListComponent } from './shared/item-list/item-list.component';
+import { LineGraphComponent } from './shared/line-graph/line-graph.component';
+import * as echarts from 'echarts';
+import { NgxEchartsModule } from 'ngx-echarts';
 
 
 
@@ -48,7 +50,6 @@ import { ItemListComponent } from './shared/item-list/item-list.component';
     AddGameComponent,
     AddRouteComponent,
     ConfirmDialogComponent,
-    SettingsComponent,
     LoginComponent,
     SignupComponent,
     PageEntryComponent,
@@ -62,7 +63,8 @@ import { ItemListComponent } from './shared/item-list/item-list.component';
     PacePipe,
     SeparateRoutePipe,
     SidenavComponent,
-    ItemListComponent
+    ItemListComponent,
+    LineGraphComponent,
     
   ],
   imports: [
@@ -76,6 +78,15 @@ import { ItemListComponent } from './shared/item-list/item-list.component';
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireDatabaseModule,
     FlexLayoutModule,
+   // NgxEchartsModule
+   NgxEchartsModule.forRoot({
+    /**
+     * This will import all modules from echarts.
+     * If you only need custom modules,
+     * please refer to [Custom Build] section.
+     */
+    echarts: () => import('echarts'), // or import('./path-to-my-custom-echarts')
+  }),
     
    
     

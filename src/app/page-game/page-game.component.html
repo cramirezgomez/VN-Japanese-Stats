@@ -1,8 +1,6 @@
 <app-sidenav [totalItem]='totalStats'>
-  <mat-toolbar class="second-mat-toolbar" *ngIf="!screen.mobile">
-    <button mat-icon-button>
-      <mat-icon>menu</mat-icon>
-    </button>
+
+  <mat-toolbar class="second-mat-toolbar">
     <span class="fill-remaining-space"></span>
     <span>Visual Novels</span>
     <span class="fill-remaining-space"></span>
@@ -10,13 +8,7 @@
       <mat-icon>add</mat-icon>New Game
     </button>
   </mat-toolbar>
-  <mat-toolbar class="second-mat-toolbar" *ngIf="screen.mobile">
-    <span>Visual Novels</span>
-    <span class="fill-remaining-space"></span>
-    <button mat-raised-button (click)="onCreate()">
-      <mat-icon>add</mat-icon>New Game
-    </button>
-  </mat-toolbar>
+
   <div class="cardList" fxLayout="row wrap" fxLayoutGap="16px grid"    >
     <div fxLayoutAlign="none stretch" *ngFor="let game of gameArray; let i = index">
       <mat-card class="my-card" >

@@ -23,9 +23,13 @@
     "@angular/platform-browser": "~12.1.1",
     "@angular/platform-browser-dynamic": "~12.1.1",
     "@angular/router": "~12.1.1",
+    "@juggle/resize-observer": "^3.3.1",
+    "@swimlane/ngx-charts": "^19.1.0",
+    "echarts": "^5.2.1",
     "firebase": "^7.0 || ^8.0",
     "lodash": "^4.17.21",
     "ngx-bootstrap": "^6.2.0",
+    "ngx-echarts": "^7.0.2",
     "rxjs": "~6.6.0",
     "tslib": "^2.2.0",
     "zone.js": "~0.11.4"

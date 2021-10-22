@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { ScreenService } from 'src/app/services/screen.service';
 
@@ -8,6 +8,8 @@ import { ScreenService } from 'src/app/services/screen.service';
   styleUrls: ['./navbar.component.scss']
 })
 export class NavbarComponent implements OnInit {
+  
+  @Output() toggleSidenav = new EventEmitter<void>();
 
   constructor(public afAuth: AngularFireAuth, public screen: ScreenService) { }
 

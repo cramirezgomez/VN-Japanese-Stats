@@ -2,20 +2,23 @@
   <mat-sidenav #sidenav class="app-sidenav mat-elevation-z10" 
                [opened]="!screen.mobile"
                [mode]="screen.mobile ? 'over' : 'side'">
-    <mat-toolbar color="primary">
-    {{ totalItem.name }}
+    <mat-toolbar color="primary"> 
+      <span class="length">{{ totalItem.name }}</span>
     </mat-toolbar>
     <app-sidenav-card [curItem]="totalItem"></app-sidenav-card>
     
   </mat-sidenav>
 
   <div class="app-sidenav-content">
-    <app-navbar></app-navbar>
-    <div class="wrapper">
-      <ng-content>
-        
-      </ng-content>
+    <app-navbar (toggleSidenav)="sidenav.toggle()"></app-navbar>
+    <div class="scroll-part">
+      <div class="wrapper">
+        <ng-content>
+          
+        </ng-content>
+      </div>
     </div>
+    
   </div>
 
 </mat-sidenav-container>

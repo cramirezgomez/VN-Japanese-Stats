@@ -35,9 +35,6 @@ export class EntryTableComponent implements OnInit, OnChanges, OnDestroy {
 
   @Input() curGame = new FBGame();
   @Input() curRoute = new FBRoute()
-
-  @Input() gameTotal = new Item();
-  @Input() routeTotal = new Item()
   
   listData!: MatTableDataSource<any>;
 
@@ -49,7 +46,7 @@ export class EntryTableComponent implements OnInit, OnChanges, OnDestroy {
     
   constructor(public gameService: GamesService, public routeService: RoutesService, public entryService:EntriesService,
     private dialog: MatDialog, private notificationService:NotificationService, private dialogService: DialogService, 
-    public router: Router, public authSer: AuthService, private dlSer: DownloadService, public screen: ScreenService,
+    public router: Router, public authSer: AuthService,
     private sepPipe: SeparateRoutePipe, private pacePipe: PacePipe) { 
       this.Math = Math;
       
@@ -94,7 +91,7 @@ export class EntryTableComponent implements OnInit, OnChanges, OnDestroy {
     this.dialogSub = this.dialogService.openConfirmDialog('Are you sure you want to delete this entry?')
     .afterClosed().subscribe(res => {
       if(res){
-        this.entryService.deleteEntry(entry, this.curGame, this.curRoute, this.gameTotal, this.routeTotal);
+        this.entryService.deleteEntry(entry, this.curGame, this.curRoute);
         this.notificationService.warn('Entry Was Deleted')
       }
     });
@@ -108,9 +105,7 @@ export class EntryTableComponent implements OnInit, OnChanges, OnDestroy {
     dialogConfig.data = {
       game: this.curGame,
       route: this.curRoute,
-      oldEntry: row,
-      gameTotal: this.gameTotal,
-      routeTotal: this.routeTotal
+      oldEntry: row
     }
     this.dialog.open(AddEntryComponent, dialogConfig);
   }

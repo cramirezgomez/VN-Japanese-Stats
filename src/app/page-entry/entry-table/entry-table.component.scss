@@ -8,47 +8,30 @@ mat-footer-row  mat-footer-cell{
 .mat-paginator {
   background: $card;
 }
-.desk-table {
-  background: $card;
-  // overflow-x: scroll;
-}
-.desk-cell,
-.desk-header-cell {
-font-size: 20px;
-text-align:  right;
-}
-.mobile-table {
-  background: $card;
-  overflow-x: scroll;
-}
-.mobile-cell,
-.mobile-header-cell {
-word-wrap: initial;
-display: table-cell;
-padding: 0px 10px;
-line-break: unset;
 
-white-space: nowrap;
-overflow: hidden;
-vertical-align: middle;
+mat-table{
+  background: $card;
+  min-width: 1000px;
+}
 
-font-size: 20px;
-text-align:  right;
+mat-cell, mat-cell-header{
+  font-size: 20px;
+  text-align:  right;
 }
-.mobile-row,
-.mobile-header-row {
-display: table-row;
-}
-.mat-cell {
+
+mat-cell {
     justify-content: right;
     padding-left: 5px;
     padding-right: 5px;
 }
-.mat-cell > span {
+mat-cell > span {
   text-overflow: ellipsis; 
   overflow: hidden; 
   white-space: nowrap;
 }
-.mat-header-cell {
+mat-header-cell {
   justify-content: right;
+}
+.overflow-wrapper{
+  overflow-x: auto;
 }
