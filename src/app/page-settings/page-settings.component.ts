@@ -16,13 +16,24 @@ import { ScreenService } from '../services/screen.service';
   styleUrls: ['./page-settings.component.scss']
 })
 export class PageSettingsComponent implements OnInit, OnDestroy {
+  
   entriesArray: FBEntry[] = [];
+  
   totalStats = new FBGame();
+
+  //Filter
+  filteredEntriesArray: FBEntry[] = [];
+  gameNames: string[] = [];
+  routeNames: string[] = [];
+  gameFilter = '';
+  routeFilter = '';
+  menuGames = new Map<string, string[]>();
 
   //SUbs
   authSub: Subscription | undefined;
   entrySub: Subscription | undefined;
   totalSub: Subscription | undefined;
+  allGamesSub: Subscription | undefined;
 
   constructor(public entryService: EntriesService, public gameService: GamesService,
     public authSer: AuthService, public dlSer: DownloadService, public screen: ScreenService) {
@@ -31,6 +42,7 @@ export class PageSettingsComponent implements OnInit, OnDestroy {
     this.authSub?.unsubscribe();
     this.entrySub?.unsubscribe();
     this.totalSub?.unsubscribe();
+    this.allGamesSub?.unsubscribe();
   }
 
   ngOnInit(): void {
@@ -47,13 +59,37 @@ export class PageSettingsComponent implements OnInit, OnDestroy {
         //get all entries
         this.entrySub = this.entryService.getEntries().subscribe( data =>{
           this.entriesArray = data;
+          this.filteredEntriesArray = Object.assign([], data);
           this.createJsonUrl();
+
+          this.menuGames.clear();
+          //get routes and game Names
+          _.uniqBy(data, 'route').map( unique => {
+            let gameAndRoute = unique.route.split("/");
+            let oldVal = this.menuGames.get(gameAndRoute[0]);
+            if(oldVal == undefined){
+              this.menuGames.set(gameAndRoute[0], [gameAndRoute[1]]);
+            }
+            else{
+              oldVal.push(gameAndRoute[1])
+            }
+            
+          });
+          console.log(this.menuGames);
+          this.gameNames = Array.from( this.menuGames.keys() );
         })
+
+        
 
         //get total
         this.totalSub = this.gameService.getTotalStats().subscribe( data =>{
           this.totalStats = data
         });
+
+        //get all games for filter
+        // this.allGamesSub = this.gameService.getGames().subscribe( data => {
+        //   this.gameNames = data.map( game => game.name);
+        // })
         
       }
     });
@@ -68,5 +104,25 @@ export class PageSettingsComponent implements OnInit, OnDestroy {
       return _.merge(previousValue, curObj);
     }, initialValue);
     this.dlSer.generateDownloadJsonUri(urlArray);
+  }
+  applyGameFilter(){
+    this.filteredEntriesArray = this.entriesArray.filter(data => data.route.startsWith(this.gameFilter))
+    
+    //reset routes on all
+    if(this.gameFilter == ''){
+      this.routeFilter = ''
+      this.routeNames = [];
+    }
+    else{
+      let temp = this.menuGames.get(this.gameFilter)
+      if(temp){
+        this.routeNames = temp;
+      }
+    }
+
+  }
+
+  applyRouteFilter(){
+    this.filteredEntriesArray = this.entriesArray.filter(data => data.route.startsWith(this.gameFilter) && data.route.endsWith(this.routeFilter))
   }
 }

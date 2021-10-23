@@ -1,6 +1,7 @@
 import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { EChartsOption } from 'echarts';
 import { FBEntry } from 'src/app/models/entry.model';
+import { PacePipe } from '../pipes/pace.pipe';
 
 @Component({
   selector: 'app-line-graph',
@@ -9,85 +10,78 @@ import { FBEntry } from 'src/app/models/entry.model';
 })
 export class LineGraphComponent implements OnInit, OnChanges {
 
-  @Input() entries: FBEntry[] = []
-  dates: string[] = ['2021-06-18', '2021-06-21', '2021-06-22'];
-  chars: number[] = [10095, 10949, 10546];
+  @Input() entries: FBEntry[] = [];
+  sortedEntries: FBEntry[] = [];
+  dates: string[] = [];
+  chars: number[] = [];
+
+  byGame = false;
+  byRoute = false;
+
+
 
   combo:any = [[1,1]]
+
+  options: any;
   
-  constructor() { }
+  constructor(private pacePipe: PacePipe) { }
 
   ngOnChanges(changes: SimpleChanges): void {
-    this.entries.map(data => {
-      // this.dates.push(data.date);
-      // this.chars.push(data.chars)
+    //sort entries
+    this.sortedEntries = this.entries.sort((a, b) => {
+      if(a.date > b.date){
+        return 1
+      }
+      if(a.date == b.date){
+        return 0
+      }
+      return -1
     })
+
+    //empty data arrays
+    this.chars = [];
+    this.dates = [];
+
+
+    this.sortedEntries.map(data => {
+      this.dates.push(data.date);
+      this.chars.push(this.pacePipe.transform(data.chars,data.mins))
+    })
+    
+    this.setUpOptions();
     // console.log(this.chars);
     // console.log(this.dates)
   }
 
   ngOnInit(): void {
-
+    this.setUpOptions();
   }
 
-  chartOption = {
-    dataset: [
-      {
-        source: this.combo
+  setUpOptions(){
+    this.options = {
+      tooltip: {},
+      xAxis: {
+        data: this.dates,
+        silent: false,
+        splitLine: {
+          show: false,
+        },
       },
-      {
-        transform: {
-          type: 'ecStat:regression'
-          // 'linear' by default.
-          // config: { method: 'linear', formulaOn: 'end'}
+      yAxis: {},
+      series: [
+        {
+          name: 'All Entries',
+          type: 'bar',
+          data: this.chars,
+          animationDelay: (idx: number) => idx * 10,
         }
-      }
-    ],
-    title: {
-      text: 'Linear Regression',
-      subtext: 'By ecStat.regression',
-      sublink: 'https://github.com/ecomfe/echarts-stat',
-      left: 'center'
-    },
-    legend: {
-      bottom: 5
-    },
-    tooltip: {
-      trigger: 'axis',
-      axisPointer: {
-        type: 'cross'
-      }
-    },
-    xAxis: {
-      splitLine: {
-        lineStyle: {
-          type: 'dashed'
-        }
-      }
-    },
-    yAxis: {
-      splitLine: {
-        lineStyle: {
-          type: 'dashed'
-        }
-      }
-    },
-    series: [
-      {
-        name: 'scatter',
-        type: 'scatter'
-      },
-      {
-        name: 'line',
-        type: 'line',
-        datasetIndex: 1,
-        symbolSize: 0.1,
-        symbol: 'circle',
-        label: { show: true, fontSize: 16 },
-        labelLayout: { dx: -20 },
-        encode: { label: 2, tooltip: 1 }
-      }
-    ]
-  };
+      ],
+      animationEasing: 'elasticOut',
+      animationDelayUpdate: (idx: number) => idx * 5,
+    };
+  }
+
+  
 
 }
+

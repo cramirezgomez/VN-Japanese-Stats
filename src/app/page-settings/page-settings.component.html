@@ -8,10 +8,33 @@
       Download
     </a>
   </mat-toolbar>
+
   
-  <app-entry-table [displayedColumns]="['date', 'game', 'heroine',  'lines', 'chars', 'mins', 'pace']" [entryList]="entriesArray">
+
+    
+  
+  <app-entry-table [displayedColumns]="['date', 'game', 'heroine',  'lines', 'chars', 'mins', 'pace']" [entryList]="filteredEntriesArray">
   </app-entry-table>
-  <app-line-graph [entries]='entriesArray'></app-line-graph>
+  <mat-card class='filterBox'>
+    <span class="fill-remaining-space" ></span>
+    <mat-form-field appearance="fill" class='filterBar'>
+      <mat-label>VN</mat-label>
+      <mat-select (selectionChange)="applyGameFilter()" [(value)]='gameFilter'>
+        <mat-option value="">All</mat-option>
+        <mat-option value="{{game}}" *ngFor="let game of gameNames">{{game}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <span class="fill-remaining-space" ></span>
+    <mat-form-field appearance="fill" class='filterBar'>
+      <mat-label>Route</mat-label>
+      <mat-select (selectionChange)="applyRouteFilter()" [(value)]='routeFilter'>
+        <mat-option value="">All</mat-option>
+        <mat-option [value]="route" *ngFor="let route of routeNames">{{route}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <span class="fill-remaining-space" ></span>
+  </mat-card>
+  <app-line-graph [entries]='filteredEntriesArray'></app-line-graph>
 </app-sidenav>
 
 
