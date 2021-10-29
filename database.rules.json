@@ -3,19 +3,25 @@
     "data": {
       "$uid": {
         ".read": "$uid === auth.uid",
-        ".write": "$uid === auth.uid"
+        ".write": "$uid === auth.uid",
+        
+        "games": {
+          ".indexOn": [
+            "name"
+          ]
+        },
+        "routes": {
+          ".indexOn": [
+            "game",
+            "name"
+          ]
+        },
+        "entries": {
+          ".indexOn": [
+            "route"
+          ]
+    		}	
       }
-    },
-    "routes": {
-      ".indexOn": [
-        "game"
-      ]
-    },
-    "entries": {
-      ".indexOn": [
-        "route"
-      ]
     }
   }
 }
-

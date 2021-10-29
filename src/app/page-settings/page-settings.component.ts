@@ -75,7 +75,6 @@ export class PageSettingsComponent implements OnInit, OnDestroy {
             }
             
           });
-          console.log(this.menuGames);
           this.gameNames = Array.from( this.menuGames.keys() );
         })
 
@@ -109,8 +108,9 @@ export class PageSettingsComponent implements OnInit, OnDestroy {
     this.filteredEntriesArray = this.entriesArray.filter(data => data.route.startsWith(this.gameFilter))
     
     //reset routes on all
+    this.routeFilter = ''
     if(this.gameFilter == ''){
-      this.routeFilter = ''
+      
       this.routeNames = [];
     }
     else{

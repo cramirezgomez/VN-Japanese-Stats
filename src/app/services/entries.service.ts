@@ -120,10 +120,6 @@ export class EntriesService {
     this.addEntry( route, entry)
     this.addEntry( game, entry)
 
-     console.log(game);
-    // console.log(route)
-    console.log(entry)
-
     //all 3 asynch calls
     this.entryList.push(_.omit(entry, ["$key"]))
     this.routeService.updateRoute(route);
@@ -141,8 +137,6 @@ export class EntriesService {
     this.subEntry( game, oldEntry)
     this.addEntry( game, newEntry)
 
-    console.log(game)
-
     //all 3 asynch calls
     this.entryList.update(newEntry.$key, _.omit(newEntry, ["$key", "route"]))
     this.routeService.updateRoute(route);
@@ -156,9 +150,6 @@ export class EntriesService {
     //math
     this.subEntry( route, entry)
     this.subEntry( game, entry)
-
-    console.log(game);
-    console.log(route)
 
     //all 3 asynch calls
     this.entryList.remove(entry.$key);

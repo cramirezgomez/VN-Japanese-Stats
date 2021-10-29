@@ -107,6 +107,8 @@ border-radius: 0px;
 }
 .my-card {
     width: 256px;
+    display: flex !important;
+    flex-direction: column;
  }
  .stat-box{
     display: flex;
