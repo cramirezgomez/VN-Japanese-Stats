@@ -22,6 +22,7 @@ export class PageGameComponent implements OnInit, OnDestroy {
   readonly dialogConfig = new MatDialogConfig();
   gameName = ' '
   Math: any;
+  isReversed = false
   
   //Subs
   authSub: Subscription | undefined;
@@ -48,6 +49,14 @@ export class PageGameComponent implements OnInit, OnDestroy {
     this.dialogConfig.autoFocus = true;
     this.dialogConfig.width = "60%";
 
+    //get reverse data
+    let storedVal = localStorage.getItem("isReversed")
+    if(storedVal != null){
+      this.isReversed = JSON.parse(storedVal)
+      
+    }
+    console.log(storedVal)
+
     this.authSub = this.authSer.afAuth.authState.subscribe(user => {
       var userKey = "";
       if (user) {
@@ -59,6 +68,11 @@ export class PageGameComponent implements OnInit, OnDestroy {
         //subscribe to game array
         this.gameSub = this.gameService.getGames().subscribe(list => {
           this.gameArray = list;
+
+          //check saved setting
+          if(this.isReversed){
+            this.gameArray = this.gameArray.slice().reverse()
+          }
         });
 
         //get total
@@ -89,6 +103,15 @@ export class PageGameComponent implements OnInit, OnDestroy {
     this.gameService.populateForm(game);
     
     this.dialog.open(AddGameComponent, this.dialogConfig);
+  }
+
+  onReverse(){
+    //flip data
+    this.gameArray = this.gameArray.slice().reverse()
+
+    //save option
+    this.isReversed = !this.isReversed
+    localStorage.setItem('isReversed', JSON.stringify(this.isReversed))
   }
 
 }

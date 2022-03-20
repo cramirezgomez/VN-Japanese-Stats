@@ -1,6 +1,10 @@
 <app-sidenav [totalItem]='totalStats'>
 
   <mat-toolbar class="second-mat-toolbar">
+    <button mat-icon-button (click)="onReverse()">
+      <mat-icon *ngIf="!isReversed">arrow_downward</mat-icon>
+      <mat-icon *ngIf="isReversed">arrow_upward</mat-icon>
+    </button>
     <span class="fill-remaining-space"></span>
     <span>Visual Novels</span>
     <span class="fill-remaining-space"></span>
